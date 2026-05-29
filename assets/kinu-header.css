@@ -26,7 +26,7 @@
   }
 }
 
-/* ── Menú: dropdown fluido de arriba hacia abajo ── */
+/* ── Menú: dropdown pequeño que cae desde el botón ── */
 
 header-drawer {
   position: relative !important;
@@ -42,25 +42,37 @@ header-drawer {
   left: 0 !important;
   right: auto !important;
   bottom: auto !important;
-  width: 240px !important;
+  width: 220px !important;
   height: auto !important;
-  max-height: 70vh !important;
-  overflow-y: auto !important;
-  transform: translateY(-10px) scale(0.98) !important;
+  max-height: none !important;
+  overflow: hidden !important;
+
+  /* Estado cerrado */
+  transform: translateY(-10px) scale(0.97) !important;
   opacity: 0 !important;
   visibility: hidden !important;
   pointer-events: none !important;
+
   transition:
-    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity   0.28s cubic-bezier(0.22, 1, 0.36, 1),
-    visibility 0.32s !important;
-  border-radius: 12px !important;
-  box-shadow: 0 8px 36px rgba(5, 15, 26, 0.16), 0 2px 8px rgba(5, 15, 26, 0.08) !important;
-  border: 1px solid rgba(232, 244, 253, 0.6) !important;
+    transform  0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity    0.25s ease,
+    visibility 0.3s !important;
+
+  border-radius: 14px !important;
+  background: rgba(5, 15, 26, 0.94) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+
+  border: none !important;
+  outline: none !important;
+
+  /* Solo sombra hacia abajo — sin spread lateral que cree línea */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
   z-index: 200 !important;
   padding: 0.5rem 0 !important;
 }
 
+/* Estado abierto */
 .menu-drawer-container[open] .menu-drawer {
   transform: translateY(0) scale(1) !important;
   opacity: 1 !important;
@@ -68,29 +80,76 @@ header-drawer {
   pointer-events: auto !important;
 }
 
+/* Suprimir overlay, pseudo-elementos y borders del details nativo */
 .menu-drawer-container[open]::before,
+.menu-drawer-container[open]::after,
+.menu-drawer-container::before,
+.menu-drawer-container::after,
 .overlay-menu,
 .header__overlay {
   display: none !important;
+  content: '' !important;
+  border: none !important;
+  background: transparent !important;
 }
 
-.menu-drawer__inner-container {
-  padding: 0.5rem 0 !important;
+/* Neutralizar border del details y summary en todos los browsers */
+details.menu-drawer-container,
+details.menu-drawer-container[open],
+details.menu-drawer-container > summary {
+  border: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  background: transparent !important;
+  outline: none !important;
 }
 
+details.menu-drawer-container > summary::before,
+details.menu-drawer-container > summary::after {
+  display: none !important;
+  content: '' !important;
+}
+
+/* ID de mayor especificidad que los estilos de Dawn para eliminar
+   el border derecho/izquierdo del panel full-screen original */
+#menu-drawer {
+  border: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  outline: none !important;
+}
+
+/* Suprimir cualquier borde en los contenedores internos */
+.menu-drawer__inner-container,
 .menu-drawer__navigation-container {
   padding: 0 !important;
+  border: none !important;
 }
 
-.menu-drawer__menu-item {
-  padding: 0.65rem 1.25rem !important;
-  font-size: 0.95rem !important;
+/* Ítems del menú: texto claro sobre fondo oscuro */
+.menu-drawer .list-menu__item--link,
+.menu-drawer .menu-drawer__menu-item {
+  color: #F0F4FD !important;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  letter-spacing: 0.03em !important;
+  border-radius: 8px !important;
+  margin: 0 0.5rem !important;
+  padding: 0.75rem 1rem !important;
+  border: none !important;
+  transition: background 0.2s ease !important;
+  display: block !important;
+  text-decoration: none !important;
+}
+
+.menu-drawer .list-menu__item--link:hover,
+.menu-drawer .menu-drawer__menu-item:hover {
+  background: rgba(240, 244, 253, 0.1) !important;
 }
 
 .menu-drawer__utility-links {
   display: none !important;
 }
-
-/* ── Iconos del header: tamaño controlado por Dawn ──────
-   Se deja que Dawn aplique sus estilos por defecto para los
-   tres íconos — son consistentes entre sí sin override. */

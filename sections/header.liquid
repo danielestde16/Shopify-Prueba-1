@@ -481,6 +481,53 @@
   </script>
 {%- endif -%}
 
+<script>
+(function () {
+  function init() {
+    var drawer  = document.getElementById('Details-menu-drawer-container');
+    if (!drawer) return;
+    var summary = drawer.querySelector('summary');
+
+    /* Cuando el usuario abre el menú, Dawn agrega overflow-hidden al <html>
+       lo que bloquea el scroll de la página entera.
+       Nuestro menú es un pequeño dropdown (220px) — no necesita ese bloqueo.
+       Removemos overflow-hidden inmediatamente después de que Dawn lo pone. */
+    if (summary) {
+      summary.addEventListener('click', function () {
+        setTimeout(function () {
+          document.documentElement.classList.remove('overflow-hidden');
+          document.body.classList.remove('overflow-hidden');
+          document.body.style.overflow = '';
+        }, 0);
+      });
+    }
+
+    /* Cierra el menú (sin tocar el scroll — ya está desbloqueado) */
+    function closeDrawer() {
+      if (!drawer.hasAttribute('open')) return;
+      drawer.removeAttribute('open');
+    }
+
+    /* Desktop: cierra al hacer scroll — la página también se mueve
+       porque overflow-hidden ya fue removido cuando el menú abrió */
+    window.addEventListener('scroll', closeDrawer, { passive: true });
+
+    /* Móvil: cierra al tocar fuera del menú */
+    document.addEventListener('touchstart', function (e) {
+      if (!drawer.hasAttribute('open')) return;
+      if (drawer.contains(e.target)) return;
+      closeDrawer();
+    }, { passive: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
 {% schema %}
 {
   "name": "t:sections.header.name",

@@ -2,11 +2,11 @@
 
 <section class="kinu-valor">
 
-  <h2 class="kinu-valor__heading">Por qué KINU es diferente</h2>
+  <h2 class="kinu-valor__heading">KINU no se compara con otros porque...</h2>
 
   <div class="kinu-valor__grid">
 
-    <!-- Card 1: 1 solo ingrediente — acento azul eléctrico #1A6FAD -->
+    <!-- Card 1: 1 solo ingrediente — vidrio amarillo #FCFFB3 -->
     <div class="kinu-valor__card kinu-valor__card--ingrediente">
       <div class="kinu-valor__line"></div>
       <div class="kinu-valor__icon" aria-hidden="true">
@@ -23,7 +23,7 @@
       </p>
     </div>
 
-    <!-- Card 2: Sin sabor — acento gris azulado #BACFDD -->
+    <!-- Card 2: Sin sabor — vidrio durazno #FFDFB5 -->
     <div class="kinu-valor__card kinu-valor__card--sabor">
       <div class="kinu-valor__line"></div>
       <div class="kinu-valor__icon" aria-hidden="true">
@@ -38,7 +38,7 @@
       </p>
     </div>
 
-    <!-- Card 3: 110 noches — acento blanco científico #F0F4FD -->
+    <!-- Card 3: 110 noches — vidrio rosa coral #FFBCB5 -->
     <div class="kinu-valor__card kinu-valor__card--noches">
       <div class="kinu-valor__line"></div>
       <div class="kinu-valor__icon" aria-hidden="true">
@@ -51,7 +51,7 @@
       </div>
       <h3 class="kinu-valor__title">110 noches de calma</h3>
       <p class="kinu-valor__sub">
-        220g de puro citrato de magnesio. Solo 2g cada noche — una cucharadita para apagar el ruido y despertar descansado. <span class="kinu-legal">[REVISAR LEGAL INVIMA]</span>
+        Solo 2g de KINU antes de dormir ayudan a que tu sueño sea continuo y más reparador, ayudando a que tu cabeza deje de correr.
       </p>
     </div>
 
@@ -60,11 +60,6 @@
 
 <script>
 (function () {
-  /* Solo activamos IntersectionObserver en dispositivos táctiles (sin hover).
-     En desktop el hover hace el trabajo solo con CSS. */
-  var isTouchDevice = !window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  if (!isTouchDevice) return;
-
   var cards = document.querySelectorAll('.kinu-valor__card');
   if (!cards.length) return;
 
@@ -72,9 +67,11 @@
     entries.forEach(function (entry) {
       if (entry.isIntersecting) {
         entry.target.classList.add('is-visible');
+      } else {
+        entry.target.classList.remove('is-visible');
       }
     });
-  }, { threshold: 0.45 });
+  }, { threshold: 0.1 });
 
   cards.forEach(function (card) { observer.observe(card); });
 })();

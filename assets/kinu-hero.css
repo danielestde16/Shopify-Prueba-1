@@ -180,9 +180,9 @@
 /* ── Subtexto ────────────────────────────── */
 
 .kinu-hero__sub {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: 'Cormorant Garamond', 'Plus Jakarta Sans', Georgia, serif;
   font-style: italic;
-  font-weight: 500;
+  font-weight: 700;
   font-size: 1.4rem;
   line-height: 2.8;
   letter-spacing: 0.14em;
@@ -255,6 +255,47 @@
   .kinu-star--twinkle,
   .kinu-star--twinkle-slow {
     animation: none;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   Móvil (max 749px) — gradiente centrado
+   para retrato y fusión suave con la sección
+   siguiente
+   ═══════════════════════════════════════════ */
+
+@media screen and (max-width: 749px) {
+  .kinu-hero {
+    /* Sin background propio en móvil: el gradiente del body
+       fluye continuo por hero Y valor sin interrupción.
+       Solo un toque radial muy sutil para profundidad. */
+    background:
+      radial-gradient(ellipse at 50% 25%, rgba(26,111,173,0.12) 0%, transparent 60%);
+    padding-bottom: 4rem;
+  }
+
+  /* Rubik 80s Fade no renderiza bien en Safari móvil */
+  .kinu-hero__headline {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    font-size: clamp(1.8rem, 6vw, 2.6rem);
+  }
+
+  /* Cursiva: Cormorant Garamond muy fina en móvil →
+     Plus Jakarta Sans italic bold, siempre legible */
+  .kinu-hero__sub {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-style: italic;
+    font-weight: 700;
+    font-size: 1.05rem;
+    line-height: 2.0;
+    letter-spacing: 0.04em;
+  }
+
+  /* Imagen más pequeña en móvil */
+  .kinu-hero__product-img {
+    width: min(260px, 70vw);
   }
 }
 

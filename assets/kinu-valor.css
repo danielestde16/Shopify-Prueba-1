@@ -3,14 +3,14 @@
    ═══════════════════════════════════════════ */
 
 .kinu-valor {
-  padding: 5rem 1.5rem 5rem;
+  padding: 3rem 1.5rem 5rem;
   position: relative;
   z-index: 2;
 }
 
 .kinu-valor__heading {
-  font-family: 'Rubik 80s Fade', cursive;
-  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-family: 'Rubik 80s Fade', 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(1.9rem, 5vw, 2.8rem);
   font-weight: 400;
   color: #F0F4FD;
   text-align: center;
@@ -19,84 +19,114 @@
   opacity: 0.9;
 }
 
+@media screen and (max-width: 749px) {
+  .kinu-valor__heading {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+}
+
 .kinu-valor__grid {
   max-width: 1100px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.5rem;
+  gap: 3.5rem;
+  overflow: visible;
 }
 
-/* ── Card base ───────────────────────────── */
+/* ══════════════════════════════════════════
+   Card base — layout compartido
+   ══════════════════════════════════════════ */
 
 .kinu-valor__card {
-  background: rgba(5, 15, 26, 0.35);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(240, 244, 253, 0.08);
   border-radius: 20px;
   padding: 2.5rem 2rem;
   cursor: default;
-  /* Estado inicial: ligeramente opaco */
-  opacity: 0.65;
-  transform: translateY(12px);
+  text-align: center;
   transition:
-    opacity       0.6s ease,
-    transform     0.6s ease,
-    box-shadow    0.5s ease,
-    border-color  0.5s ease,
-    background    0.5s ease;
+    opacity      0.8s ease,
+    transform    0.9s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow   0.7s ease,
+    border-color 0.7s ease,
+    background   0.7s ease;
 }
 
-/* Visible al entrar en pantalla o en hover */
-.kinu-valor__card.is-visible,
-.kinu-valor__card:hover {
-  opacity: 1;
-  transform: translateY(0);
+/* ══════════════════════════════════════════
+   VIDRIO POR CARD — color sólido + blur
+   Opacidad 0.65 → color bien visible y legible
+   ══════════════════════════════════════════ */
+
+.kinu-valor__card--ingrediente {
+  background: rgba(252, 255, 179, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    0 6px 28px rgba(0, 0, 0, 0.2);
 }
 
-/* ── Acento: línea superior que se expande ── */
+.kinu-valor__card--sabor {
+  background: rgba(255, 223, 181, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    0 6px 28px rgba(0, 0, 0, 0.2);
+}
+
+.kinu-valor__card--noches {
+  background: rgba(255, 188, 181, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    0 6px 28px rgba(0, 0, 0, 0.2);
+}
+
+/* ── Línea superior centrada ─────────────── */
 
 .kinu-valor__line {
   height: 3px;
   width: 36px;
   border-radius: 2px;
-  margin-bottom: 2rem;
+  margin: 0 auto 1.75rem;
+  background: rgba(10, 37, 64, 0.3);
   transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .kinu-valor__card.is-visible .kinu-valor__line,
 .kinu-valor__card:hover .kinu-valor__line {
-  width: 72px;
+  width: 80px;
 }
 
-/* ── Número decorativo ───────────────────── */
+/* ── Icono SVG ───────────────────────────── */
 
-.kinu-valor__num {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-style: italic;
-  font-size: 3.2rem;
-  font-weight: 300;
-  line-height: 1;
-  margin-bottom: 1rem;
-  transition: opacity 0.4s ease;
-  opacity: 0.7;
+.kinu-valor__icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 1.5rem;
+  border-radius: 14px;
+  background: rgba(10, 37, 64, 0.08);
+  color: #0A2540;
+  transition: background 0.4s ease;
 }
 
-.kinu-valor__card.is-visible .kinu-valor__num,
-.kinu-valor__card:hover .kinu-valor__num {
-  opacity: 1;
+.kinu-valor__card.is-visible .kinu-valor__icon,
+.kinu-valor__card:hover .kinu-valor__icon {
+  background: rgba(10, 37, 64, 0.14);
 }
 
 /* ── Título ──────────────────────────────── */
 
 .kinu-valor__title {
-  font-family: 'Rubik 80s Fade', cursive;
-  font-size: clamp(1.3rem, 3.5vw, 1.6rem);
-  font-weight: 400;
-  color: #F0F4FD;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(1.15rem, 3.5vw, 1.45rem);
+  font-weight: 700;
+  color: #0A2540;
   margin: 0 0 0.85rem;
-  letter-spacing: 0.01em;
+  letter-spacing: -0.01em;
   line-height: 1.25;
 }
 
@@ -105,76 +135,130 @@
 .kinu-valor__sub {
   font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   font-size: 0.95rem;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 1.75;
-  color: #BACFDD;
+  color: #1a3d5a;
   margin: 0;
-  transition: color 0.4s ease;
-}
-
-.kinu-valor__card.is-visible .kinu-valor__sub,
-.kinu-valor__card:hover .kinu-valor__sub {
-  color: #E8F4FD;
 }
 
 /* ══════════════════════════════════════════
-   COLORES POR CARD (identidad propia)
+   TODOS LOS DISPOSITIVOS — scroll reveal
+   Cards empiezan ocultas y saltan al entrar
+   en pantalla. El observer lo activa en
+   desktop Y móvil por igual.
    ══════════════════════════════════════════ */
 
-/* Card 1 — Ingrediente: Azul eléctrico KINU */
-.kinu-valor__card--ingrediente .kinu-valor__line { background: #1A6FAD; }
-.kinu-valor__card--ingrediente .kinu-valor__num  { color: #1A6FAD; }
-
-.kinu-valor__card--ingrediente.is-visible,
-.kinu-valor__card--ingrediente:hover {
-  border-color: rgba(26, 111, 173, 0.5);
-  box-shadow:
-    0 0 40px rgba(26, 111, 173, 0.18),
-    0 8px 32px rgba(0, 0, 0, 0.25);
-  background: rgba(26, 111, 173, 0.08);
+.kinu-valor__card {
+  opacity: 0;
+  transform: translateY(70px) scale(0.8);
 }
 
-/* Card 2 — Sin sabor: Teal (pureza, agua, naturaleza) */
-.kinu-valor__card--sabor .kinu-valor__line { background: #2a9d8f; }
-.kinu-valor__card--sabor .kinu-valor__num  { color: #2a9d8f; }
-
-.kinu-valor__card--sabor.is-visible,
-.kinu-valor__card--sabor:hover {
-  border-color: rgba(42, 157, 143, 0.5);
-  box-shadow:
-    0 0 40px rgba(42, 157, 143, 0.18),
-    0 8px 32px rgba(0, 0, 0, 0.25);
-  background: rgba(42, 157, 143, 0.07);
+.kinu-valor__card.is-visible {
+  opacity: 1;
+  transform: scale(1.04) translateY(-12px);
 }
 
-/* Card 3 — 110 noches: Dorado (ritual, lujo, luna) */
-.kinu-valor__card--noches .kinu-valor__line { background: #c9a227; }
-.kinu-valor__card--noches .kinu-valor__num  { color: #c9a227; }
-
-.kinu-valor__card--noches.is-visible,
-.kinu-valor__card--noches:hover {
-  border-color: rgba(201, 162, 39, 0.5);
+/* Glow card 1 al revelarse — iluminación central + lados */
+.kinu-valor__card--ingrediente.is-visible {
+  background: rgba(252, 255, 179, 0.85);
+  border-color: rgba(255, 255, 255, 0.5);
   box-shadow:
-    0 0 40px rgba(201, 162, 39, 0.18),
-    0 8px 32px rgba(0, 0, 0, 0.25);
-  background: rgba(201, 162, 39, 0.06);
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 0 0 1px rgba(252, 255, 179, 0.5),
+    0 0 60px rgba(252, 255, 179, 0.55),
+    -35px 0 55px rgba(252, 255, 179, 0.35),
+    35px 0 55px rgba(252, 255, 179, 0.35),
+    0 28px 64px rgba(0, 0, 0, 0.4);
+}
+
+/* Glow card 2 al revelarse */
+.kinu-valor__card--sabor.is-visible {
+  background: rgba(255, 223, 181, 0.85);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 0 0 1px rgba(255, 223, 181, 0.5),
+    0 0 60px rgba(255, 223, 181, 0.5),
+    -35px 0 55px rgba(255, 223, 181, 0.32),
+    35px 0 55px rgba(255, 223, 181, 0.32),
+    0 28px 64px rgba(0, 0, 0, 0.4);
+}
+
+/* Glow card 3 al revelarse */
+.kinu-valor__card--noches.is-visible {
+  background: rgba(255, 188, 181, 0.85);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 0 0 1px rgba(255, 188, 181, 0.5),
+    0 0 60px rgba(255, 188, 181, 0.48),
+    -35px 0 55px rgba(255, 188, 181, 0.3),
+    35px 0 55px rgba(255, 188, 181, 0.3),
+    0 28px 64px rgba(0, 0, 0, 0.4);
+}
+
+/* ══════════════════════════════════════════
+   DESKTOP — hover añade más elevación encima
+   del estado is-visible ya activo
+   ══════════════════════════════════════════ */
+
+@media (hover: hover) and (pointer: fine) {
+  .kinu-valor__card.is-visible:hover {
+    transform: scale(1.12) translateY(-22px);
+  }
+
+  /* Glow más intenso al pasar el cursor + brillo lateral */
+  .kinu-valor__card--ingrediente.is-visible:hover {
+    background: rgba(252, 255, 179, 0.92);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.8),
+      0 0 0 1px rgba(252, 255, 179, 0.7),
+      0 0 80px rgba(252, 255, 179, 0.7),
+      -50px 0 75px rgba(252, 255, 179, 0.5),
+      50px 0 75px rgba(252, 255, 179, 0.5),
+      0 38px 80px rgba(0, 0, 0, 0.48);
+  }
+  .kinu-valor__card--sabor.is-visible:hover {
+    background: rgba(255, 223, 181, 0.92);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.8),
+      0 0 0 1px rgba(255, 223, 181, 0.7),
+      0 0 80px rgba(255, 223, 181, 0.65),
+      -50px 0 75px rgba(255, 223, 181, 0.45),
+      50px 0 75px rgba(255, 223, 181, 0.45),
+      0 38px 80px rgba(0, 0, 0, 0.48);
+  }
+  .kinu-valor__card--noches.is-visible:hover {
+    background: rgba(255, 188, 181, 0.92);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.8),
+      0 0 0 1px rgba(255, 188, 181, 0.7),
+      0 0 80px rgba(255, 188, 181, 0.6),
+      -50px 0 75px rgba(255, 188, 181, 0.42),
+      50px 0 75px rgba(255, 188, 181, 0.42),
+      0 38px 80px rgba(0, 0, 0, 0.48);
+  }
 }
 
 /* ── prefers-reduced-motion ──────────────── */
 
 @media (prefers-reduced-motion: reduce) {
-  .kinu-valor__card {
+  .kinu-is-touch .kinu-valor__card {
     opacity: 1;
     transform: none;
-    transition: none;
   }
+
+  .kinu-valor__card {
+    transition: box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+  }
+
   .kinu-valor__line {
     transition: none;
   }
 }
 
 /* ══════════════════════════════════════════
-   Desktop (750px+)
+   Desktop layout (750px+)
    ══════════════════════════════════════════ */
 
 @media screen and (min-width: 750px) {
@@ -184,7 +268,7 @@
 
   .kinu-valor__grid {
     grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+    gap: 2.5rem;
   }
 
   .kinu-valor__card {

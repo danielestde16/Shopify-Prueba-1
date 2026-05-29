@@ -41,10 +41,21 @@ body {
   background-image: none !important;
 }
 
-/* ── Bordes que crean líneas de separación ── */
+/* ── Bordes y márgenes que crean separación visual ── */
 .shopify-section {
   border-top: none !important;
   border-bottom: none !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* Dawn aplica --spacing-sections via .section y .spaced-section */
+.spaced-section,
+.spaced-section--full-width {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
 }
 
 .header-wrapper--border-bottom {
@@ -73,4 +84,10 @@ body {
 footer {
   position: relative;
   z-index: 1;
+}
+
+/* ── Sin fondo propio en el contenedor principal ── */
+#MainContent {
+  background: transparent !important;
+  background-color: transparent !important;
 }
