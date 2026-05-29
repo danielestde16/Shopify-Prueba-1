@@ -1,0 +1,95 @@
+/* ═══════════════════════════════════════════
+   KINU Announcement Bar — marquee infinito
+   ═══════════════════════════════════════════ */
+
+.kinu-announcement-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 400;
+}
+
+.kinu-bar {
+  background: #1A6FAD;
+  color: #F0F4FD;
+  height: 38px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.kinu-bar__viewport {
+  width: 100%;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+/* ── Track: dos grupos idénticos en fila ─── */
+
+.kinu-bar__track {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  /* La animación mueve el track exactamente el ancho de un grupo (-50%),
+     luego vuelve a 0 — como los dos grupos son idénticos, el salto es invisible */
+  animation: kinu-marquee 28s linear infinite;
+  animation-play-state: running;
+  will-change: transform;
+}
+
+.kinu-bar__group {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.kinu-bar__item {
+  padding: 0 1.25rem;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.kinu-bar__dot {
+  opacity: 0.4;
+  font-size: 0.75rem;
+  padding: 0 0.25rem;
+}
+
+/* ── Versión estática (prefers-reduced-motion) */
+
+.kinu-bar__static {
+  display: none;
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: center;
+  width: 100%;
+}
+
+/* ── Keyframe: mueve exactamente 1 grupo (50% del track total) */
+
+@keyframes kinu-marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── prefers-reduced-motion ──────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .kinu-bar__track   { display: none; }
+  .kinu-bar__static  { display: block; }
+}
+
+/* ── Ocultar el utility-bar de Dawn ─────── */
+
+.utility-bar {
+  display: none !important;
+}

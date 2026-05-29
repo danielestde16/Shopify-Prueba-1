@@ -1,0 +1,43 @@
+{{ 'kinu-announcement.css' | asset_url | stylesheet_tag }}
+
+<div class="kinu-bar" role="region" aria-label="Anuncio KINU">
+  <div class="kinu-bar__viewport">
+    <div class="kinu-bar__track" aria-hidden="true">
+      <!-- Grupo 1 -->
+      <div class="kinu-bar__group">
+        <span class="kinu-bar__item">Envío gratis a todo el país&nbsp;&nbsp;✈️💨✅</span>
+        <span class="kinu-bar__dot">·</span>
+        <span class="kinu-bar__item">Envío gratis a todo el país&nbsp;&nbsp;✈️💨✅</span>
+        <span class="kinu-bar__dot">·</span>
+        <span class="kinu-bar__item">Envío gratis a todo el país&nbsp;&nbsp;✈️💨✅</span>
+        <span class="kinu-bar__dot">·</span>
+        <span class="kinu-bar__item">Envío gratis a todo el país&nbsp;&nbsp;✈️💨✅</span>
+        <span class="kinu-bar__dot">·</span>
+        <span class="kinu-bar__item">Envío gratis a todo el país&nbsp;&nbsp;✈️💨✅</span>
+        <span class="kinu-bar__dot">·</span>
+      </div>
+      <!-- Grupo 2 — copia exacta para el loop continuo -->
+      <div class="kinu-bar__group" aria-hidden="true">
+        <span class="kinu-bar__item">Envío gratis a todo el país&nbsp;&nbsp;✈️💨✅</span>
+        <span class="kinu-bar__dot">·</span>
+        <span class="kinu-bar__item">Envío gratis a todo el país&nbsp;&nbsp;✈️💨✅</span>
+        <span class="kinu-bar__dot">·</span>
+        <span class="kinu-bar__item">Envío gratis a todo el país&nbsp;&nbsp;✈️💨✅</span>
+        <span class="kinu-bar__dot">·</span>
+        <span class="kinu-bar__item">Envío gratis a todo el país&nbsp;&nbsp;✈️💨✅</span>
+        <span class="kinu-bar__dot">·</span>
+        <span class="kinu-bar__item">Envío gratis a todo el país&nbsp;&nbsp;✈️💨✅</span>
+        <span class="kinu-bar__dot">·</span>
+      </div>
+    </div>
+    <p class="kinu-bar__static">Envío gratis a todo el país &nbsp;✈️💨✅</p>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "KINU Announcement",
+  "tag": "div",
+  "class": "kinu-announcement-wrapper"
+}
+{% endschema %}

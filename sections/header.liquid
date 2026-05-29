@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="{{ 'component-list-menu.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'kinu-header.css' | asset_url }}">
 <link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-menu-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
 <link
@@ -172,7 +173,14 @@
             }}
           </div>
         {%- else -%}
-          <span class="h2">{{ shop.name }}</span>
+          <img
+            src="https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Logo_Letras_Azules_Sin_Fondo_Header.png?v=1780036543"
+            alt="KINU"
+            class="header__heading-logo kinu-nav-logo"
+            width="600"
+            height="150"
+            loading="eager"
+          >
         {%- endif -%}
       </a>
       {%- if request.page_type == 'index' -%}
@@ -215,7 +223,14 @@
             }}
           </div>
         {%- else -%}
-          <span class="h2">{{ shop.name }}</span>
+          <img
+            src="https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Logo_Letras_Azules_Sin_Fondo_Header.png?v=1780036543"
+            alt="KINU"
+            class="header__heading-logo kinu-nav-logo"
+            width="600"
+            height="150"
+            loading="eager"
+          >
         {%- endif -%}
       </a>
       {%- if request.page_type == 'index' -%}

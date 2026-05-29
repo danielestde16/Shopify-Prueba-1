@@ -1,0 +1,89 @@
+{{ 'kinu-valor.css' | asset_url | stylesheet_tag }}
+
+<section class="kinu-valor">
+
+  <h2 class="kinu-valor__heading">Por qué KINU es diferente</h2>
+
+  <div class="kinu-valor__grid">
+
+    <!-- Card 1: 1 solo ingrediente — acento azul eléctrico #1A6FAD -->
+    <div class="kinu-valor__card kinu-valor__card--ingrediente">
+      <div class="kinu-valor__line"></div>
+      <div class="kinu-valor__icon" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
+          <circle cx="24" cy="24" r="4" fill="currentColor"/>
+          <ellipse cx="24" cy="24" rx="18" ry="7" stroke="currentColor" stroke-width="1.5" opacity="0.75"/>
+          <ellipse cx="24" cy="24" rx="18" ry="7" stroke="currentColor" stroke-width="1.5" opacity="0.75" transform="rotate(60 24 24)"/>
+          <ellipse cx="24" cy="24" rx="18" ry="7" stroke="currentColor" stroke-width="1.5" opacity="0.75" transform="rotate(-60 24 24)"/>
+        </svg>
+      </div>
+      <h3 class="kinu-valor__title">1 solo ingrediente</h3>
+      <p class="kinu-valor__sub">
+        Sin mezclas. Sin rellenos. Solo citrato de magnesio — el más estudiado y absorbible. Sabes exactamente qué estás tomando.
+      </p>
+    </div>
+
+    <!-- Card 2: Sin sabor — acento gris azulado #BACFDD -->
+    <div class="kinu-valor__card kinu-valor__card--sabor">
+      <div class="kinu-valor__line"></div>
+      <div class="kinu-valor__icon" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
+          <path d="M24 7 C24 7 11 23 11 32 A13 13 0 0 0 37 32 C37 23 24 7 24 7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M17 30 C17 28 16 26 16 24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+        </svg>
+      </div>
+      <h3 class="kinu-valor__title">Sin sabor ni stevia</h3>
+      <p class="kinu-valor__sub">
+        Mézclalo en lo que tomes — agua, jugo, aromática. Se disuelve invisible y actúa igual de bien en cualquier líquido.
+      </p>
+    </div>
+
+    <!-- Card 3: 110 noches — acento blanco científico #F0F4FD -->
+    <div class="kinu-valor__card kinu-valor__card--noches">
+      <div class="kinu-valor__line"></div>
+      <div class="kinu-valor__icon" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
+          <path d="M30 10 A16 16 0 1 0 30 38 A13 13 0 1 1 30 10Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          <circle cx="35" cy="14" r="1.5" fill="currentColor" opacity="0.65"/>
+          <circle cx="39" cy="22" r="1"   fill="currentColor" opacity="0.45"/>
+          <circle cx="36" cy="9"  r="0.8" fill="currentColor" opacity="0.5"/>
+        </svg>
+      </div>
+      <h3 class="kinu-valor__title">110 noches de calma</h3>
+      <p class="kinu-valor__sub">
+        220g de puro citrato de magnesio. Solo 2g cada noche — una cucharadita para apagar el ruido y despertar descansado. <span class="kinu-legal">[REVISAR LEGAL INVIMA]</span>
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function () {
+  /* Solo activamos IntersectionObserver en dispositivos táctiles (sin hover).
+     En desktop el hover hace el trabajo solo con CSS. */
+  var isTouchDevice = !window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (!isTouchDevice) return;
+
+  var cards = document.querySelectorAll('.kinu-valor__card');
+  if (!cards.length) return;
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+      }
+    });
+  }, { threshold: 0.45 });
+
+  cards.forEach(function (card) { observer.observe(card); });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "KINU Valor",
+  "tag": "section",
+  "class": "kinu-valor-section"
+}
+{% endschema %}
