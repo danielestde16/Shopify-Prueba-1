@@ -484,35 +484,51 @@
 <script>
 (function () {
   function init() {
-    var drawer  = document.getElementById('Details-menu-drawer-container');
-    if (!drawer) return;
-    var summary = drawer.querySelector('summary');
+    var drawer       = document.getElementById('Details-menu-drawer-container');
+    var headerDrawer = document.querySelector('header-drawer');
+    if (!drawer || !headerDrawer) return;
 
-    /* Cuando el usuario abre el menú, Dawn agrega overflow-hidden al <html>
-       lo que bloquea el scroll de la página entera.
-       Nuestro menú es un pequeño dropdown (220px) — no necesita ese bloqueo.
-       Removemos overflow-hidden inmediatamente después de que Dawn lo pone. */
-    if (summary) {
-      summary.addEventListener('click', function () {
-        setTimeout(function () {
-          document.documentElement.classList.remove('overflow-hidden');
-          document.body.classList.remove('overflow-hidden');
-          document.body.style.overflow = '';
-        }, 0);
-      });
+    var summary    = drawer.querySelector('summary');
+    var breakpoint = headerDrawer.dataset.breakpoint || 'tablet';
+
+    /* Dawn agrega overflow-hidden-{breakpoint} (ej. overflow-hidden-tablet)
+       al body cuando el menú abre. Nuestro dropdown de 220px no necesita ese bloqueo.
+       unlockScroll remueve la clase correcta para restaurar el scroll. */
+    function unlockScroll() {
+      document.body.classList.remove('overflow-hidden-' + breakpoint);
+      document.body.classList.remove('overflow-hidden-desktop');
+      document.body.classList.remove('overflow-hidden-tablet');
+      document.documentElement.classList.remove('overflow-hidden');
+      document.body.classList.remove('overflow-hidden');
+      document.body.style.overflow = '';
     }
 
-    /* Cierra el menú (sin tocar el scroll — ya está desbloqueado) */
+    /* Cierra el menú y restaura el scroll */
     function closeDrawer() {
       if (!drawer.hasAttribute('open')) return;
       drawer.removeAttribute('open');
+      unlockScroll();
     }
 
-    /* Desktop: cierra al hacer scroll — la página también se mueve
-       porque overflow-hidden ya fue removido cuando el menú abrió */
+    /* Al abrir el menú: remover el bloqueo de scroll de Dawn */
+    if (summary) {
+      summary.addEventListener('click', function () {
+        setTimeout(unlockScroll, 0);
+      });
+    }
+
+    /* Desktop: cierra al hacer scroll */
     window.addEventListener('scroll', closeDrawer, { passive: true });
 
-    /* Móvil: cierra al tocar fuera del menú */
+    /* Móvil: cierra cuando el dedo empieza a deslizarse (gesto de scroll).
+       touchmove se dispara aunque el body tenga overflow bloqueado,
+       a diferencia del evento scroll que requiere que ya haya movimiento. */
+    document.addEventListener('touchmove', function () {
+      if (!drawer.hasAttribute('open')) return;
+      closeDrawer();
+    }, { passive: true });
+
+    /* Móvil: cierra también al tocar fuera del menú */
     document.addEventListener('touchstart', function (e) {
       if (!drawer.hasAttribute('open')) return;
       if (drawer.contains(e.target)) return;

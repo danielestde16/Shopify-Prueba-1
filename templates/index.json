@@ -1,5 +1,9 @@
 {
   "sections": {
+    "kinu-stars-bg": {
+      "type": "kinu-stars-bg",
+      "settings": {}
+    },
     "kinu-hero": {
       "type": "kinu-hero",
       "settings": {}
@@ -10,6 +14,7 @@
     }
   },
   "order": [
+    "kinu-stars-bg",
     "kinu-hero",
     "kinu-valor"
   ]

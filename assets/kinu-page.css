@@ -6,15 +6,14 @@
 body {
   background: linear-gradient(
     to bottom,
-    #050F1A   0%,
-    #0A2540   8%,
-    #0d2e50  20%,
-    #10385f  32%,
-    #1a5070  44%,
-    #2d6b85  56%,
-    #6698ad  66%,
-    #a8c8d5  76%,
-    #ccdde6  85%,
+    #050F1A   0%,   /* Sección 1: noche profunda   */
+    #0A2540  18%,   /* Sección 1 → 2               */
+    #0D3358  36%,   /* Sección 2 → 3               */
+    #10385f  47%,   /* Sección 3 final             */
+    #2d6b85  60%,
+    #6698ad  72%,
+    #a8c8d5  82%,
+    #ccdde6  90%,
     #E8F4FD 100%
   ) !important;
   min-height: 100vh;
@@ -62,6 +61,11 @@ body {
   border-bottom: 1px solid rgba(186, 207, 221, 0.3) !important;
 }
 
+/* ── Wrapper de la sección de estrellas (ocupa cero espacio) ── */
+.kinu-stars-wrapper {
+  display: contents;
+}
+
 /* ── Capa de estrellas fija ──────────────── */
 .kinu-starfield-fixed {
   position: fixed;
@@ -69,6 +73,7 @@ body {
   pointer-events: none;
   z-index: 0;
   opacity: 0.45;
+  transition: opacity 0.3s ease;
 }
 
 .kinu-starfield-fixed svg {

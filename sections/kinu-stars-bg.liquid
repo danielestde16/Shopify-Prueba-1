@@ -1,0 +1,280 @@
+<div class="kinu-starfield-fixed" aria-hidden="true" id="kinu-starfield">
+  <svg viewBox="0 0 1400 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+    <defs>
+      <filter id="ksb-glow-xl" x="-100%" y="-100%" width="300%" height="300%">
+        <feGaussianBlur stdDeviation="5" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <filter id="ksb-glow" x="-80%" y="-80%" width="260%" height="260%">
+        <feGaussianBlur stdDeviation="2.5" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <filter id="ksb-glow-soft" x="-80%" y="-80%" width="260%" height="260%">
+        <feGaussianBlur stdDeviation="1.5" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+    </defs>
+
+    <!-- ── Estrellas de fondo ─────────────────────────── -->
+    <g fill="#F0F4FD">
+      <circle cx="42"   cy="38"  r="0.9" opacity="0.45"/>
+      <circle cx="115"  cy="22"  r="0.7" opacity="0.35"/>
+      <circle cx="188"  cy="48"  r="1.0" opacity="0.50"/>
+      <circle cx="245"  cy="18"  r="0.8" opacity="0.38"/>
+      <circle cx="332"  cy="30"  r="1.1" opacity="0.55"/>
+      <circle cx="415"  cy="12"  r="0.7" opacity="0.30"/>
+      <circle cx="468"  cy="48"  r="0.9" opacity="0.42"/>
+      <circle cx="610"  cy="22"  r="0.8" opacity="0.40"/>
+      <circle cx="668"  cy="55"  r="1.0" opacity="0.48"/>
+      <circle cx="745"  cy="15"  r="0.9" opacity="0.38"/>
+      <circle cx="850"  cy="38"  r="1.1" opacity="0.52"/>
+      <circle cx="968"  cy="20"  r="0.7" opacity="0.32"/>
+      <circle cx="1038" cy="52"  r="0.9" opacity="0.44"/>
+      <circle cx="1128" cy="18"  r="0.8" opacity="0.36"/>
+      <circle cx="1195" cy="42"  r="1.0" opacity="0.50"/>
+      <circle cx="1355" cy="28"  r="0.9" opacity="0.42"/>
+      <circle cx="28"   cy="148" r="0.8" opacity="0.35"/>
+      <circle cx="92"   cy="172" r="1.0" opacity="0.48"/>
+      <circle cx="220"  cy="158" r="0.7" opacity="0.32"/>
+      <circle cx="378"  cy="182" r="0.9" opacity="0.44"/>
+      <circle cx="432"  cy="145" r="0.8" opacity="0.38"/>
+      <circle cx="490"  cy="168" r="1.1" opacity="0.52"/>
+      <circle cx="645"  cy="155" r="0.7" opacity="0.30"/>
+      <circle cx="752"  cy="178" r="0.9" opacity="0.42"/>
+      <circle cx="808"  cy="148" r="0.8" opacity="0.36"/>
+      <circle cx="922"  cy="162" r="1.0" opacity="0.48"/>
+      <circle cx="1080" cy="142" r="0.7" opacity="0.32"/>
+      <circle cx="1168" cy="168" r="0.9" opacity="0.44"/>
+      <circle cx="1320" cy="155" r="0.8" opacity="0.38"/>
+      <circle cx="55"   cy="268" r="0.9" opacity="0.40"/>
+      <circle cx="168"  cy="282" r="0.8" opacity="0.36"/>
+      <circle cx="312"  cy="258" r="1.0" opacity="0.48"/>
+      <circle cx="452"  cy="278" r="0.7" opacity="0.32"/>
+      <circle cx="620"  cy="262" r="0.9" opacity="0.44"/>
+      <circle cx="748"  cy="288" r="0.8" opacity="0.36"/>
+      <circle cx="888"  cy="268" r="1.1" opacity="0.52"/>
+      <circle cx="1020" cy="282" r="0.7" opacity="0.30"/>
+      <circle cx="1195" cy="258" r="0.9" opacity="0.44"/>
+      <circle cx="1348" cy="272" r="0.8" opacity="0.38"/>
+      <circle cx="38"   cy="388" r="0.8" opacity="0.36"/>
+      <circle cx="178"  cy="402" r="0.9" opacity="0.44"/>
+      <circle cx="358"  cy="378" r="0.7" opacity="0.32"/>
+      <circle cx="488"  cy="398" r="1.0" opacity="0.48"/>
+      <circle cx="718"  cy="382" r="0.8" opacity="0.36"/>
+      <circle cx="848"  cy="398" r="0.9" opacity="0.44"/>
+      <circle cx="1108" cy="388" r="0.7" opacity="0.32"/>
+      <circle cx="1268" cy="398" r="1.0" opacity="0.48"/>
+      <circle cx="122"  cy="488" r="0.9" opacity="0.42"/>
+      <circle cx="248"  cy="512" r="0.7" opacity="0.32"/>
+      <circle cx="428"  cy="498" r="1.0" opacity="0.48"/>
+      <circle cx="748"  cy="478" r="0.9" opacity="0.42"/>
+      <circle cx="1028" cy="498" r="0.7" opacity="0.32"/>
+      <circle cx="1158" cy="488" r="1.0" opacity="0.48"/>
+      <circle cx="1358" cy="508" r="0.8" opacity="0.38"/>
+      <circle cx="62"   cy="598" r="0.8" opacity="0.36"/>
+      <circle cx="188"  cy="622" r="0.9" opacity="0.44"/>
+      <circle cx="338"  cy="608" r="0.7" opacity="0.32"/>
+      <circle cx="518"  cy="628" r="1.0" opacity="0.48"/>
+      <circle cx="638"  cy="598" r="0.8" opacity="0.36"/>
+      <circle cx="818"  cy="618" r="0.9" opacity="0.44"/>
+      <circle cx="988"  cy="608" r="0.7" opacity="0.32"/>
+      <circle cx="1128" cy="632" r="1.0" opacity="0.48"/>
+      <circle cx="1298" cy="612" r="0.8" opacity="0.38"/>
+    </g>
+
+    <!-- ── Planetas ──────────────────────────────────── -->
+    <g>
+      <circle cx="1302" cy="185" r="8"  fill="#E8F4FD" filter="url(#ksb-glow-xl)" opacity="0.92"/>
+      <ellipse cx="1302" cy="189" rx="17" ry="5.5" fill="none" stroke="#BACFDD" stroke-width="1.8" opacity="0.45"/>
+    </g>
+    <circle cx="68"  cy="288" r="5" fill="#BACFDD" filter="url(#ksb-glow)"      opacity="0.75"/>
+    <circle cx="698" cy="578" r="4" fill="#F0F4FD"  filter="url(#ksb-glow-soft)" opacity="0.70"/>
+
+    <!-- ── Constelación 1: Orión ─────────────────────── -->
+    <g>
+      <g stroke="#F0F4FD" stroke-width="0.7" opacity="0.22" fill="none">
+        <line x1="138" y1="108" x2="272" y2="98"/>
+        <line x1="138" y1="108" x2="162" y2="248"/>
+        <line x1="272" y1="98"  x2="258" y2="252"/>
+        <line x1="162" y1="248" x2="210" y2="252"/>
+        <line x1="210" y1="252" x2="258" y2="252"/>
+        <line x1="162" y1="248" x2="148" y2="400"/>
+        <line x1="258" y1="252" x2="295" y2="388"/>
+      </g>
+      <circle cx="138" cy="108" r="2.8" fill="#F0F4FD" filter="url(#ksb-glow)"      opacity="0.95" class="kinu-star--twinkle-slow"/>
+      <circle cx="272" cy="98"  r="2.2" fill="#F0F4FD" filter="url(#ksb-glow-soft)" opacity="0.90"/>
+      <circle cx="162" cy="248" r="2.0" fill="#F0F4FD" filter="url(#ksb-glow-soft)" opacity="0.85" class="kinu-star--twinkle"/>
+      <circle cx="210" cy="252" r="2.0" fill="#F0F4FD" filter="url(#ksb-glow-soft)" opacity="0.85"/>
+      <circle cx="258" cy="252" r="2.0" fill="#F0F4FD" filter="url(#ksb-glow-soft)" opacity="0.85" class="kinu-star--twinkle-slow"/>
+      <circle cx="148" cy="400" r="2.4" fill="#F0F4FD" filter="url(#ksb-glow)"      opacity="0.90"/>
+      <circle cx="295" cy="388" r="3.0" fill="#F0F4FD" filter="url(#ksb-glow)"      opacity="0.95"/>
+    </g>
+
+    <!-- ── Constelación 2: Osa Mayor ─────────────────── -->
+    <g>
+      <g stroke="#F0F4FD" stroke-width="0.7" opacity="0.22" fill="none">
+        <line x1="148" y1="650" x2="210" y2="625"/>
+        <line x1="210" y1="625" x2="278" y2="612"/>
+        <line x1="278" y1="612" x2="342" y2="602"/>
+        <line x1="342" y1="602" x2="382" y2="658"/>
+        <line x1="382" y1="658" x2="408" y2="594"/>
+        <line x1="408" y1="594" x2="365" y2="534"/>
+        <line x1="365" y1="534" x2="342" y2="602"/>
+      </g>
+      <circle cx="148" cy="650" r="2.2" fill="#F0F4FD" filter="url(#ksb-glow-soft)" opacity="0.88"/>
+      <circle cx="210" cy="625" r="2.4" fill="#F0F4FD" filter="url(#ksb-glow-soft)" opacity="0.90"/>
+      <circle cx="278" cy="612" r="2.0" fill="#F0F4FD" filter="url(#ksb-glow-soft)" opacity="0.85" class="kinu-star--twinkle"/>
+      <circle cx="342" cy="602" r="2.2" fill="#F0F4FD" filter="url(#ksb-glow-soft)" opacity="0.88"/>
+      <circle cx="382" cy="658" r="2.0" fill="#F0F4FD" filter="url(#ksb-glow-soft)" opacity="0.85"/>
+      <circle cx="408" cy="594" r="2.4" fill="#F0F4FD" filter="url(#ksb-glow)"      opacity="0.90" class="kinu-star--twinkle-slow"/>
+      <circle cx="365" cy="534" r="2.8" fill="#F0F4FD" filter="url(#ksb-glow)"      opacity="0.95"/>
+    </g>
+
+    <!-- ── Constelación 3: Casiopea ──────────────────── -->
+    <g>
+      <g stroke="#F0F4FD" stroke-width="0.7" opacity="0.22" fill="none">
+        <line x1="548" y1="88"  x2="615" y2="148"/>
+        <line x1="615" y1="148" x2="682" y2="78"/>
+        <line x1="682" y1="78"  x2="748" y2="138"/>
+        <line x1="748" y1="138" x2="815" y2="72"/>
+      </g>
+      <circle cx="548" cy="88"  r="2.4" fill="#F0F4FD" filter="url(#ksb-glow-soft)" opacity="0.90"/>
+      <circle cx="615" cy="148" r="2.0" fill="#F0F4FD" filter="url(#ksb-glow-soft)" opacity="0.85" class="kinu-star--twinkle"/>
+      <circle cx="682" cy="78"  r="2.8" fill="#F0F4FD" filter="url(#ksb-glow)"      opacity="0.95"/>
+      <circle cx="748" cy="138" r="2.0" fill="#F0F4FD" filter="url(#ksb-glow-soft)" opacity="0.85" class="kinu-star--twinkle-slow"/>
+      <circle cx="815" cy="72"  r="2.4" fill="#F0F4FD" filter="url(#ksb-glow-soft)" opacity="0.90"/>
+    </g>
+
+    <!-- ── Constelación 4: Leo ───────────────────────── -->
+    <g>
+      <g stroke="#F0F4FD" stroke-width="0.7" opacity="0.22" fill="none">
+        <line x1="548" y1="505" x2="540" y2="448"/>
+        <line x1="540" y1="448" x2="510" y2="390"/>
+        <line x1="510" y1="390" x2="505" y2="330"/>
+        <line x1="505" y1="330" x2="568" y2="355"/>
+        <line x1="568" y1="355" x2="510" y2="390"/>
+        <line x1="548" y1="505" x2="658" y2="492"/>
+        <line x1="658" y1="492" x2="688" y2="448"/>
+      </g>
+      <circle cx="548" cy="505" r="3.0" fill="#F0F4FD" filter="url(#ksb-glow)"      opacity="0.98" class="kinu-star--twinkle-slow"/>
+      <circle cx="540" cy="448" r="2.0" fill="#F0F4FD" filter="url(#ksb-glow-soft)" opacity="0.85"/>
+      <circle cx="510" cy="390" r="2.2" fill="#F0F4FD" filter="url(#ksb-glow-soft)" opacity="0.88"/>
+      <circle cx="505" cy="330" r="2.0" fill="#F0F4FD" filter="url(#ksb-glow-soft)" opacity="0.85" class="kinu-star--twinkle"/>
+      <circle cx="568" cy="355" r="2.4" fill="#F0F4FD" filter="url(#ksb-glow-soft)" opacity="0.90"/>
+      <circle cx="658" cy="492" r="2.6" fill="#F0F4FD" filter="url(#ksb-glow)"      opacity="0.92"/>
+      <circle cx="688" cy="448" r="2.0" fill="#F0F4FD" filter="url(#ksb-glow-soft)" opacity="0.85"/>
+    </g>
+
+    <!-- ── Constelación 5: Escorpión ─────────────────── -->
+    <g>
+      <g stroke="#F0F4FD" stroke-width="0.7" opacity="0.22" fill="none">
+        <line x1="792" y1="268" x2="820" y2="252"/>
+        <line x1="820" y1="252" x2="848" y2="242"/>
+        <line x1="848" y1="242" x2="852" y2="298"/>
+        <line x1="852" y1="298" x2="858" y2="332"/>
+        <line x1="858" y1="332" x2="862" y2="365"/>
+        <line x1="862" y1="365" x2="875" y2="408"/>
+        <line x1="875" y1="408" x2="868" y2="458"/>
+        <line x1="868" y1="458" x2="892" y2="500"/>
+        <line x1="892" y1="500" x2="932" y2="528"/>
+        <line x1="932" y1="528" x2="962" y2="510"/>
+        <line x1="962" y1="510" x2="985" y2="484"/>
+      </g>
+      <circle cx="792" cy="268" r="2.0" fill="#F0F4FD" filter="url(#ksb-glow-soft)" opacity="0.85"/>
+      <circle cx="820" cy="252" r="2.2" fill="#F0F4FD" filter="url(#ksb-glow-soft)" opacity="0.88"/>
+      <circle cx="848" cy="242" r="2.0" fill="#F0F4FD" filter="url(#ksb-glow-soft)" opacity="0.85"/>
+      <circle cx="852" cy="298" r="1.8" fill="#F0F4FD" opacity="0.75"/>
+      <circle cx="858" cy="332" r="1.8" fill="#F0F4FD" opacity="0.75"/>
+      <circle cx="862" cy="365" r="3.2" fill="#F0F4FD" filter="url(#ksb-glow)"      opacity="0.98" class="kinu-star--twinkle"/>
+      <circle cx="875" cy="408" r="2.0" fill="#F0F4FD" filter="url(#ksb-glow-soft)" opacity="0.85"/>
+      <circle cx="868" cy="458" r="2.2" fill="#F0F4FD" filter="url(#ksb-glow-soft)" opacity="0.88"/>
+      <circle cx="892" cy="500" r="2.0" fill="#F0F4FD" filter="url(#ksb-glow-soft)" opacity="0.85"/>
+      <circle cx="932" cy="528" r="2.4" fill="#F0F4FD" filter="url(#ksb-glow)"      opacity="0.90" class="kinu-star--twinkle-slow"/>
+      <circle cx="962" cy="510" r="2.0" fill="#F0F4FD" filter="url(#ksb-glow-soft)" opacity="0.85"/>
+      <circle cx="985" cy="484" r="2.2" fill="#F0F4FD" filter="url(#ksb-glow-soft)" opacity="0.88"/>
+    </g>
+
+    <!-- ── Constelación 6: Cruz del Sur ──────────────── -->
+    <g>
+      <g stroke="#F0F4FD" stroke-width="0.7" opacity="0.22" fill="none">
+        <line x1="1048" y1="148" x2="1062" y2="430"/>
+        <line x1="958"  y1="285" x2="1158" y2="285"/>
+      </g>
+      <circle cx="1048" cy="148" r="2.6" fill="#F0F4FD" filter="url(#ksb-glow)"      opacity="0.95" class="kinu-star--twinkle"/>
+      <circle cx="1062" cy="430" r="3.2" fill="#F0F4FD" filter="url(#ksb-glow)"      opacity="0.98"/>
+      <circle cx="958"  cy="285" r="2.2" fill="#F0F4FD" filter="url(#ksb-glow-soft)" opacity="0.88" class="kinu-star--twinkle-slow"/>
+      <circle cx="1158" cy="285" r="2.8" fill="#F0F4FD" filter="url(#ksb-glow)"      opacity="0.92"/>
+      <circle cx="1088" cy="210" r="1.5" fill="#F0F4FD" opacity="0.65"/>
+    </g>
+
+    <!-- ── Constelación 7: Pléyades ──────────────────── -->
+    <g>
+      <circle cx="1188" cy="465" r="2.4" fill="#F0F4FD" filter="url(#ksb-glow-soft)" opacity="0.90" class="kinu-star--twinkle-slow"/>
+      <circle cx="1210" cy="445" r="2.0" fill="#F0F4FD" filter="url(#ksb-glow-soft)" opacity="0.85"/>
+      <circle cx="1235" cy="430" r="2.8" fill="#F0F4FD" filter="url(#ksb-glow)"      opacity="0.95" class="kinu-star--twinkle"/>
+      <circle cx="1255" cy="448" r="2.0" fill="#F0F4FD" filter="url(#ksb-glow-soft)" opacity="0.85"/>
+      <circle cx="1270" cy="435" r="2.4" fill="#F0F4FD" filter="url(#ksb-glow-soft)" opacity="0.90"/>
+      <circle cx="1250" cy="470" r="2.0" fill="#F0F4FD" filter="url(#ksb-glow-soft)" opacity="0.85" class="kinu-star--twinkle"/>
+      <circle cx="1225" cy="478" r="2.2" fill="#F0F4FD" filter="url(#ksb-glow-soft)" opacity="0.88"/>
+    </g>
+  </svg>
+</div>
+
+<script>
+(function () {
+  var starfield = document.getElementById('kinu-starfield');
+  if (!starfield) return;
+
+  var fadeStart = 0;
+  var fadeEnd   = 0;
+
+  function calcPositions() {
+    var hero     = document.querySelector('.kinu-hero-section');
+    var problema = document.querySelector('.kinu-problema-section');
+    var valor    = document.querySelector('.kinu-valor-section');
+    var endEl    = problema || valor;
+    if (!hero || !endEl) return;
+
+    fadeStart = hero.offsetTop + hero.offsetHeight * 0.4;
+    fadeEnd   = endEl.offsetTop + endEl.offsetHeight;
+  }
+
+  function updateOpacity() {
+    if (!fadeEnd) return;
+    var scrollY  = window.pageYOffset;
+    var opacity;
+
+    if (scrollY <= fadeStart) {
+      opacity = 0.45;
+    } else if (scrollY >= fadeEnd) {
+      opacity = 0;
+    } else {
+      opacity = 0.45 * (1 - (scrollY - fadeStart) / (fadeEnd - fadeStart));
+    }
+
+    starfield.style.opacity = opacity;
+  }
+
+  function init() {
+    calcPositions();
+    updateOpacity();
+  }
+
+  window.addEventListener('scroll', updateOpacity, { passive: true });
+  window.addEventListener('resize', init,          { passive: true });
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "KINU Stars Background",
+  "tag": "div",
+  "class": "kinu-stars-wrapper"
+}
+{% endschema %}

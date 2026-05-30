@@ -1,277 +1,288 @@
 /* ═══════════════════════════════════════════
-   KINU — Propuesta de Valor
+   KINU V2 — Propuesta de valor (scroll-driven)
    ═══════════════════════════════════════════ */
 
-.kinu-valor {
-  padding: 3rem 1.5rem 5rem;
+.kinu-v2 { position: relative; z-index: 2; }
+
+/* ── Animación 3D Spline — tarro flotante ──── */
+.kinu-spline {
   position: relative;
-  z-index: 2;
-}
-
-.kinu-valor__heading {
-  font-family: 'Rubik 80s Fade', 'Plus Jakarta Sans', system-ui, sans-serif;
-  font-size: clamp(1.9rem, 5vw, 2.8rem);
-  font-weight: 400;
-  color: #F0F4FD;
-  text-align: center;
-  margin: 0 0 3.5rem;
-  letter-spacing: 0.02em;
-  opacity: 0.9;
-}
-
-@media screen and (max-width: 749px) {
-  .kinu-valor__heading {
-    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-    font-weight: 800;
-    letter-spacing: -0.01em;
-  }
-}
-
-.kinu-valor__grid {
-  max-width: 1100px;
+  width: 100%;
+  max-width: 540px;
+  aspect-ratio: 1 / 1;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 3.5rem;
-  overflow: visible;
+  background: transparent;
+  flex-shrink: 0;
+  /* Recorta los bordes donde Spline pone su marca de agua */
+  overflow: hidden;
 }
 
-/* ══════════════════════════════════════════
-   Card base — layout compartido
-   ══════════════════════════════════════════ */
-
-.kinu-valor__card {
-  border-radius: 20px;
-  padding: 2.5rem 2rem;
-  cursor: default;
-  text-align: center;
-  transition:
-    opacity      0.8s ease,
-    transform    0.9s cubic-bezier(0.34, 1.56, 0.64, 1),
-    box-shadow   0.7s ease,
-    border-color 0.7s ease,
-    background   0.7s ease;
+.kinu-spline iframe {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  /* Iframe más alto que el contenedor y centrado: recorta 80px
+     arriba y 80px abajo por igual. La marca de agua (abajo) cae
+     fuera del recorte y el tarro queda perfectamente centrado.   */
+  height: calc(100% + 160px);
+  transform: translateY(-50%);
+  border: 0;
+  background: transparent;
+  /* El canvas 3D no captura el scroll/touch de la página         */
+  pointer-events: none;
 }
 
-/* ══════════════════════════════════════════
-   VIDRIO POR CARD — color sólido + blur
-   Opacidad 0.65 → color bien visible y legible
-   ══════════════════════════════════════════ */
-
-.kinu-valor__card--ingrediente {
-  background: rgba(252, 255, 179, 0.78);
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.65),
-    0 6px 28px rgba(0, 0, 0, 0.2);
+.kinu-spline--mobile {
+  max-width: 340px;
 }
 
-.kinu-valor__card--sabor {
-  background: rgba(255, 223, 181, 0.78);
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.65),
-    0 6px 28px rgba(0, 0, 0, 0.2);
-}
-
-.kinu-valor__card--noches {
-  background: rgba(255, 188, 181, 0.78);
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.65),
-    0 6px 28px rgba(0, 0, 0, 0.2);
-}
-
-/* ── Línea superior centrada ─────────────── */
-
-.kinu-valor__line {
-  height: 3px;
-  width: 36px;
-  border-radius: 2px;
-  margin: 0 auto 1.75rem;
-  background: rgba(10, 37, 64, 0.3);
-  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.kinu-valor__card.is-visible .kinu-valor__line,
-.kinu-valor__card:hover .kinu-valor__line {
-  width: 80px;
-}
-
-/* ── Icono SVG ───────────────────────────── */
-
-.kinu-valor__icon {
+/* ── Ícono compartido ────────────────────── */
+.kinu-v2__icon {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 56px;
-  height: 56px;
-  margin: 0 auto 1.5rem;
-  border-radius: 14px;
-  background: rgba(10, 37, 64, 0.08);
-  color: #0A2540;
-  transition: background 0.4s ease;
+  color: #E8F4FD;
+  opacity: 0.85;
+  margin-bottom: 0.85rem;
 }
 
-.kinu-valor__card.is-visible .kinu-valor__icon,
-.kinu-valor__card:hover .kinu-valor__icon {
-  background: rgba(10, 37, 64, 0.14);
-}
-
-/* ── Título ──────────────────────────────── */
-
-.kinu-valor__title {
+/* ── Tipografía compartida ───────────────── */
+.kinu-v2__title {
   font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-  font-size: clamp(1.15rem, 3.5vw, 1.45rem);
-  font-weight: 700;
-  color: #0A2540;
-  margin: 0 0 0.85rem;
-  letter-spacing: -0.01em;
-  line-height: 1.25;
+  font-size: clamp(3rem, 4.5vw, 5rem);
+  font-weight: 300;
+  color: #F0F4FD;
+  margin: 0 0 0.75rem;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
-/* ── Subtexto ────────────────────────────── */
-
-.kinu-valor__sub {
+.kinu-v2__desc {
   font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-  font-size: 0.95rem;
-  font-weight: 600;
-  line-height: 1.75;
-  color: #1a3d5a;
+  font-size: clamp(1.15rem, 1.8vw, 1.55rem);
+  font-weight: 400;
+  color: #BACFDD;
   margin: 0;
+  line-height: 1.7;
 }
 
-/* ══════════════════════════════════════════
-   TODOS LOS DISPOSITIVOS — scroll reveal
-   Cards empiezan ocultas y saltan al entrar
-   en pantalla. El observer lo activa en
-   desktop Y móvil por igual.
-   ══════════════════════════════════════════ */
+/* ════════════════════════════════════════════
+   DESKTOP (≥ 769px)
+   34% izquierda | 32% centro | 34% derecha
+   ════════════════════════════════════════════ */
 
-.kinu-valor__card {
+.kinu-v2__mobile  { display: none; }
+.kinu-v2__desktop { display: block; }
+
+.kinu-v2__scroll-area {
+  position: relative;
+  height: 400vh;
+}
+
+.kinu-v2__panel {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+  /* Transparente: deja ver el fondo global (estrellas + gradiente) */
+  background: transparent;
+}
+
+.kinu-v2__col {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kinu-v2__col--left   { width: 34%; }
+.kinu-v2__col--center { width: 32%; }
+.kinu-v2__col--right  { width: 34%; }
+
+/* Tarro desktop */
+.kinu-v2__col--center .kinu-product-rotate {
+  width: clamp(220px, 28vw, 400px);
+  height: auto;
+}
+
+/* Íconos desktop: centrados (dentro de media query — no toca móvil) */
+@media screen and (min-width: 769px) {
+  .kinu-v2__col--left  .kinu-v2__icon,
+  .kinu-v2__col--right .kinu-v2__icon { justify-content: center; }
+}
+
+/* ── Atributos desktop ───────────────────── */
+.kinu-v2__attr {
+  position: absolute;
+  top: 50%;
   opacity: 0;
-  transform: translateY(70px) scale(0.8);
+  pointer-events: none;
+  transition:
+    opacity   0.45s ease,
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.kinu-valor__card.is-visible {
+/* Centrado de texto en desktop (dentro de media query — no toca móvil) */
+@media screen and (min-width: 769px) {
+  .kinu-v2__col--left .kinu-v2__attr {
+    right: 2rem;
+    left: 2rem;
+    text-align: center;
+    transform: translateY(-50%) translateX(-50px);
+  }
+
+  .kinu-v2__col--right .kinu-v2__attr {
+    left: 2rem;
+    right: 2rem;
+    text-align: center;
+    transform: translateY(-50%) translateX(50px);
+  }
+}
+
+.kinu-v2__attr.is-active {
   opacity: 1;
-  transform: scale(1.04) translateY(-12px);
+  pointer-events: auto;
+}
+.kinu-v2__col--left  .kinu-v2__attr.is-active,
+.kinu-v2__col--left  .kinu-v2__attr.is-past {
+  transform: translateY(-50%) translateX(0);
+}
+.kinu-v2__col--right .kinu-v2__attr.is-active,
+.kinu-v2__col--right .kinu-v2__attr.is-past {
+  transform: translateY(-50%) translateX(0);
 }
 
-/* Glow card 1 al revelarse — iluminación central + lados */
-.kinu-valor__card--ingrediente.is-visible {
-  background: rgba(252, 255, 179, 0.85);
-  border-color: rgba(255, 255, 255, 0.5);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.7),
-    0 0 0 1px rgba(252, 255, 179, 0.5),
-    0 0 60px rgba(252, 255, 179, 0.55),
-    -35px 0 55px rgba(252, 255, 179, 0.35),
-    35px 0 55px rgba(252, 255, 179, 0.35),
-    0 28px 64px rgba(0, 0, 0, 0.4);
-}
+.kinu-v2__attr.is-past { opacity: 0; }
 
-/* Glow card 2 al revelarse */
-.kinu-valor__card--sabor.is-visible {
-  background: rgba(255, 223, 181, 0.85);
-  border-color: rgba(255, 255, 255, 0.5);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.7),
-    0 0 0 1px rgba(255, 223, 181, 0.5),
-    0 0 60px rgba(255, 223, 181, 0.5),
-    -35px 0 55px rgba(255, 223, 181, 0.32),
-    35px 0 55px rgba(255, 223, 181, 0.32),
-    0 28px 64px rgba(0, 0, 0, 0.4);
-}
+/* ════════════════════════════════════════════
+   MÓVIL (≤ 768px)
+   Tarro sticky arriba · Cards en flujo normal debajo
+   ════════════════════════════════════════════ */
 
-/* Glow card 3 al revelarse */
-.kinu-valor__card--noches.is-visible {
-  background: rgba(255, 188, 181, 0.85);
-  border-color: rgba(255, 255, 255, 0.5);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.7),
-    0 0 0 1px rgba(255, 188, 181, 0.5),
-    0 0 60px rgba(255, 188, 181, 0.48),
-    -35px 0 55px rgba(255, 188, 181, 0.3),
-    35px 0 55px rgba(255, 188, 181, 0.3),
-    0 28px 64px rgba(0, 0, 0, 0.4);
-}
+@media screen and (max-width: 768px) {
 
-/* ══════════════════════════════════════════
-   DESKTOP — hover añade más elevación encima
-   del estado is-visible ya activo
-   ══════════════════════════════════════════ */
+  .kinu-v2__desktop { display: none; }
+  .kinu-v2__mobile  { display: block; }
 
-@media (hover: hover) and (pointer: fine) {
-  .kinu-valor__card.is-visible:hover {
-    transform: scale(1.12) translateY(-22px);
+  /* Sección fluye naturalmente */
+  .kinu-v2__m-scroll-area { position: relative; }
+
+  /* Tarro: flujo normal, centrado, SIN sticky en móvil
+     (el sticky causaba superposición con las cards)        */
+  .kinu-v2__m-jar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    padding: 2.5rem 1rem 1.5rem;
+    width: 100%;
   }
 
-  /* Glow más intenso al pasar el cursor + brillo lateral */
-  .kinu-valor__card--ingrediente.is-visible:hover {
-    background: rgba(252, 255, 179, 0.92);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.8),
-      0 0 0 1px rgba(252, 255, 179, 0.7),
-      0 0 80px rgba(252, 255, 179, 0.7),
-      -50px 0 75px rgba(252, 255, 179, 0.5),
-      50px 0 75px rgba(252, 255, 179, 0.5),
-      0 38px 80px rgba(0, 0, 0, 0.48);
+  /* Spline en móvil: se ve el tarro completo, centrado */
+  .kinu-v2__m-jar .kinu-spline {
+    max-width: 340px;
+    margin: 0 auto;
   }
-  .kinu-valor__card--sabor.is-visible:hover {
-    background: rgba(255, 223, 181, 0.92);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.8),
-      0 0 0 1px rgba(255, 223, 181, 0.7),
-      0 0 80px rgba(255, 223, 181, 0.65),
-      -50px 0 75px rgba(255, 223, 181, 0.45),
-      50px 0 75px rgba(255, 223, 181, 0.45),
-      0 38px 80px rgba(0, 0, 0, 0.48);
+
+  /* Cards en flujo normal — espacio generoso entre ellas */
+  .kinu-v2__m-attrs-flow {
+    padding: 1rem 1.25rem 4.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
   }
-  .kinu-valor__card--noches.is-visible:hover {
-    background: rgba(255, 188, 181, 0.92);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.8),
-      0 0 0 1px rgba(255, 188, 181, 0.7),
-      0 0 80px rgba(255, 188, 181, 0.6),
-      -50px 0 75px rgba(255, 188, 181, 0.42),
-      50px 0 75px rgba(255, 188, 181, 0.42),
-      0 38px 80px rgba(0, 0, 0, 0.48);
+
+  .kinu-v2__m-attr {
+    padding: 1.5rem 1.75rem;
+    border-radius: 18px;
+    background: rgba(5, 15, 26, 0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(186, 207, 221, 0.2);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    opacity: 0.3;
+    transform: scale(0.97);
+    transition:
+      opacity      0.5s ease,
+      transform    0.5s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.4s ease,
+      box-shadow   0.4s ease;
   }
+
+  .kinu-v2__m-attr.is-active {
+    opacity: 1;
+    transform: scale(1.02);
+    border-color: #1A6FAD;
+    animation: kinu-card-pulse 2.8s ease-in-out infinite;
+  }
+
+  @keyframes kinu-card-pulse {
+    0%, 100% {
+      box-shadow:
+        0 0 0 1px rgba(26, 111, 173, 0.25),
+        0 0 24px rgba(26, 111, 173, 0.55),
+        0 0 55px rgba(26, 111, 173, 0.25);
+    }
+    50% {
+      box-shadow:
+        0 0 0 2px rgba(26, 111, 173, 0.5),
+        0 0 40px rgba(26, 111, 173, 0.85),
+        0 0 85px rgba(26, 111, 173, 0.45);
+    }
+  }
+
+  .kinu-v2__m-attr.is-past {
+    opacity: 0.3;
+    transform: scale(0.97);
+  }
+
+  /* Íconos centrados en las cards */
+  .kinu-v2__m-attr .kinu-v2__icon {
+    justify-content: center;
+    margin: 0 auto 0.6rem;
+    color: #F0F4FD;
+    opacity: 1;
+  }
+
+  /* Tipografía en cards móvil */
+  .kinu-v2__m-attr .kinu-v2__title {
+    font-size: clamp(1.8rem, 6vw, 2.4rem);
+    margin-bottom: 0.5rem;
+  }
+
+  .kinu-v2__m-attr .kinu-v2__desc {
+    font-size: clamp(1rem, 3.5vw, 1.2rem);
+    line-height: 1.65;
+    color: #BACFDD;
+  }
+
 }
 
 /* ── prefers-reduced-motion ──────────────── */
-
 @media (prefers-reduced-motion: reduce) {
-  .kinu-is-touch .kinu-valor__card {
-    opacity: 1;
-    transform: none;
+  .kinu-product-rotate { animation: none; }
+
+  .kinu-v2__attr {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transition: none !important;
   }
+  .kinu-v2__col--left  .kinu-v2__attr { transform: translateY(-50%) translateX(0) !important; }
+  .kinu-v2__col--right .kinu-v2__attr { transform: translateY(-50%) translateX(0) !important; }
 
-  .kinu-valor__card {
-    transition: box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+  .kinu-v2__m-attr {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
-
-  .kinu-valor__line {
-    transition: none;
-  }
-}
-
-/* ══════════════════════════════════════════
-   Desktop layout (750px+)
-   ══════════════════════════════════════════ */
-
-@media screen and (min-width: 750px) {
-  .kinu-valor {
-    padding: 6rem 4rem 6rem;
-  }
-
-  .kinu-valor__grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2.5rem;
-  }
-
-  .kinu-valor__card {
-    padding: 3rem 2.5rem;
+  .kinu-v2__m-jar {
+    position: relative !important;
+    height: 40vh !important;
   }
 }
