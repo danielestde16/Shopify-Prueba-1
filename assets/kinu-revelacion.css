@@ -1,0 +1,264 @@
+/* ═══════════════════════════════════════════════════
+   KINU — Sección 4: La Revelación
+   Diseño: conversación problema → solución
+   Principios: alineación variada, jerarquía fuerte,
+   animaciones selectivas, sin bloques forzados.
+   ═══════════════════════════════════════════════════ */
+
+.kinu-rev {
+  background: #0A2540;
+  position: relative;
+}
+
+/* Puente visual desde la sección anterior */
+.kinu-rev::before {
+  content: '';
+  display: block;
+  height: 80px;
+  background: linear-gradient(to bottom, #050F1A, #0A2540);
+  pointer-events: none;
+}
+
+/* Columna única centrada — espacio generoso pero no infinito */
+.kinu-rev__inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 40px 100px;
+}
+
+/* ── Línea de acento: ancla la sección ── */
+.kinu-rev__accent {
+  width: 72px;
+  height: 2px;
+  background: #1A6FAD;
+  margin: 0 auto 60px;
+  opacity: 0;
+  transition: opacity 0.9s ease;
+}
+.kinu-rev__accent.is-visible { opacity: 1; }
+
+/* ─────────────────────────────────────────
+   BLOQUE 1: GANCHO
+   Centrado, italic, pequeño — el setup
+   Como una pregunta que alguien te hace
+   ───────────────────────────────────────── */
+.kinu-rev__hook {
+  text-align: center;
+  margin-bottom: 52px;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.kinu-rev__hook.is-visible { opacity: 1; transform: translateY(0); }
+
+.kinu-rev__hook p {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  font-weight: 300;
+  font-style: italic;
+  color: #BACFDD;
+  line-height: 1.68;
+  margin: 0;
+}
+
+/* ─────────────────────────────────────────
+   BLOQUE 2: LA REVELACIÓN
+   Izquierda, enorme, bold — el golpe
+   Dos líneas: negación luego reencuadre
+   Animación: desliza desde la izquierda
+   ───────────────────────────────────────── */
+.kinu-rev__headline {
+  margin-bottom: 60px;
+}
+
+/* "No tienes un problema de sueño." */
+.kinu-rev__hl-neg {
+  display: block;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(2.6rem, 5vw, 5.5rem);
+  font-weight: 700;
+  color: #F0F4FD;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: 10px;
+  opacity: 0;
+  transform: translateX(-28px);
+  transition: opacity 0.72s ease, transform 0.72s ease;
+}
+.kinu-rev__hl-neg.is-visible { opacity: 1; transform: translateX(0); }
+
+/* "Tienes un problema de recuperación." */
+.kinu-rev__hl-pos {
+  display: block;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(2rem, 3.8vw, 4.2rem);
+  font-weight: 700;
+  color: #F0F4FD;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  opacity: 0;
+  transform: translateX(-28px);
+  /* Aparece 220ms después que la primera línea */
+  transition: opacity 0.72s ease 0.22s, transform 0.72s ease 0.22s;
+}
+.kinu-rev__hl-pos.is-visible { opacity: 1; transform: translateX(0); }
+
+/* ─────────────────────────────────────────
+   BLOQUE 3: CUERPO EXPLICATIVO
+   Centrado, tono conversacional — el porqué
+   Más pequeño: subordinado al headline
+   ───────────────────────────────────────── */
+.kinu-rev__body {
+  text-align: center;
+  max-width: 620px;
+  margin: 0 auto 56px;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.kinu-rev__body.is-visible { opacity: 1; transform: translateY(0); }
+
+.kinu-rev__body p {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(1.2rem, 1.85vw, 1.5rem);
+  font-weight: 300;
+  color: #BACFDD;
+  line-height: 1.78;
+  margin: 0;
+}
+
+/* Palabras clave en azul eléctrico — generan recordación */
+.kinu-rev__key {
+  color: #1A6FAD;
+  font-style: normal;
+  font-weight: 500;
+}
+
+/* ── Animación LED permanente: "recuperación" y "química" ──
+   Pulso suave de color y glow — como una luz LED calmada.
+   Coherente con el ritmo de la marca (lento, sereno).     */
+@keyframes kinu-led {
+  0%, 100% {
+    color: #1A6FAD;
+    text-shadow: 0 0 8px rgba(26, 111, 173, 0.3);
+  }
+  50% {
+    color: #4AADDF;
+    text-shadow: 0 0 22px rgba(74, 173, 223, 0.65),
+                 0 0 44px rgba(26, 111, 173, 0.2);
+  }
+}
+
+.kinu-rev__glow {
+  display: inline;
+  animation: kinu-led 2.8s ease-in-out infinite;
+}
+
+/* ─────────────────────────────────────────
+   BLOQUE 4: RITMO DE KICKER
+   Izquierda, medio-bold — construye tensión
+   Cada línea aparece escalonada
+   ───────────────────────────────────────── */
+.kinu-rev__kickers {
+  margin-bottom: 72px;
+}
+
+.kinu-rev__kicker-line {
+  display: block;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(1.3rem, 2.2vw, 2.2rem);
+  font-weight: 600;
+  color: #F0F4FD;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+  margin-bottom: 4px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.65s ease var(--kd, 0s),
+              transform 0.65s ease var(--kd, 0s);
+}
+.kinu-rev__kicker-line.is-visible { opacity: 1; transform: translateY(0); }
+
+/* ─────────────────────────────────────────
+   BLOQUE 5: CIERRE — "Es química."
+   Centrado, enorme, azul eléctrico
+   Animación: fade + escala sutil — el momento
+   que lo resuelve todo antes de la solución
+   ───────────────────────────────────────── */
+.kinu-rev__final-wrap {
+  text-align: center;
+  opacity: 0;
+  transform: scale(0.93);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.kinu-rev__final-wrap.is-visible { opacity: 1; transform: scale(1); }
+
+.kinu-rev__final {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(3.4rem, 6.5vw, 7rem);
+  font-weight: 700;
+  color: #1A6FAD;
+  letter-spacing: -0.04em;
+  line-height: 1.0;
+  margin: 0;
+  animation: kinu-led 2.8s ease-in-out infinite;
+}
+
+/* ── Accesibilidad ── */
+@media (prefers-reduced-motion: reduce) {
+  .kinu-rev__accent,
+  .kinu-rev__hook,
+  .kinu-rev__hl-neg,
+  .kinu-rev__hl-pos,
+  .kinu-rev__body,
+  .kinu-rev__kicker-line,
+  .kinu-rev__final-wrap {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .kinu-rev__glow,
+  .kinu-rev__final {
+    animation: none;
+    color: #1A6FAD;
+  }
+}
+
+/* ── Móvil ── */
+@media (max-width: 768px) {
+  .kinu-rev__inner { padding: 0 24px 80px; }
+
+  .kinu-rev__accent { margin-bottom: 44px; }
+
+  .kinu-rev__hook { margin-bottom: 40px; }
+
+  /* Headline: izquierda en móvil igual que en escritorio — jerarquía visual */
+  .kinu-rev__hl-neg {
+    font-size: clamp(2.2rem, 8vw, 3.5rem);
+  }
+
+  .kinu-rev__hl-pos {
+    font-size: clamp(1.7rem, 6.5vw, 3rem);
+  }
+
+  .kinu-rev__headline { margin-bottom: 44px; }
+
+  .kinu-rev__body {
+    text-align: center;
+    margin-bottom: 44px;
+  }
+
+  .kinu-rev__kickers {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .kinu-rev__kicker-line {
+    font-size: clamp(1.15rem, 5.5vw, 2rem);
+    text-align: center;
+  }
+
+  .kinu-rev__final {
+    font-size: clamp(2.8rem, 10vw, 5rem);
+  }
+}

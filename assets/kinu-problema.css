@@ -1,0 +1,354 @@
+/* ═══════════════════════════════════════════
+   KINU — Sección 3: El Problema
+   Layout: columna centrada, imagen arriba,
+   checklist al medio, narrativa abajo.
+   ═══════════════════════════════════════════ */
+
+.kinu-prob {
+  background: #050F1A;
+  position: relative;
+}
+
+/* Degradado inferior: puente visual hacia la siguiente sección */
+.kinu-prob::after {
+  content: '';
+  display: block;
+  height: 100px;
+  background: linear-gradient(to bottom, transparent, #0A2540);
+  pointer-events: none;
+}
+
+/* ── Cabecera ── */
+.kinu-prob__header {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 100px 32px 48px;
+  text-align: center;
+}
+
+.kinu-prob__header-title {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(2.8rem, 5vw, 5rem);
+  font-weight: 700;
+  color: #F0F4FD;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  margin: 0;
+}
+
+/* ── Foto integrada ──────────────────────────────────────
+   La imagen NO se pega como un bloque: se funde con el
+   fondo oscuro mediante gradientes superior e inferior y
+   un filtro que la lleva a la paleta nocturna de KINU.
+   ──────────────────────────────────────────────────────── */
+.kinu-prob__photo {
+  position: relative;
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto 48px;
+  /* Oculta los bordes exactos del PNG */
+  overflow: hidden;
+}
+
+/* Gradiente superior: funde el cielo/parte alta con el fondo */
+.kinu-prob__photo::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 35%;
+  background: linear-gradient(to bottom, #050F1A 0%, transparent 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Gradiente inferior: funde el suelo/parte baja — más alto
+   para que el paso al checklist sea imperceptible */
+.kinu-prob__photo::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 45%;
+  background: linear-gradient(to top, #050F1A 0%, transparent 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.kinu-prob__photo-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  /* Oscurece y desatura la foto para que viva en el mundo
+     nocturno de KINU sin competir con el texto */
+  filter: brightness(0.82) saturate(0.8) contrast(1.08);
+}
+
+/* ── Checklist — columna centrada ── */
+.kinu-prob__checklist-wrap {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* Cada ítem */
+.kinu-prob__quote {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 18vh;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* Activo: iluminado, en foco */
+.kinu-prob__quote.is-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.kinu-prob__quote.is-active .kinu-prob__quote-text {
+  color: #68D391;
+  text-shadow: 0 0 48px rgba(104, 211, 145, 0.22);
+}
+
+.kinu-prob__quote.is-active .kinu-prob__ring {
+  fill: #1A6FAD;
+  stroke: #1A6FAD;
+}
+
+.kinu-prob__quote.is-active .kinu-prob__checkmark {
+  stroke-dashoffset: 0;
+}
+
+/* Tenue: muy apagado para que el activo brille más */
+.kinu-prob__quote.is-dimmed {
+  opacity: 0.1;
+  transform: translateY(0);
+  transition: opacity 0.5s ease;
+}
+
+.kinu-prob__quote.is-dimmed .kinu-prob__ring {
+  fill: #1A6FAD;
+  stroke: #1A6FAD;
+}
+
+.kinu-prob__quote.is-dimmed .kinu-prob__checkmark {
+  stroke-dashoffset: 0;
+}
+
+/* ── Checkbox ── */
+.kinu-prob__check {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+}
+
+.kinu-prob__check-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.kinu-prob__ring {
+  stroke: rgba(186, 207, 221, 0.4);
+  stroke-width: 1.8;
+  fill: none;
+  transition: fill 0.4s ease, stroke 0.4s ease;
+}
+
+/* Check verde: señal de "requisito cumplido" */
+.kinu-prob__checkmark {
+  stroke: #68D391;
+  stroke-width: 2.5;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 30;
+  stroke-dashoffset: 30;
+  transition: stroke-dashoffset 0.42s ease 0.22s;
+}
+
+/* Texto: mismo tamaño que títulos de sección 2 */
+.kinu-prob__quote-text {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(3rem, 4.5vw, 5rem);
+  font-weight: 700;
+  color: #1E3A50;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0;
+  transition: color 0.5s ease, text-shadow 0.5s ease;
+}
+
+/* ── Narrativa / Respuesta ── */
+.kinu-prob__narrative-wrap {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 32px 8vh;
+}
+
+.kinu-prob__narrative {
+  border-top: 1px solid rgba(186, 207, 221, 0.14);
+  padding-top: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.75s ease, transform 0.75s ease;
+}
+
+.kinu-prob__narrative.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 1. Setup / gancho */
+.kinu-prob__narr-hook {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  font-weight: 300;
+  font-style: italic;
+  color: #BACFDD;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* 2. Revelación — el golpe */
+.kinu-prob__narr-headline {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(1.7rem, 3vw, 2.7rem);
+  font-weight: 700;
+  color: #F0F4FD;
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+/* 3. Explicación */
+.kinu-prob__narr-body {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(0.95rem, 1.4vw, 1.15rem);
+  font-weight: 300;
+  color: #BACFDD;
+  line-height: 1.82;
+  margin: 0;
+}
+
+/* 4. Cierre — ritmo de tres golpes */
+.kinu-prob__narr-kicker {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(1.05rem, 1.7vw, 1.4rem);
+  font-weight: 600;
+  color: #F0F4FD;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.kinu-prob__narr-kicker em {
+  font-style: normal;
+  color: #1A6FAD;
+}
+
+/* ── Narrativa interactiva — cada bloque por separado ── */
+.kinu-prob__narr-item {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 32px;
+  min-height: 32vh;
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.kinu-prob__narr-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Primer ítem: separador visual del checklist */
+.kinu-prob__narr-item:first-child {
+  border-top: 1px solid rgba(186, 207, 221, 0.14);
+  padding-top: 32px;
+  min-height: 26vh;
+}
+
+/* Ítem de cierre: "Es química." */
+.kinu-prob__narr-kicker-final {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(2.8rem, 4.5vw, 5rem);
+  font-weight: 700;
+  color: #1A6FAD;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  margin: 0;
+}
+
+/* ── Animaciones SVG (placeholder moon) ── */
+@keyframes kinu-glow-moon {
+  0%, 100% { opacity: 0.18; }
+  50%       { opacity: 0.28; }
+}
+
+/* ── Accesibilidad ── */
+@media (prefers-reduced-motion: reduce) {
+  .kinu-prob__quote,
+  .kinu-prob__narrative {
+    opacity: 1; transform: none; transition: none;
+  }
+  .kinu-prob__quote.is-dimmed { opacity: 0.25; }
+  .kinu-prob__checkmark { stroke-dashoffset: 0; }
+}
+
+/* ── Móvil ── */
+@media (max-width: 768px) {
+
+  .kinu-prob__header {
+    padding: 72px 24px 36px;
+  }
+
+  .kinu-prob__media-wrap {
+    padding: 0 24px;
+    margin-bottom: 48px;
+  }
+
+  .kinu-prob__photo {
+    max-width: 100%;
+    margin-bottom: 32px;
+  }
+
+  .kinu-prob__checklist-wrap {
+    padding: 0 24px;
+  }
+
+  .kinu-prob__quote {
+    min-height: auto;
+    padding: 22px 0;
+    gap: 14px;
+  }
+
+  .kinu-prob__quote + .kinu-prob__quote {
+    border-top: 1px solid rgba(186, 207, 221, 0.07);
+  }
+
+  .kinu-prob__quote-text {
+    font-size: clamp(1.85rem, 6.5vw, 3rem);
+  }
+
+  .kinu-prob__check {
+    width: 30px;
+    height: 30px;
+  }
+
+  .kinu-prob__narr-item {
+    min-height: auto;
+    padding: 28px 24px;
+  }
+
+  .kinu-prob__narr-item:first-child {
+    padding-top: 28px;
+    min-height: auto;
+  }
+}

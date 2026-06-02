@@ -1,0 +1,607 @@
+/* ═══════════════════════════════════════════════════════
+   KINU — Sección 6: Testimonios / Reviews
+   Desktop: grid 3×2 · Tablet: 2 col · Móvil: carrusel snap
+   ═══════════════════════════════════════════════════════ */
+
+@keyframes rv-shimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+.kinu-rv {
+  background: #0A2540;
+  padding: 104px 0 128px;
+  position: relative;
+}
+
+.kinu-rv__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* ──────────────────────────────────────────
+   ENCABEZADO
+   ────────────────────────────────────────── */
+.kinu-rv__heading {
+  text-align: center;
+  margin-bottom: 56px;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.kinu-rv__heading.is-visible { opacity: 1; transform: translateY(0); }
+
+.kinu-rv__title {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin: 0 0 12px;
+  background: linear-gradient(
+    90deg,
+    #F0F4FD 25%, #4AADDF 42%, #1A6FAD 50%, #4AADDF 58%, #F0F4FD 75%
+  );
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rv-shimmer 5s ease-in-out infinite;
+}
+
+.kinu-rv__subtitle {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(0.95rem, 1.3vw, 1.05rem);
+  font-weight: 300;
+  color: #BACFDD;
+  margin: 0;
+}
+
+/* ──────────────────────────────────────────
+   RESUMEN DE RATING
+   ────────────────────────────────────────── */
+.kinu-rv__summary {
+  display: flex;
+  gap: 48px;
+  align-items: center;
+  justify-content: center;
+  max-width: 620px;
+  margin: 0 auto 64px;
+  padding: 36px 40px;
+  background: rgba(13, 31, 53, 0.75);
+  border: 1px solid rgba(186, 207, 221, 0.12);
+  border-radius: 16px;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s;
+}
+.kinu-rv__summary.is-visible { opacity: 1; transform: translateY(0); }
+
+.kinu-rv__score-col {
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.kinu-rv__big-stars {
+  font-size: 32px;
+  color: #C9A84C;
+  letter-spacing: 3px;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.kinu-rv__score-num {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 52px;
+  font-weight: 700;
+  color: #F0F4FD;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: 6px;
+}
+
+.kinu-rv__score-slash {
+  font-size: 20px;
+  font-weight: 400;
+  color: #BACFDD;
+  letter-spacing: 0;
+}
+
+.kinu-rv__score-total {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 14px;
+  color: #BACFDD;
+  font-weight: 400;
+}
+
+.kinu-rv__bars-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.kinu-rv__bar-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.kinu-rv__bar-lbl {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 13px;
+  color: #BACFDD;
+  font-weight: 500;
+  flex-shrink: 0;
+  width: 28px;
+  text-align: right;
+}
+
+.kinu-rv__bar-track {
+  flex: 1;
+  height: 7px;
+  background: #1A3A5C;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.kinu-rv__bar-fill {
+  height: 100%;
+  background: linear-gradient(to right, #C9A84C, #E8C86C);
+  border-radius: 4px;
+  width: 0;
+  transition: width 1.1s ease;
+}
+
+.kinu-rv__bar-pct {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 12px;
+  color: #BACFDD;
+  font-weight: 400;
+  flex-shrink: 0;
+  width: 28px;
+}
+
+/* ──────────────────────────────────────────
+   GRID DE RESEÑAS — Desktop: 3×2
+   ────────────────────────────────────────── */
+.kinu-reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+/* ──────────────────────────────────────────
+   TARJETA DE RESEÑA
+   ────────────────────────────────────────── */
+.kinu-review-card {
+  background: #0D1F35;
+  border: 1px solid rgba(186, 207, 221, 0.15);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  /* Entrada animada — empieza invisible */
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity    0.6s ease,
+    transform  0.6s ease,
+    border-color 250ms ease,
+    box-shadow   250ms ease;
+}
+/* Visible cuando el observer lo activa */
+.kinu-review-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Hover solo una vez visible */
+.kinu-review-card.is-visible:hover {
+  border-color: rgba(26, 111, 173, 0.5);
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.32), 0 0 0 1px rgba(26, 111, 173, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Fila superior: estrellas + badge */
+.kinu-rc__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.kinu-rc__stars {
+  font-size: 16px;
+  color: #C9A84C;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.kinu-rc__badge {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: #4CAF9A;
+  background: #0D3358;
+  border-radius: 4px;
+  padding: 3px 8px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* Cuerpo de la reseña */
+.kinu-rc__body {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  color: #F0F4FD;
+  line-height: 1.72;
+  margin: 0;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Pie: avatar + nombre + ciudad */
+.kinu-rc__footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 4px;
+  border-top: 1px solid rgba(186, 207, 221, 0.08);
+}
+
+.kinu-rc__avatar {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1A6FAD, #0A2540);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #F0F4FD;
+}
+
+.kinu-rc__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.kinu-rc__name {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #F0F4FD;
+  line-height: 1.2;
+}
+
+.kinu-rc__city {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: #BACFDD;
+  line-height: 1.2;
+}
+
+/* ──────────────────────────────────────────
+   DOTS — solo visibles en móvil <480px
+   ────────────────────────────────────────── */
+.kinu-rv__dots {
+  display: none;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 40px;
+}
+
+.kinu-rv__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #1A3A5C;
+  transition: background 0.25s ease, transform 0.25s ease;
+  cursor: pointer;
+}
+
+.kinu-rv__dot.is-active {
+  background: #1A6FAD;
+  transform: scale(1.4);
+}
+
+/* ──────────────────────────────────────────
+   CTA — "Escribir una reseña"
+   ────────────────────────────────────────── */
+.kinu-rv__cta {
+  text-align: center;
+  margin-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.kinu-rv__cta-text {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(1rem, 1.5vw, 1.1rem);
+  font-weight: 500;
+  color: #F0F4FD;
+  margin: 0;
+}
+
+.kinu-rv__cta-btn {
+  background: #1A6FAD;
+  color: #F0F4FD;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 28px;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 48px;
+  transition: background 200ms ease, transform 200ms ease;
+}
+.kinu-rv__cta-btn:hover {
+  background: #155d91;
+  transform: translateY(-1px);
+}
+
+/* ──────────────────────────────────────────
+   FORMULARIO EXPANDIBLE
+   ────────────────────────────────────────── */
+.kinu-rv__form-wrap {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+.kinu-rv__form-panel {
+  background: #0D1F35;
+  border: 1px solid rgba(186, 207, 221, 0.2);
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 600px;
+  margin: 0 auto 24px;
+}
+
+.kinu-rv__form-title {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #F0F4FD;
+  margin: 0 0 8px;
+}
+
+.kinu-rv__form-note {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 13px;
+  color: #BACFDD;
+  margin: 0 0 24px;
+  font-style: italic;
+}
+
+.kinu-rv__send-error {
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+.kinu-rv__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.kinu-rv__label {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #BACFDD;
+}
+
+.kinu-rv__input,
+.kinu-rv__textarea {
+  background: #0A2540;
+  border: 1px solid rgba(186, 207, 221, 0.3);
+  border-radius: 8px;
+  color: #F0F4FD;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 1rem;
+  padding: 12px 16px;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 44px;
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+.kinu-rv__input::placeholder,
+.kinu-rv__textarea::placeholder { color: rgba(186, 207, 221, 0.55); }
+.kinu-rv__input:focus,
+.kinu-rv__textarea:focus {
+  border-color: #1A6FAD;
+  box-shadow: 0 0 0 3px rgba(26, 111, 173, 0.2);
+}
+
+.kinu-rv__textarea {
+  min-height: 100px;
+  max-height: 200px;
+  resize: vertical;
+}
+
+/* Selector de estrellas interactivo */
+.kinu-rv__star-picker {
+  display: flex;
+  gap: 4px;
+}
+
+.kinu-rv__pick-star {
+  font-size: 30px;
+  color: #1A3A5C;
+  cursor: pointer;
+  transition: color 0.18s ease, transform 0.18s ease;
+  user-select: none;
+  line-height: 1;
+}
+.kinu-rv__pick-star:hover,
+.kinu-rv__pick-star.is-active {
+  color: #C9A84C;
+  transform: scale(1.18);
+}
+
+/* Mensajes */
+.kinu-rv__error {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 12px;
+  color: #E57373;
+  font-weight: 500;
+}
+
+.kinu-rv__success {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 1rem;
+  color: #4CAF9A;
+  font-weight: 500;
+  text-align: center;
+  padding: 16px;
+  background: rgba(76, 175, 154, 0.08);
+  border-radius: 8px;
+  border: 1px solid rgba(76, 175, 154, 0.2);
+  margin-bottom: 16px;
+}
+
+.kinu-rv__submit {
+  background: #1A6FAD;
+  color: #F0F4FD;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 28px;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  min-height: 48px;
+  transition: background 200ms ease;
+}
+.kinu-rv__submit:hover { background: #155d91; }
+
+/* ── Accesibilidad ── */
+@media (prefers-reduced-motion: reduce) {
+  .kinu-rv__title         { animation: none; -webkit-text-fill-color: #F0F4FD; }
+  .kinu-rv__heading,
+  .kinu-rv__summary       { opacity: 1; transform: none; transition: none; }
+  .kinu-rv__bar-fill      { transition: none; }
+  .kinu-rv__form-wrap     { transition: none; }
+  .kinu-review-card       { opacity: 1; transform: none; transition: none; }
+  .kinu-review-card.is-visible:hover { transform: none; }
+  .kinu-rv__pick-star     { transition: none; }
+  .kinu-rv__dot           { transition: none; }
+}
+
+/* ══════════════════════════════════════════════
+   TABLET 480–767px: 2 columnas
+   ══════════════════════════════════════════════ */
+@media (min-width: 480px) and (max-width: 767px) {
+  .kinu-rv         { padding: 72px 0 88px; }
+  .kinu-rv__inner  { padding: 0 20px; }
+
+  .kinu-reviews-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .kinu-rv__summary {
+    flex-direction: column;
+    gap: 24px;
+    padding: 28px 24px;
+  }
+  .kinu-rv__bars-col { width: 100%; }
+}
+
+/* ══════════════════════════════════════════════
+   MÓVIL <480px: carrusel scroll-snap
+   ══════════════════════════════════════════════ */
+@media (max-width: 479px) {
+  .kinu-rv        { padding: 72px 0 88px; }
+  .kinu-rv__inner { padding: 0 20px; }
+
+  .kinu-rv__title    { font-size: 1.75rem; }
+  .kinu-rv__subtitle { font-size: 0.95rem; }
+
+  .kinu-rv__summary {
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px 20px;
+    margin-bottom: 40px;
+  }
+  .kinu-rv__bars-col  { width: 100%; }
+  .kinu-rv__score-num { font-size: 44px; }
+
+  /* Carrusel horizontal */
+  .kinu-reviews-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 12px;
+    padding-bottom: 12px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    margin-left: -20px;
+    margin-right: -20px;
+    padding-left: 20px;
+    padding-right: 8px;
+  }
+  .kinu-reviews-grid::-webkit-scrollbar { display: none; }
+  /* Espaciado final después de la última tarjeta */
+  .kinu-reviews-grid::after {
+    content: '';
+    display: block;
+    min-width: 12px;
+    flex-shrink: 0;
+  }
+
+  .kinu-review-card {
+    /* Ancho exacto de la pantalla menos el padding del contenedor:
+       garantiza que cada swipe avance exactamente una tarjeta */
+    flex: 0 0 calc(100vw - 52px);
+    min-width: unset;
+    max-width: 360px;
+    scroll-snap-align: start;
+  }
+
+  /* Mostrar dots de posición */
+  .kinu-rv__dots { display: flex; }
+
+  .kinu-rv__form-panel { padding: 24px 20px; }
+  .kinu-rv__cta-btn    { width: 100%; max-width: 320px; }
+  .kinu-rv__submit     { font-size: 1rem; }
+}
+
+/* Sin carrusel si prefiere sin movimiento */
+@media (max-width: 479px) and (prefers-reduced-motion: reduce) {
+  .kinu-reviews-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    overflow-x: visible;
+    scroll-snap-type: none;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .kinu-reviews-grid::after { display: none; }
+  .kinu-review-card { min-width: 0; }
+  .kinu-rv__dots    { display: none; }
+}

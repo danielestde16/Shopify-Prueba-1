@@ -1,0 +1,93 @@
+{{ 'kinu-problema.css' | asset_url | stylesheet_tag }}
+
+<section class="kinu-prob" aria-label="El problema que KINU resuelve">
+
+  <!-- ══════════════════════════════════
+       TÍTULO
+       ══════════════════════════════════ -->
+  <div class="kinu-prob__header">
+    <h2 class="kinu-prob__header-title">¿Con cuántas te&nbsp;identificas?</h2>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       FOTO INTEGRADA
+       Gradiente superior e inferior la funden con el
+       fondo oscuro. Filtro la lleva a la paleta nocturna.
+       ══════════════════════════════════════════════ -->
+  <div class="kinu-prob__photo">
+    <img
+      src="https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Imagen_Web_Problema.png?v=1780356390"
+      alt="Persona despierta a las 3am mirando el celular"
+      loading="lazy"
+      width="1080"
+      height="720"
+      class="kinu-prob__photo-img">
+  </div>
+
+  <!-- ══════════════════════════════════
+       CHECKLIST
+       Cada frase aparece y se chequea
+       al hacer scroll.
+       ══════════════════════════════════ -->
+  <div class="kinu-prob__checklist-wrap" role="list">
+
+    {%- assign frases = "No logro apagar la cabeza.|Duermo... pero no descanso.|Me despierto a las 3am sin razón.|Vivo cansada aunque duerma ocho horas.|Necesito algo natural que no me deje atontada." | split: "|" -%}
+
+    {%- for frase in frases -%}
+    <div class="kinu-prob__quote js-kinu-prob-item" role="listitem">
+      <div class="kinu-prob__check" aria-hidden="true">
+        <svg viewBox="0 0 28 28" class="kinu-prob__check-svg">
+          <circle cx="14" cy="14" r="11" class="kinu-prob__ring"/>
+          <polyline points="8,14 11,17 20,9" class="kinu-prob__checkmark"/>
+        </svg>
+      </div>
+      <p class="kinu-prob__quote-text">{{ frase }}</p>
+    </div>
+    {%- endfor -%}
+
+  </div>
+
+  {%- comment -%}
+    El texto narrativo ("Si marcaste dos o más... Es química.")
+    vive en la sección siguiente: kinu-revelacion.liquid
+  {%- endcomment -%}
+
+</section>
+
+<script>
+(function () {
+  var items = Array.prototype.slice.call(
+    document.querySelectorAll('.js-kinu-prob-item')
+  );
+
+  if (typeof IntersectionObserver === 'undefined') {
+    items.forEach(function (el) { el.classList.add('is-active'); });
+    return;
+  }
+
+  /* Spotlight: zona activa = 40% central del viewport */
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      var el = entry.target;
+      if (entry.isIntersecting) {
+        el.classList.remove('is-dimmed');
+        el.classList.add('is-active');
+      } else if (el.classList.contains('is-active')) {
+        el.classList.remove('is-active');
+        el.classList.add('is-dimmed');
+      }
+    });
+  }, { rootMargin: '-30% 0px -30% 0px', threshold: 0 });
+
+  items.forEach(function (el) { observer.observe(el); });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "KINU – El problema",
+  "tag": "section",
+  "class": "kinu-section-problema",
+  "presets": [{ "name": "KINU – El problema" }]
+}
+{% endschema %}

@@ -1,0 +1,572 @@
+{{ 'kinu-reviews.css' | asset_url | stylesheet_tag }}
+
+{%- comment -%}
+  Sección 6 — Testimonios / Reviews
+  Estructura: rating summary + grid de 6 tarjetas + formulario expandible
+  Móvil <480px: carrusel scroll-snap. Tablet 480-767px: 2 col. Desktop: 3 col.
+{%- endcomment -%}
+
+<section class="kinu-rv" aria-label="Reseñas de clientes KINU" id="kinu-reviews">
+  <div class="kinu-rv__inner">
+
+    <!-- ── Encabezado ── -->
+    <div class="kinu-rv__heading js-rv-fade">
+      <h2 class="kinu-rv__title">Lo que dicen quienes ya duermen mejor</h2>
+      <p class="kinu-rv__subtitle">Reseñas reales de personas reales.</p>
+    </div>
+
+    <!-- ── Resumen de rating ── -->
+    <div class="kinu-rv__summary js-rv-fade">
+
+      <div class="kinu-rv__score-col">
+        <div class="kinu-rv__big-stars" aria-label="5 estrellas de 5">★★★★★</div>
+        <div class="kinu-rv__score-num" aria-label="Rating 4.9 de 5">
+          4.9<span class="kinu-rv__score-slash"> / 5</span>
+        </div>
+        <div class="kinu-rv__score-total">(6 reseñas)</div>
+      </div>
+
+      <div class="kinu-rv__bars-col" id="js-rv-bars">
+        <div class="kinu-rv__bar-row">
+          <span class="kinu-rv__bar-lbl">5 ★</span>
+          <div class="kinu-rv__bar-track"><div class="kinu-rv__bar-fill js-bar-fill" data-width="83%"></div></div>
+          <span class="kinu-rv__bar-pct">83%</span>
+        </div>
+        <div class="kinu-rv__bar-row">
+          <span class="kinu-rv__bar-lbl">4 ★</span>
+          <div class="kinu-rv__bar-track"><div class="kinu-rv__bar-fill js-bar-fill" data-width="17%"></div></div>
+          <span class="kinu-rv__bar-pct">17%</span>
+        </div>
+        <div class="kinu-rv__bar-row">
+          <span class="kinu-rv__bar-lbl">3 ★</span>
+          <div class="kinu-rv__bar-track"><div class="kinu-rv__bar-fill js-bar-fill" data-width="0%"></div></div>
+          <span class="kinu-rv__bar-pct">0%</span>
+        </div>
+        <div class="kinu-rv__bar-row">
+          <span class="kinu-rv__bar-lbl">2 ★</span>
+          <div class="kinu-rv__bar-track"><div class="kinu-rv__bar-fill js-bar-fill" data-width="0%"></div></div>
+          <span class="kinu-rv__bar-pct">0%</span>
+        </div>
+        <div class="kinu-rv__bar-row">
+          <span class="kinu-rv__bar-lbl">1 ★</span>
+          <div class="kinu-rv__bar-track"><div class="kinu-rv__bar-fill js-bar-fill" data-width="0%"></div></div>
+          <span class="kinu-rv__bar-pct">0%</span>
+        </div>
+      </div>
+
+    </div><!-- /.kinu-rv__summary -->
+
+    <!-- ══════════════════════════════════════════
+         GRID DE RESEÑAS
+         DEMO — reemplazar con reseñas reales de clientes antes de publicar
+         ══════════════════════════════════════════ -->
+    <div class="kinu-reviews-grid" id="js-reviews-grid" role="list">
+
+      <!-- RESEÑA 1 — 5★ · Camila R. · Bogotá -->
+      <!-- DEMO — reemplazar con reseñas reales de clientes antes de publicar -->
+      <article class="kinu-review-card" role="listitem">
+        <div class="kinu-rc__top">
+          <div class="kinu-rc__stars" aria-label="5 estrellas">★★★★★</div>
+          <span class="kinu-rc__badge">✓ Compra verificada</span>
+        </div>
+        <p class="kinu-rc__body">
+          Llevaba meses durmiendo horrible, me despertaba a las 3am con la
+          cabeza a mil. Con KINU llevo dos semanas y ya no me pasa. No sé
+          si es placebo pero a mí me funciona y eso es lo que importa. Lo
+          disuelvo en agua fría antes de acostarme y listo.
+        </p>
+        <div class="kinu-rc__footer">
+          <div class="kinu-rc__avatar" aria-hidden="true">C</div>
+          <div class="kinu-rc__meta">
+            <span class="kinu-rc__name">Camila R.</span>
+            <span class="kinu-rc__city">Bogotá · hace 3 semanas</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- RESEÑA 2 — 5★ · Andrés M. · Medellín -->
+      <!-- DEMO — reemplazar con reseñas reales de clientes antes de publicar -->
+      <article class="kinu-review-card" role="listitem">
+        <div class="kinu-rc__top">
+          <div class="kinu-rc__stars" aria-label="5 estrellas">★★★★★</div>
+          <span class="kinu-rc__badge">✓ Compra verificada</span>
+        </div>
+        <p class="kinu-rc__body">
+          Tengo TDAH y el cerebro literalmente no para. Probé melatonina
+          y me dejaba atontado al otro día. KINU no tiene sabor, no
+          te deja grogi y sí noto que me cuesta menos apagar la cabeza.
+          Ya pedí el paquete de tres.
+        </p>
+        <div class="kinu-rc__footer">
+          <div class="kinu-rc__avatar" aria-hidden="true">A</div>
+          <div class="kinu-rc__meta">
+            <span class="kinu-rc__name">Andrés M.</span>
+            <span class="kinu-rc__city">Medellín · hace 1 mes</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- RESEÑA 3 — 5★ · Sandra P. · Cali -->
+      <!-- DEMO — reemplazar con reseñas reales de clientes antes de publicar -->
+      <article class="kinu-review-card" role="listitem">
+        <div class="kinu-rc__top">
+          <div class="kinu-rc__stars" aria-label="5 estrellas">★★★★★</div>
+          <span class="kinu-rc__badge">✓ Compra verificada</span>
+        </div>
+        <p class="kinu-rc__body">
+          Lo compré más por los calambres que por el sueño y también me
+          ayudó con eso. Mis piernas en las noches eran un martirio.
+          Ahora duermo sin esa tensión. Me parece un producto muy serio,
+          sin palabrería.
+        </p>
+        <div class="kinu-rc__footer">
+          <div class="kinu-rc__avatar" aria-hidden="true">S</div>
+          <div class="kinu-rc__meta">
+            <span class="kinu-rc__name">Sandra P.</span>
+            <span class="kinu-rc__city">Cali · hace 2 semanas</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- RESEÑA 4 — 4★ · Juliana T. · Bogotá -->
+      <!-- DEMO — reemplazar con reseñas reales de clientes antes de publicar -->
+      <article class="kinu-review-card" role="listitem">
+        <div class="kinu-rc__top">
+          <div class="kinu-rc__stars" aria-label="4 estrellas">★★★★☆</div>
+          <span class="kinu-rc__badge">✓ Compra verificada</span>
+        </div>
+        <p class="kinu-rc__body">
+          Honestamente no noté nada la primera semana, casi lo dejo.
+          Pero en la segunda semana sí empecé a dormir más seguido sin
+          despertarme. No es mágico ni instantáneo, hay que darle
+          tiempo. Le quito una estrella por eso pero el producto
+          sí cumple.
+        </p>
+        <div class="kinu-rc__footer">
+          <div class="kinu-rc__avatar" aria-hidden="true">J</div>
+          <div class="kinu-rc__meta">
+            <span class="kinu-rc__name">Juliana T.</span>
+            <span class="kinu-rc__city">Bogotá · hace 5 días</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- RESEÑA 5 — 5★ · Mateo G. · Bogotá -->
+      <!-- DEMO — reemplazar con reseñas reales de clientes antes de publicar -->
+      <article class="kinu-review-card" role="listitem">
+        <div class="kinu-rc__top">
+          <div class="kinu-rc__stars" aria-label="5 estrellas">★★★★★</div>
+          <span class="kinu-rc__badge">✓ Compra verificada</span>
+        </div>
+        <p class="kinu-rc__body">
+          Entreno fuerte y los calambres post-entrenamiento me tenían
+          loco. Con KINU se redujeron notablemente desde la primera
+          semana. Además duermo más profundo. La presentación está muy
+          bien hecha, parece de marca internacional.
+        </p>
+        <div class="kinu-rc__footer">
+          <div class="kinu-rc__avatar" aria-hidden="true">M</div>
+          <div class="kinu-rc__meta">
+            <span class="kinu-rc__name">Mateo G.</span>
+            <span class="kinu-rc__city">Bogotá · hace 3 días</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- RESEÑA 6 — 5★ · Lucía V. · Medellín -->
+      <!-- DEMO — reemplazar con reseñas reales de clientes antes de publicar -->
+      <article class="kinu-review-card" role="listitem">
+        <div class="kinu-rc__top">
+          <div class="kinu-rc__stars" aria-label="5 estrellas">★★★★★</div>
+          <span class="kinu-rc__badge">✓ Compra verificada</span>
+        </div>
+        <p class="kinu-rc__body">
+          Yo soy muy escéptica con los suplementos pero este sí lo
+          recomiendo. Sin sabor de verdad, se disuelve bien y no me
+          ha dado ningún malestar estomacal. Mi problema era que me
+          acostaba agotada pero no lograba dormir. Ya no me pasa.
+        </p>
+        <div class="kinu-rc__footer">
+          <div class="kinu-rc__avatar" aria-hidden="true">L</div>
+          <div class="kinu-rc__meta">
+            <span class="kinu-rc__name">Lucía V.</span>
+            <span class="kinu-rc__city">Medellín · hace 2 semanas</span>
+          </div>
+        </div>
+      </article>
+
+    </div><!-- /.kinu-reviews-grid -->
+
+    <!-- Dots del carrusel — solo visibles en móvil <480px -->
+    <div class="kinu-rv__dots" id="js-rv-dots" aria-hidden="true">
+      <span class="kinu-rv__dot js-rv-dot is-active"></span>
+      <span class="kinu-rv__dot js-rv-dot"></span>
+      <span class="kinu-rv__dot js-rv-dot"></span>
+      <span class="kinu-rv__dot js-rv-dot"></span>
+      <span class="kinu-rv__dot js-rv-dot"></span>
+      <span class="kinu-rv__dot js-rv-dot"></span>
+    </div>
+
+    <!-- ── CTA para dejar reseña ── -->
+    <div class="kinu-rv__cta">
+      <p class="kinu-rv__cta-text">¿Ya probaste KINU? Cuéntanos tu experiencia.</p>
+      <button
+        class="kinu-rv__cta-btn"
+        id="js-open-form"
+        aria-expanded="false"
+        aria-controls="js-form-wrap">
+        Escribir una reseña →
+      </button>
+    </div>
+
+    <!-- ── Formulario expandible (sin etiqueta <form>) ── -->
+    <div class="kinu-rv__form-wrap" id="js-form-wrap" aria-hidden="true">
+      <div class="kinu-rv__form-panel" id="js-form-panel">
+
+        <h3 class="kinu-rv__form-title">Escribe tu reseña</h3>
+        <p class="kinu-rv__form-note">
+          Tu reseña será revisada antes de publicarse para verificar tu compra.
+        </p>
+
+        <!-- Rating interactivo -->
+        <div class="kinu-rv__field">
+          <span class="kinu-rv__label" id="rv-rating-lbl">Tu calificación</span>
+          <div class="kinu-rv__star-picker" id="js-star-picker"
+               role="radiogroup" aria-labelledby="rv-rating-lbl">
+            <span class="kinu-rv__pick-star js-pick-star" data-val="1"
+                  tabindex="0" role="radio" aria-checked="false" aria-label="1 estrella">★</span>
+            <span class="kinu-rv__pick-star js-pick-star" data-val="2"
+                  tabindex="-1" role="radio" aria-checked="false" aria-label="2 estrellas">★</span>
+            <span class="kinu-rv__pick-star js-pick-star" data-val="3"
+                  tabindex="-1" role="radio" aria-checked="false" aria-label="3 estrellas">★</span>
+            <span class="kinu-rv__pick-star js-pick-star" data-val="4"
+                  tabindex="-1" role="radio" aria-checked="false" aria-label="4 estrellas">★</span>
+            <span class="kinu-rv__pick-star js-pick-star" data-val="5"
+                  tabindex="-1" role="radio" aria-checked="false" aria-label="5 estrellas">★</span>
+          </div>
+          <span class="kinu-rv__error" id="js-err-rating" hidden>
+            Por favor selecciona una calificación.
+          </span>
+        </div>
+
+        <!-- Nombre -->
+        <div class="kinu-rv__field">
+          <label class="kinu-rv__label" for="rv-name">Nombre completo</label>
+          <input class="kinu-rv__input" id="rv-name" type="text"
+                 placeholder="Tu nombre completo" autocomplete="name">
+          <span class="kinu-rv__error" id="js-err-name" hidden>
+            Por favor ingresa tu nombre.
+          </span>
+        </div>
+
+        <!-- Cédula -->
+        <div class="kinu-rv__field">
+          <label class="kinu-rv__label" for="rv-cedula">Número de cédula</label>
+          <input class="kinu-rv__input" id="rv-cedula" type="text"
+                 placeholder="Para verificar tu compra" inputmode="numeric">
+          <span class="kinu-rv__error" id="js-err-cedula" hidden>
+            Por favor ingresa tu número de cédula.
+          </span>
+        </div>
+
+        <!-- Correo -->
+        <div class="kinu-rv__field">
+          <label class="kinu-rv__label" for="rv-email">Correo electrónico</label>
+          <input class="kinu-rv__input" id="rv-email" type="email"
+                 placeholder="tucorreo@ejemplo.com" autocomplete="email">
+          <span class="kinu-rv__error" id="js-err-email" hidden>
+            Por favor ingresa un correo válido.
+          </span>
+        </div>
+
+        <!-- Teléfono -->
+        <div class="kinu-rv__field">
+          <label class="kinu-rv__label" for="rv-phone">Teléfono</label>
+          <input class="kinu-rv__input" id="rv-phone" type="tel"
+                 placeholder="Tu número de WhatsApp o celular" autocomplete="tel" inputmode="tel">
+          <span class="kinu-rv__error" id="js-err-phone" hidden>
+            Por favor ingresa tu teléfono.
+          </span>
+        </div>
+
+        <!-- Reseña -->
+        <div class="kinu-rv__field">
+          <label class="kinu-rv__label" for="rv-text">Tu reseña</label>
+          <textarea class="kinu-rv__textarea" id="rv-text"
+                    placeholder="Cuéntanos cómo te fue con KINU..."></textarea>
+          <span class="kinu-rv__error" id="js-err-text" hidden>
+            Por favor escribe tu reseña.
+          </span>
+        </div>
+
+        <!-- Mensaje de éxito -->
+        <p class="kinu-rv__success" id="js-rv-success" hidden>
+          ¡Gracias! Tu reseña fue recibida. La revisaremos y la publicaremos
+          una vez verificada tu compra.
+        </p>
+
+        <!-- Error de envío -->
+        <p class="kinu-rv__error kinu-rv__send-error" id="js-rv-send-err" hidden>
+          Hubo un problema al enviar. Intenta de nuevo o escríbenos directamente.
+        </p>
+
+        <button class="kinu-rv__submit" id="js-rv-submit">
+          Enviar reseña para revisión
+        </button>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function () {
+  var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ══════════════════════════════════════════════
+     FADE-IN: encabezado + summary + tarjetas
+     ══════════════════════════════════════════════ */
+  var fades = Array.prototype.slice.call(document.querySelectorAll('.js-rv-fade'));
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.kinu-review-card'));
+
+  if (typeof IntersectionObserver !== 'undefined') {
+    /* Encabezado y summary */
+    var fObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('is-visible'); fObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    fades.forEach(function (el) { fObs.observe(el); });
+
+    /* Tarjetas: stagger con delay CSS */
+    var cObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          var idx = cards.indexOf(e.target);
+          /* delay escalonado: cada tarjeta espera 80ms más que la anterior */
+          e.target.style.transitionDelay = REDUCED ? '0s' : (idx % 3) * 80 + 'ms';
+          e.target.classList.add('is-visible');
+          cObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    cards.forEach(function (c) { cObs.observe(c); });
+
+  } else {
+    fades.forEach(function (el) { el.classList.add('is-visible'); });
+    cards.forEach(function (c)  { c.classList.add('is-visible'); });
+  }
+
+  /* ══════════════════════════════════════════════
+     BARRAS DE RATING
+     ══════════════════════════════════════════════ */
+  var barFills = Array.prototype.slice.call(document.querySelectorAll('.js-bar-fill'));
+  var barsEl   = document.getElementById('js-rv-bars');
+  if (barsEl && typeof IntersectionObserver !== 'undefined') {
+    var bObs = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) {
+        barFills.forEach(function (f) {
+          if (REDUCED) f.style.transition = 'none';
+          f.style.width = f.dataset.width;
+        });
+        bObs.disconnect();
+      }
+    }, { threshold: 0.3 });
+    bObs.observe(barsEl);
+  } else {
+    barFills.forEach(function (f) { f.style.width = f.dataset.width; });
+  }
+
+  /* ══════════════════════════════════════════════
+     DOTS DEL CARRUSEL (móvil <480px)
+     ══════════════════════════════════════════════ */
+  var grid = document.getElementById('js-reviews-grid');
+  var dots = Array.prototype.slice.call(document.querySelectorAll('.js-rv-dot'));
+  if (grid && dots.length) {
+    grid.addEventListener('scroll', function () {
+      if (window.innerWidth >= 480) return;
+      var card = grid.querySelector('.kinu-review-card');
+      if (!card) return;
+      var cardW = card.offsetWidth + 12;
+      var idx   = Math.min(Math.round(grid.scrollLeft / cardW), dots.length - 1);
+      dots.forEach(function (d, i) { d.classList.toggle('is-active', i === idx); });
+    }, { passive: true });
+  }
+
+  /* ══════════════════════════════════════════════
+     FORMULARIO: abrir / cerrar
+     ══════════════════════════════════════════════ */
+  var openBtn   = document.getElementById('js-open-form');
+  var formWrap  = document.getElementById('js-form-wrap');
+  var formPanel = document.getElementById('js-form-panel');
+
+  function openForm() {
+    formWrap.setAttribute('aria-hidden', 'false');
+    formWrap.classList.add('is-open');
+    formWrap.style.maxHeight = REDUCED ? 'none' : (formPanel.scrollHeight + 'px');
+    openBtn.textContent = 'Cancelar ×';
+    openBtn.setAttribute('aria-expanded', 'true');
+  }
+
+  function closeForm() {
+    formWrap.classList.remove('is-open');
+    formWrap.setAttribute('aria-hidden', 'true');
+    openBtn.setAttribute('aria-expanded', 'false');
+    openBtn.textContent = 'Escribir una reseña →';
+    if (REDUCED) {
+      formWrap.style.maxHeight = '0';
+    } else {
+      formWrap.style.maxHeight = formPanel.scrollHeight + 'px';
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { formWrap.style.maxHeight = '0'; });
+      });
+    }
+  }
+
+  if (openBtn && formWrap && formPanel) {
+    openBtn.addEventListener('click', function () {
+      formWrap.getAttribute('aria-hidden') === 'false' ? closeForm() : openForm();
+    });
+  }
+
+  /* ══════════════════════════════════════════════
+     SELECTOR DE ESTRELLAS
+     ══════════════════════════════════════════════ */
+  var pickStars     = Array.prototype.slice.call(document.querySelectorAll('.js-pick-star'));
+  var currentRating = 0;
+
+  function setStars(rating) {
+    pickStars.forEach(function (s, i) { s.classList.toggle('is-active', i < rating); });
+  }
+
+  pickStars.forEach(function (star, idx) {
+    star.addEventListener('click', function () {
+      currentRating = idx + 1;
+      setStars(currentRating);
+      pickStars.forEach(function (s, i) {
+        s.setAttribute('aria-checked', i === idx ? 'true' : 'false');
+      });
+    });
+    star.addEventListener('mouseenter', function () { setStars(idx + 1); });
+    star.addEventListener('mouseleave', function () { setStars(currentRating); });
+    star.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault(); currentRating = idx + 1; setStars(currentRating);
+      }
+    });
+  });
+
+  /* ══════════════════════════════════════════════
+     VALIDACIÓN Y ENVÍO A SHOPIFY CONTACT
+     Los datos se envían al endpoint /contact de Shopify
+     como correo al administrador de la tienda.
+     La reseña NO se publica hasta ser aprobada manualmente.
+     ══════════════════════════════════════════════ */
+  var submitBtn  = document.getElementById('js-rv-submit');
+  var successMsg = document.getElementById('js-rv-success');
+  var sendErrMsg = document.getElementById('js-rv-send-err');
+  var nameInput  = document.getElementById('rv-name');
+  var cedulaInput = document.getElementById('rv-cedula');
+  var emailInput = document.getElementById('rv-email');
+  var phoneInput = document.getElementById('rv-phone');
+  var textArea   = document.getElementById('rv-text');
+  var errRating  = document.getElementById('js-err-rating');
+  var errName    = document.getElementById('js-err-name');
+  var errCedula  = document.getElementById('js-err-cedula');
+  var errEmail   = document.getElementById('js-err-email');
+  var errPhone   = document.getElementById('js-err-phone');
+  var errText    = document.getElementById('js-err-text');
+
+  function validEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+  if (submitBtn) {
+    submitBtn.addEventListener('click', function () {
+      /* Limpiar errores previos */
+      [errRating, errName, errCedula, errEmail, errPhone, errText, sendErrMsg]
+        .forEach(function (e) { if (e) e.hidden = true; });
+
+      var valid  = true;
+      var name   = nameInput   ? nameInput.value.trim()   : '';
+      var cedula = cedulaInput ? cedulaInput.value.trim() : '';
+      var email  = emailInput  ? emailInput.value.trim()  : '';
+      var phone  = phoneInput  ? phoneInput.value.trim()  : '';
+      var text   = textArea    ? textArea.value.trim()    : '';
+
+      if (currentRating < 1)    { errRating.hidden = false; valid = false; }
+      if (!name)                { errName.hidden   = false; valid = false; }
+      if (!cedula)              { errCedula.hidden = false; valid = false; }
+      if (!validEmail(email))   { errEmail.hidden  = false; valid = false; }
+      if (!phone)               { errPhone.hidden  = false; valid = false; }
+      if (!text)                { errText.hidden   = false; valid = false; }
+      if (!valid) return;
+
+      /* Deshabilitar botón mientras envía */
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Enviando…';
+
+      /* Componer el cuerpo del correo que recibirá el admin */
+      var stars = '';
+      for (var i = 0; i < currentRating; i++) stars += '★';
+      for (var j = currentRating; j < 5; j++) stars += '☆';
+
+      var body =
+        '=== RESEÑA KINU — PENDIENTE DE APROBACIÓN ===\n\n' +
+        'Calificación : ' + stars + ' (' + currentRating + '/5)\n' +
+        'Nombre       : ' + name   + '\n' +
+        'Cédula       : ' + cedula + '\n' +
+        'Correo       : ' + email  + '\n' +
+        'Teléfono     : ' + phone  + '\n\n' +
+        'Reseña:\n' + text + '\n\n' +
+        '=============================================\n' +
+        'Verificar en base de datos antes de publicar.\n' +
+        'Si aprueba, agréguela manualmente a kinu-reviews.liquid.';
+
+      var fd = new FormData();
+      fd.append('form_type', 'contact');
+      fd.append('utf8',           '✓');
+      fd.append('contact[name]',  name);
+      fd.append('contact[email]', email);
+      fd.append('contact[body]',  body);
+
+      fetch('/contact', { method: 'POST', headers: { 'Accept': 'application/json' }, body: fd })
+        .then(function (res) {
+          /* Shopify redirige a /contact?success=true — fetch lo sigue; res.ok === true */
+          if (res.ok) {
+            successMsg.hidden = false;
+            submitBtn.hidden  = true;
+            /* Resetear y cerrar después de 4 s */
+            setTimeout(function () {
+              currentRating = 0;
+              setStars(0);
+              pickStars.forEach(function (s) { s.setAttribute('aria-checked', 'false'); });
+              [nameInput, cedulaInput, emailInput, phoneInput, textArea]
+                .forEach(function (el) { if (el) el.value = ''; });
+              successMsg.hidden = true;
+              submitBtn.hidden  = false;
+              submitBtn.disabled = false;
+              submitBtn.textContent = 'Enviar reseña para revisión';
+              closeForm();
+            }, 4000);
+          } else {
+            throw new Error('error');
+          }
+        })
+        .catch(function () {
+          sendErrMsg.hidden = false;
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Enviar reseña para revisión';
+        });
+    });
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "KINU – Reviews",
+  "tag": "section",
+  "class": "kinu-section-reviews",
+  "presets": [{ "name": "KINU – Reviews" }]
+}
+{% endschema %}

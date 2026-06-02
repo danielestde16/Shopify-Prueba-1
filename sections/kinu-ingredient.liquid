@@ -1,0 +1,417 @@
+{{ 'kinu-ingredient.css' | asset_url | stylesheet_tag }}
+
+{%- comment -%}
+  Sección 5 — Ingrediente único + respaldo científico
+  Layout: texto izquierda / imagen sticky derecha (desktop)
+          imagen integrada como fondo / texto abajo (móvil)
+  [REVISAR LEGAL INVIMA antes de publicar]
+{%- endcomment -%}
+
+<section class="kinu-ing" aria-label="Ingrediente único y respaldo científico">
+
+  <!-- Canvas: red molecular animada de fondo -->
+  <canvas class="kinu-ing__canvas" id="ing-canvas" aria-hidden="true"></canvas>
+
+  <div class="kinu-ing__inner">
+
+    <!-- ══════════════════════════════════════════
+         COLUMNA IZQUIERDA — texto + acordeón
+         ══════════════════════════════════════════ -->
+    <div class="kinu-ing__text-col">
+
+      <h2 class="kinu-ing__title js-ing-fade">
+        Un solo ingrediente.<br>Elegido con razón.
+      </h2>
+
+      <p class="kinu-ing__intro js-ing-fade">
+        No todas las formas de magnesio son iguales.
+        El citrato es orgánico, soluble en agua y directamente
+        absorbible por el intestino. Es la razón por la que KINU
+        usa solo este — sin mezclas, sin rellenos, sin promesas
+        vacías.{%- comment -%} [REVISAR LEGAL INVIMA] {%- endcomment -%}
+      </p>
+
+      <!-- ── Sellos dorados ── -->
+      <div class="kinu-ing__badges js-ing-fade" role="list" aria-label="Garantías de fórmula">
+
+        <div class="kinu-ing__badge" role="listitem">
+          <div class="kinu-ing__badge-ring">
+            <svg class="kinu-ing__badge-svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+              <circle cx="12" cy="12" r="1.8" fill="currentColor"/>
+              <ellipse cx="12" cy="12" rx="10" ry="4"/>
+              <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/>
+              <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/>
+            </svg>
+          </div>
+          <span class="kinu-ing__badge-label">Ingrediente<br>puro</span>
+        </div>
+
+        <div class="kinu-ing__badge" role="listitem">
+          <div class="kinu-ing__badge-ring">
+            <svg class="kinu-ing__badge-svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/>
+              <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+            </svg>
+          </div>
+          <span class="kinu-ing__badge-label">Sin<br>aditivos</span>
+        </div>
+
+        <div class="kinu-ing__badge" role="listitem">
+          <div class="kinu-ing__badge-ring">
+            <svg class="kinu-ing__badge-svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <polyline points="9 12 11 14 15 10"/>
+            </svg>
+          </div>
+          <span class="kinu-ing__badge-label">Fórmula<br>trazable</span>
+        </div>
+
+      </div>
+
+      <!-- ── Acordeón: 4 tarjetas, todas cerradas por defecto ── -->
+      <div class="kinu-ing__accordion" role="list">
+
+        <!-- ─── TARJETA 1: sueño ─── -->
+        <div class="kinu-ing__item js-ing-item" role="listitem">
+          <button class="kinu-ing__trigger" aria-expanded="false" aria-controls="ing-panel-1">
+            <span class="kinu-ing__item-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+              </svg>
+            </span>
+            <span class="kinu-ing__item-title">Apoya la calidad del sueño</span>
+            <span class="kinu-ing__expand" aria-hidden="true">
+              <svg class="kinu-ing__expand-svg" width="26" height="26" viewBox="0 0 26 26">
+                <circle cx="13" cy="13" r="12" stroke="currentColor" stroke-width="1.5" fill="rgba(74,173,223,0.08)"/>
+                <line x1="13" y1="7.5" x2="13" y2="18.5" class="kinu-ing__expand-v" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <line x1="7.5" y1="13" x2="18.5" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </span>
+          </button>
+          <div class="kinu-ing__panel" id="ing-panel-1" aria-hidden="true">
+            <div class="kinu-ing__panel-inner">
+              <p class="kinu-ing__panel-body">
+                El magnesio bloquea el receptor NMDA — el interruptor neuronal
+                que mantiene el cerebro en modo alerta. Al inhibirlo,
+                reduce la actividad excesiva del sistema nervioso
+                y facilita la transición natural al descanso.
+                {%- comment -%} [REVISAR LEGAL INVIMA] {%- endcomment -%}
+              </p>
+              <p class="kinu-ing__cite">
+                Wang et al. (2024). The Mechanisms of Magnesium in Sleep Disorders. <em>Dove Medical Press.</em>
+                <a href="https://www.dovepress.com/article/download/107872" class="kinu-ing__cite-link" target="_blank" rel="noopener noreferrer">doi:10.2147/NSS ↗</a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── TARJETA 2: cortisol ─── -->
+        <div class="kinu-ing__item js-ing-item" role="listitem">
+          <button class="kinu-ing__trigger" aria-expanded="false" aria-controls="ing-panel-2">
+            <span class="kinu-ing__item-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                <path d="M2 12c.5-2 2-3 4-3s3.5 1 4 3 1.5 3 4 3 3.5-1 4-3"/>
+                <path d="M2 18c.5-2 2-3 4-3s3.5 1 4 3 1.5 3 4 3 3.5-1 4-3"/>
+              </svg>
+            </span>
+            <span class="kinu-ing__item-title">Reduce el cortisol — la hormona del estrés nocturno</span>
+            <span class="kinu-ing__expand" aria-hidden="true">
+              <svg class="kinu-ing__expand-svg" width="26" height="26" viewBox="0 0 26 26">
+                <circle cx="13" cy="13" r="12" stroke="currentColor" stroke-width="1.5" fill="rgba(74,173,223,0.08)"/>
+                <line x1="13" y1="7.5" x2="13" y2="18.5" class="kinu-ing__expand-v" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <line x1="7.5" y1="13" x2="18.5" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </span>
+          </button>
+          <div class="kinu-ing__panel" id="ing-panel-2" aria-hidden="true">
+            <div class="kinu-ing__panel-inner">
+              <p class="kinu-ing__panel-body">
+                Estudios revisados por pares confirman que la suplementación
+                con magnesio puede reducir la concentración de cortisol sérico,
+                calmando el eje HPA — el sistema que mantiene
+                el cuerpo en estado de alerta aunque no haya amenaza real.
+                {%- comment -%} [REVISAR LEGAL INVIMA] {%- endcomment -%}
+              </p>
+              <p class="kinu-ing__cite">
+                Boyle et al. (2017). The Effects of Magnesium Supplementation on Subjective Anxiety and Stress. <em>Nutrients, 9(5), 429.</em>
+                <a href="https://pubmed.ncbi.nlm.nih.gov/28445426/" class="kinu-ing__cite-link" target="_blank" rel="noopener noreferrer">doi:10.3390/nu9050429 ↗</a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── TARJETA 3: biodisponibilidad ─── -->
+        <div class="kinu-ing__item js-ing-item" role="listitem">
+          <button class="kinu-ing__trigger" aria-expanded="false" aria-controls="ing-panel-3">
+            <span class="kinu-ing__item-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="12" cy="12" r="2"/>
+                <ellipse cx="12" cy="12" rx="10" ry="4"/>
+                <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/>
+                <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/>
+              </svg>
+            </span>
+            <span class="kinu-ing__item-title">El citrato se absorbe más que el óxido</span>
+            <span class="kinu-ing__expand" aria-hidden="true">
+              <svg class="kinu-ing__expand-svg" width="26" height="26" viewBox="0 0 26 26">
+                <circle cx="13" cy="13" r="12" stroke="currentColor" stroke-width="1.5" fill="rgba(74,173,223,0.08)"/>
+                <line x1="13" y1="7.5" x2="13" y2="18.5" class="kinu-ing__expand-v" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <line x1="7.5" y1="13" x2="18.5" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </span>
+          </button>
+          <div class="kinu-ing__panel" id="ing-panel-3" aria-hidden="true">
+            <div class="kinu-ing__panel-inner">
+              <p class="kinu-ing__panel-body">
+                En estudios cruzados doble ciego, el citrato de magnesio mostró
+                una biodisponibilidad significativamente mayor que el óxido —
+                la forma más usada y más barata en suplementos de farmacia.
+                La diferencia no es marketing: es química básica de solubilidad.
+                {%- comment -%} [REVISAR LEGAL INVIMA] {%- endcomment -%}
+              </p>
+              <p class="kinu-ing__cite">
+                Kappeler et al. (2017). Higher bioavailability of magnesium citrate vs. magnesium oxide. <em>BMC Nutrition, 3(1).</em>
+                <a href="https://link.springer.com/article/10.1186/s40795-016-0121-3" class="kinu-ing__cite-link" target="_blank" rel="noopener noreferrer">doi:10.1186/s40795-016-0121-3 ↗</a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── TARJETA 4: pureza ─── -->
+        <div class="kinu-ing__item js-ing-item" role="listitem">
+          <button class="kinu-ing__trigger" aria-expanded="false" aria-controls="ing-panel-4">
+            <span class="kinu-ing__item-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/>
+                <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+              </svg>
+            </span>
+            <span class="kinu-ing__item-title">Un ingrediente. Sin interferencias.</span>
+            <span class="kinu-ing__expand" aria-hidden="true">
+              <svg class="kinu-ing__expand-svg" width="26" height="26" viewBox="0 0 26 26">
+                <circle cx="13" cy="13" r="12" stroke="currentColor" stroke-width="1.5" fill="rgba(74,173,223,0.08)"/>
+                <line x1="13" y1="7.5" x2="13" y2="18.5" class="kinu-ing__expand-v" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <line x1="7.5" y1="13" x2="18.5" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </span>
+          </button>
+          <div class="kinu-ing__panel" id="ing-panel-4" aria-hidden="true">
+            <div class="kinu-ing__panel-inner">
+              <p class="kinu-ing__panel-body">
+                KINU no mezcla el citrato con saborizantes, stevia,
+                maltodextrina ni rellenos. Un solo ingrediente
+                significa una sola fuente de confianza:
+                sabes exactamente qué entra a tu cuerpo y por qué.
+                {%- comment -%} [REVISAR LEGAL INVIMA] {%- endcomment -%}
+              </p>
+              <p class="kinu-ing__cite">
+                NIH Office of Dietary Supplements (2022). Magnesium — Fact Sheet for Health Professionals.
+                <a href="https://ods.od.nih.gov/factsheets/Magnesium-HealthProfessional/" class="kinu-ing__cite-link" target="_blank" rel="noopener noreferrer">ods.od.nih.gov ↗</a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /.kinu-ing__accordion -->
+    </div><!-- /.kinu-ing__text-col -->
+
+    <!-- ══════════════════════════════════════════
+         COLUMNA DERECHA — imágenes sticky (desktop)
+         En móvil estas imágenes se usan como fondo
+         ══════════════════════════════════════════ -->
+    <div class="kinu-ing__media-col" aria-hidden="true">
+      <div class="kinu-ing__sticky">
+
+        <div class="kinu-ing__media-wrap">
+          <img
+            src="https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Foto_Polvo_Kinu.png?v=1780420442"
+            alt=""
+            loading="lazy"
+            width="800" height="800"
+            class="kinu-ing__img">
+          <div class="kinu-ing__img-fade"></div>
+        </div>
+
+        <div class="kinu-ing__media-wrap kinu-ing__media-wrap--tarro">
+          <img
+            src="https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Foto_tarro_abierto_Kinu.png?v=1780421814"
+            alt=""
+            loading="lazy"
+            width="800" height="800"
+            class="kinu-ing__img">
+          <div class="kinu-ing__img-fade"></div>
+          <div class="kinu-ing__wm-cover"></div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function () {
+  var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ══════════════════════════════════════════════
+     FADE-IN: eyebrow, título, intro, sellos
+     ══════════════════════════════════════════════ */
+  var fades = Array.prototype.slice.call(document.querySelectorAll('.js-ing-fade'));
+  if (typeof IntersectionObserver !== 'undefined') {
+    var fObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('is-visible'); fObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    fades.forEach(function (el) { fObs.observe(el); });
+  } else {
+    fades.forEach(function (el) { el.classList.add('is-visible'); });
+  }
+
+  /* ══════════════════════════════════════════════
+     ACORDEÓN
+     ══════════════════════════════════════════════ */
+  var items = Array.prototype.slice.call(document.querySelectorAll('.js-ing-item'));
+
+  function getPanel(item)   { return item.querySelector('.kinu-ing__panel'); }
+  function getTrigger(item) { return item.querySelector('.kinu-ing__trigger'); }
+
+  function openItem(item) {
+    var p = getPanel(item), t = getTrigger(item);
+    if (!p || !t) return;
+    item.classList.add('is-open');
+    t.setAttribute('aria-expanded', 'true');
+    p.setAttribute('aria-hidden', 'false');
+    p.style.maxHeight = REDUCED ? 'none' : (p.scrollHeight + 'px');
+  }
+
+  function closeItem(item) {
+    var p = getPanel(item), t = getTrigger(item);
+    if (!p || !t) return;
+    item.classList.remove('is-open');
+    t.setAttribute('aria-expanded', 'false');
+    p.setAttribute('aria-hidden', 'true');
+    if (REDUCED) {
+      p.style.maxHeight = '0';
+    } else {
+      p.style.maxHeight = p.scrollHeight + 'px';
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { p.style.maxHeight = '0'; });
+      });
+    }
+  }
+
+  /* Inicializar: todos cerrados */
+  items.forEach(function (item) {
+    var p = getPanel(item);
+    if (p) p.style.maxHeight = '0';
+  });
+
+  items.forEach(function (item) {
+    var t = getTrigger(item);
+    if (!t) return;
+    t.addEventListener('click', function () {
+      var isOpen = item.classList.contains('is-open');
+      items.forEach(function (it) { if (it !== item) closeItem(it); });
+      if (isOpen) closeItem(item);
+      else        openItem(item);
+    });
+  });
+
+  /* ══════════════════════════════════════════════
+     CANVAS: red molecular de fondo
+     ══════════════════════════════════════════════ */
+  var canvas = document.getElementById('ing-canvas');
+  if (!canvas) return;
+
+  var ctx   = canvas.getContext('2d');
+  var W, H, nodes, raf;
+  var DIST  = 145;
+  var COUNT = 48;
+
+  function resize() {
+    W = canvas.width  = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+
+  function mkNode() {
+    return {
+      x:    Math.random() * W,
+      y:    Math.random() * H,
+      vx:   (Math.random() - .5) * .25,
+      vy:   (Math.random() - .5) * .25,
+      r:    1.2 + Math.random() * 2.4,
+      ring: Math.random() > .65
+    };
+  }
+
+  function init() { nodes = []; for (var i = 0; i < COUNT; i++) nodes.push(mkNode()); }
+
+  function drawFrame() {
+    ctx.clearRect(0, 0, W, H);
+
+    for (var i = 0; i < nodes.length; i++) {
+      for (var j = i + 1; j < nodes.length; j++) {
+        var dx = nodes[j].x - nodes[i].x;
+        var dy = nodes[j].y - nodes[i].y;
+        var d  = Math.sqrt(dx * dx + dy * dy);
+        if (d < DIST) {
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.strokeStyle = 'rgba(26,111,173,' + ((1 - d / DIST) * .13) + ')';
+          ctx.lineWidth = .75;
+          ctx.stroke();
+        }
+      }
+    }
+
+    nodes.forEach(function (n) {
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(74,173,223,.28)';
+      ctx.fill();
+
+      if (n.ring) {
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r * 3.4, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(26,111,173,.09)';
+        ctx.lineWidth = .6;
+        ctx.stroke();
+      }
+
+      if (!REDUCED) {
+        n.x += n.vx;
+        n.y += n.vy;
+        if (n.x < -8 || n.x > W + 8) n.vx *= -1;
+        if (n.y < -8 || n.y > H + 8) n.vy *= -1;
+      }
+    });
+
+    if (!REDUCED) raf = requestAnimationFrame(drawFrame);
+  }
+
+  /* Pausar cuando la sección sale del viewport */
+  if (typeof IntersectionObserver !== 'undefined') {
+    var cObs = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) { cancelAnimationFrame(raf); if (!REDUCED) drawFrame(); else drawFrame(); }
+      else                           { cancelAnimationFrame(raf); }
+    }, { threshold: 0 });
+    cObs.observe(canvas);
+  } else {
+    drawFrame();
+  }
+
+  resize(); init();
+  window.addEventListener('resize', function () { resize(); init(); }, { passive: true });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "KINU – Ingrediente único",
+  "tag": "section",
+  "class": "kinu-section-ingredient",
+  "presets": [{ "name": "KINU – Ingrediente único" }]
+}
+{% endschema %}

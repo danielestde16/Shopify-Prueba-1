@@ -8,6 +8,26 @@
       "type": "kinu-hero",
       "settings": {}
     },
+    "kinu-problema": {
+      "type": "kinu-problema",
+      "settings": {}
+    },
+    "kinu-revelacion": {
+      "type": "kinu-revelacion",
+      "settings": {}
+    },
+    "kinu-ritual": {
+      "type": "kinu-ritual",
+      "settings": {}
+    },
+    "kinu-ingredient": {
+      "type": "kinu-ingredient",
+      "settings": {}
+    },
+    "kinu-reviews": {
+      "type": "kinu-reviews",
+      "settings": {}
+    },
     "kinu-valor": {
       "type": "kinu-valor",
       "settings": {}
@@ -16,6 +36,11 @@
   "order": [
     "kinu-stars-bg",
     "kinu-hero",
+    "kinu-problema",
+    "kinu-revelacion",
+    "kinu-ritual",
+    "kinu-ingredient",
+    "kinu-reviews",
     "kinu-valor"
   ]
 }

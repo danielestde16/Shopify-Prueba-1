@@ -1,0 +1,507 @@
+/* ═══════════════════════════════════════════════════════
+   KINU — Sección 5: Ingrediente único + respaldo científico
+   Fondo: #0D2E4A (primer paso en la progresión noche→día)
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Keyframes ── */
+@keyframes ing-badge-aura {
+  0%, 100% {
+    box-shadow:
+      0 0 0 3px  rgba(232, 184, 75, .14),
+      0 0 16px   rgba(232, 184, 75, .28),
+      0 0 36px   rgba(232, 184, 75, .12),
+      inset 0 0 14px rgba(232, 184, 75, .06);
+  }
+  50% {
+    box-shadow:
+      0 0 0 8px  rgba(232, 184, 75, .28),
+      0 0 32px   rgba(232, 184, 75, .56),
+      0 0 70px   rgba(232, 184, 75, .24),
+      inset 0 0 20px rgba(232, 184, 75, .12);
+  }
+}
+
+@keyframes ing-badge-float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes ing-badge-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes ing-shimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+/* ──────────────────────────────────────────
+   SECCIÓN BASE
+   ────────────────────────────────────────── */
+.kinu-ing {
+  background: #0D2E4A;
+  padding: 104px 0 128px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Canvas molecular — cubre toda la sección */
+.kinu-ing__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Todo el contenido sobre el canvas */
+.kinu-ing__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 0 64px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* ──────────────────────────────────────────
+   ENCABEZADO
+   ────────────────────────────────────────── */
+.kinu-ing__title {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(2.2rem, 3.2vw, 3.4rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  margin: 0 0 22px;
+  /* Shimmer en ambas versiones */
+  background: linear-gradient(
+    90deg,
+    #F0F4FD 25%, #4AADDF 42%, #1A6FAD 50%, #4AADDF 58%, #F0F4FD 75%
+  );
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: ing-shimmer 5s ease-in-out infinite;
+  opacity: 0;
+  transition: opacity 0.7s ease 0.1s;
+}
+.kinu-ing__title.is-visible { opacity: 1; }
+
+.kinu-ing__intro {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(1.08rem, 1.4vw, 1.22rem);
+  font-weight: 400;
+  color: #C8DCEA;
+  line-height: 1.85;
+  margin: 0 0 40px;
+  max-width: 520px;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.7s ease 0.18s, transform 0.7s ease 0.18s;
+}
+.kinu-ing__intro.is-visible { opacity: 1; transform: translateY(0); }
+
+/* ──────────────────────────────────────────
+   SELLOS DORADOS
+   ────────────────────────────────────────── */
+.kinu-ing__badges {
+  display: flex;
+  gap: 28px;
+  margin-bottom: 52px;
+  flex-wrap: nowrap;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.7s ease 0.26s, transform 0.7s ease 0.26s;
+}
+.kinu-ing__badges.is-visible { opacity: 1; transform: translateY(0); }
+
+.kinu-ing__badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.kinu-ing__badge-ring {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  border: 1.8px solid #E8B84B;
+  background: rgba(13, 46, 74, 0.85);
+  color: #E8B84B;
+  /* Estado base: sutil */
+  box-shadow:
+    0 0 0 3px  rgba(232, 184, 75, .1),
+    0 0 12px   rgba(232, 184, 75, .18);
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+  cursor: default;
+}
+
+/* Desktop hover: ilumina */
+.kinu-ing__badge:hover .kinu-ing__badge-ring {
+  animation: ing-badge-aura 1.8s ease-in-out infinite;
+  border-color: #F5D070;
+}
+.kinu-ing__badge:hover {
+  animation: ing-badge-float 2.6s ease-in-out infinite;
+}
+.kinu-ing__badge:hover .kinu-ing__badge-svg {
+  animation: ing-badge-spin 9s linear infinite;
+}
+
+.kinu-ing__badge-svg {
+  color: #E8B84B;
+  transition: color 0.3s ease;
+}
+
+.kinu-ing__badge-label {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #E8B84B;
+  letter-spacing: 0.1em;
+  text-align: center;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+/* ──────────────────────────────────────────
+   ACORDEÓN
+   ────────────────────────────────────────── */
+.kinu-ing__accordion {
+  border-top: 1px solid rgba(186, 207, 221, .13);
+}
+
+.kinu-ing__item {
+  border-bottom: 1px solid rgba(186, 207, 221, .13);
+  border-radius: 0;
+  transition: background 0.3s ease;
+}
+.kinu-ing__item:hover {
+  background: linear-gradient(90deg, rgba(26, 111, 173, 0.1) 0%, transparent 80%);
+  border-radius: 8px;
+}
+
+.kinu-ing__trigger {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 20px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  color: #9BBFD4;
+  transition: color 0.25s ease, transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.kinu-ing__trigger:hover {
+  color: #F0F4FD;
+  transform: translateX(8px);
+}
+.kinu-ing__item.is-open .kinu-ing__trigger { color: #F0F4FD; }
+
+/* Ícono y título se iluminan en hover */
+.kinu-ing__trigger:hover .kinu-ing__item-icon {
+  color: #4AADDF;
+  filter: drop-shadow(0 0 7px rgba(74, 173, 223, 0.75));
+}
+.kinu-ing__trigger:hover .kinu-ing__item-title {
+  text-shadow: 0 0 28px rgba(240, 244, 253, 0.28);
+}
+
+/* Ícono de categoría */
+.kinu-ing__item-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: #1A6FAD;
+  display: flex;
+  align-items: center;
+  transition: color 0.25s ease;
+}
+.kinu-ing__item.is-open .kinu-ing__item-icon { color: #4AADDF; }
+
+/* Título */
+.kinu-ing__item-title {
+  flex: 1;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(1.25rem, 1.6vw, 1.55rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+/* Icono "+" que rota a "×" al abrir */
+.kinu-ing__expand {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  color: #4AADDF;
+  filter: drop-shadow(0 0 5px rgba(74, 173, 223, .5));
+  transition: color 0.25s ease, filter 0.25s ease;
+}
+.kinu-ing__trigger:hover .kinu-ing__expand {
+  color: #AEEEFF;
+  filter: drop-shadow(0 0 10px rgba(74, 173, 223, .85));
+}
+.kinu-ing__item.is-open .kinu-ing__expand {
+  color: #AEEEFF;
+  filter: drop-shadow(0 0 10px rgba(74, 173, 223, .85));
+}
+
+.kinu-ing__expand-svg {
+  transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.kinu-ing__item.is-open .kinu-ing__expand-svg {
+  transform: rotate(45deg);
+}
+
+/* El brazo vertical del "+" desaparece al rotar */
+.kinu-ing__expand-v {
+  transition: opacity 0.2s ease 0.1s;
+}
+.kinu-ing__item.is-open .kinu-ing__expand-v {
+  opacity: 0;
+}
+
+/* Panel del acordeón */
+.kinu-ing__panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.kinu-ing__panel-inner {
+  padding-bottom: 24px;
+}
+
+.kinu-ing__panel-body {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(1.02rem, 1.25vw, 1.14rem);
+  font-weight: 600;
+  color: #D8EBF5;
+  line-height: 1.88;
+  margin: 0 0 16px;
+  padding-left: 34px; /* alineado con el título */
+}
+
+.kinu-ing__cite {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 12px;
+  font-style: italic;
+  color: rgba(186, 207, 221, .5);
+  line-height: 1.75;
+  margin: 0 0 0 34px;
+  padding-left: 12px;
+  border-left: 2px solid rgba(26, 111, 173, .35);
+}
+
+.kinu-ing__cite-link {
+  color: #1A6FAD;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-style: normal;
+  transition: color 0.2s ease;
+}
+.kinu-ing__cite-link:hover { color: #4AADDF; }
+
+/* ──────────────────────────────────────────
+   COLUMNA DE IMAGEN — sticky (desktop)
+   ────────────────────────────────────────── */
+.kinu-ing__sticky {
+  position: sticky;
+  top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.kinu-ing__media-wrap {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #050F1A;
+}
+
+.kinu-ing__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  mix-blend-mode: screen;
+  border-radius: 16px;
+}
+
+.kinu-ing__img-fade {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 40%;
+  background: linear-gradient(to bottom, transparent 0%, #0D2E4A 100%);
+  pointer-events: none;
+}
+
+.kinu-ing__wm-cover {
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 50%; height: 32%;
+  background: linear-gradient(
+    to bottom right,
+    transparent 0%,
+    rgba(13, 46, 74, .55) 38%,
+    rgba(13, 46, 74, .88) 62%,
+    #0D2E4A 80%
+  );
+  pointer-events: none;
+}
+
+.kinu-ing__media-wrap--tarro {
+  opacity: .85;
+  transition: opacity 0.4s ease;
+}
+.kinu-ing__media-wrap--tarro:hover { opacity: 1; }
+
+/* ── Accesibilidad ── */
+@media (prefers-reduced-motion: reduce) {
+  .kinu-ing__eyebrow,
+  .kinu-ing__title,
+  .kinu-ing__intro,
+  .kinu-ing__badges       { opacity: 1; transform: none; transition: none; }
+  .kinu-ing__panel        { transition: none; }
+  .kinu-ing__expand-svg   { transition: none; }
+  .kinu-ing__badge-ring,
+  .kinu-ing__badge,
+  .kinu-ing__badge-svg    { animation: none !important; transition: none; }
+}
+
+/* ══════════════════════════════════════════════
+   MÓVIL ≤ 768px
+   Imagen integrada como fondo / texto centrado
+   ══════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .kinu-ing { padding: 0 0 88px; }
+
+  /* Columna única — imagen como fondo en la parte superior */
+  .kinu-ing__inner {
+    display: block;
+    padding: 0;
+    position: relative;
+  }
+
+  /* La imagen ocupa el top como fondo inmersivo */
+  .kinu-ing__media-col {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 420px;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .kinu-ing__sticky  { position: static; }
+  .kinu-ing__media-wrap {
+    height: 420px;
+    border-radius: 0;
+    overflow: hidden;
+  }
+  .kinu-ing__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+  }
+  /* Gradiente fuerte — funde la foto con el fondo */
+  .kinu-ing__img-fade {
+    height: 75%;
+    background: linear-gradient(to bottom, rgba(13,46,74,.1) 0%, #0D2E4A 100%);
+  }
+  /* Ocultar imagen del tarro en móvil */
+  .kinu-ing__media-wrap--tarro { display: none; }
+
+  /* El texto empieza sobre la zona de fade de la imagen */
+  .kinu-ing__text-col {
+    position: relative;
+    z-index: 1;
+    padding: 280px 24px 0;
+    text-align: center;
+  }
+
+  /* Título móvil: shimmer azul oscuro + caja de vidrio detrás */
+  .kinu-ing__title {
+    font-size: clamp(2.2rem, 9vw, 3rem);
+    text-align: center;
+    background: linear-gradient(
+      90deg,
+      #F0F4FD 25%, #4AADDF 42%, #1A6FAD 50%, #4AADDF 58%, #F0F4FD 75%
+    );
+    background-size: 300% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* Caja justo del tamaño del texto */
+    display: inline-block;
+    position: relative;
+    padding: 12px 22px;
+    border-radius: 14px;
+  }
+  /* Vidrio esmerilado detrás del título */
+  .kinu-ing__title::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(6, 20, 42, 0.52);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 14px;
+    border: 1px solid rgba(74, 173, 223, 0.18);
+    z-index: -1;
+  }
+
+  .kinu-ing__intro {
+    max-width: 100%;
+    text-align: left;
+    font-size: 1.18rem;
+    font-weight: 700;
+    margin-bottom: 32px;
+  }
+
+  /* Sellos: siempre alumbrados y con movimiento en móvil */
+  .kinu-ing__badges {
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 36px;
+  }
+
+  .kinu-ing__badge:nth-child(1) { animation: ing-badge-float 3.2s ease-in-out 0s    infinite; }
+  .kinu-ing__badge:nth-child(2) { animation: ing-badge-float 3.2s ease-in-out 0.9s   infinite; }
+  .kinu-ing__badge:nth-child(3) { animation: ing-badge-float 3.2s ease-in-out 1.8s   infinite; }
+
+  .kinu-ing__badge:nth-child(1) .kinu-ing__badge-ring { animation: ing-badge-aura 2.2s ease-in-out 0s    infinite; }
+  .kinu-ing__badge:nth-child(2) .kinu-ing__badge-ring { animation: ing-badge-aura 2.2s ease-in-out 0.7s   infinite; }
+  .kinu-ing__badge:nth-child(3) .kinu-ing__badge-ring { animation: ing-badge-aura 2.2s ease-in-out 1.4s   infinite; }
+
+  .kinu-ing__badge:nth-child(1) .kinu-ing__badge-svg { animation: ing-badge-spin 14s linear infinite; }
+  .kinu-ing__badge:nth-child(2) .kinu-ing__badge-svg { animation: ing-badge-spin 14s linear 2s infinite; }
+  .kinu-ing__badge:nth-child(3) .kinu-ing__badge-svg { animation: ing-badge-spin 14s linear 4s infinite; }
+
+  .kinu-ing__badge-ring {
+    width: 72px; height: 72px;
+    border-color: #F5D070;
+    box-shadow:
+      0 0 0 4px rgba(232, 184, 75, .18),
+      0 0 20px  rgba(232, 184, 75, .35);
+  }
+  .kinu-ing__badge-ring svg { width: 26px; height: 26px; }
+  .kinu-ing__badge-label    { font-size: 10px; }
+
+  .kinu-ing__item-title  { font-size: 2.1rem; font-weight: 700; line-height: 1.2; }
+  .kinu-ing__panel-body  { padding-left: 0; font-size: 1.04rem; font-weight: 600; }
+  .kinu-ing__cite        { margin-left: 0; font-size: 12px; }
+  .kinu-ing__trigger     { padding: 18px 0; gap: 12px; }
+}

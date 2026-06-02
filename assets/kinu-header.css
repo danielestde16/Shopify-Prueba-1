@@ -26,6 +26,21 @@
   }
 }
 
+/* ── Sticky debajo del announcement bar (38px) ──────────
+   Sin este ajuste el header pega en top:0 y el
+   announcement (z-index:400) lo tapa por arriba.        */
+.section-header {
+  top: 38px !important;
+}
+
+.shopify-section-header-sticky {
+  top: 38px !important;
+}
+
+.shopify-section-header-sticky.animate {
+  top: 38px !important;
+}
+
 /* ── Menú: dropdown pequeño que cae desde el botón ── */
 
 header-drawer {

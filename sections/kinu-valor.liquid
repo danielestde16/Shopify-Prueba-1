@@ -187,23 +187,37 @@
   }
 
   /* ── DESKTOP: scroll progress ── */
-  var desktop = document.querySelector('.kinu-v2__desktop');
-  var dArea   = desktop && desktop.querySelector('.kinu-v2__scroll-area');
-  var dAttrs  = desktop ? Array.from(desktop.querySelectorAll('.kinu-v2__attr')) : [];
+  var desktop  = document.querySelector('.kinu-v2__desktop');
+  var dArea    = desktop && desktop.querySelector('.kinu-v2__scroll-area');
+  var dAttrs   = desktop ? Array.from(desktop.querySelectorAll('.kinu-v2__attr')) : [];
+  var dAreaTop = 0;
+
+  /*
+   * dArea.offsetTop devuelve el offset relativo al padre inmediato,
+   * no al documento. Usamos getBoundingClientRect + pageYOffset para
+   * obtener la posición absoluta desde el tope del documento.
+   * Se cachea en load/resize para no causar layout thrashing en scroll.
+   */
+  function cacheTop() {
+    if (!dArea) return;
+    dAreaTop = dArea.getBoundingClientRect().top + window.pageYOffset;
+  }
 
   function updateDesktop() {
     if (!dArea || prefersReduced) return;
     var scrollY    = window.pageYOffset;
-    var top        = dArea.offsetTop;
     var scrollable = dArea.offsetHeight - window.innerHeight;
     if (scrollable <= 0) return;
-    var progress  = Math.max(0, Math.min(1, (scrollY - top) / scrollable));
+    var progress  = Math.max(0, Math.min(1, (scrollY - dAreaTop) / scrollable));
     var activeSeq = Math.min(Math.floor(progress * 5) + 1, 5);
     markActive(dAttrs, activeSeq);
   }
 
   if (desktop) {
+    window.addEventListener('load',   cacheTop);
+    window.addEventListener('resize', cacheTop);
     window.addEventListener('scroll', updateDesktop, { passive: true });
+    cacheTop();
     updateDesktop();
   }
 

@@ -1,0 +1,266 @@
+{{ 'kinu-ritual.css' | asset_url | stylesheet_tag }}
+
+<section class="kinu-ritual" aria-label="Cómo funciona el ritual KINU">
+
+  <!-- ── Cabecera ── -->
+  <div class="kinu-ritual__header">
+    <span class="kinu-ritual__eyebrow js-kinu-ritual-el">El ritual</span>
+    <h2 class="kinu-ritual__title js-kinu-ritual-el">Así de simple.</h2>
+    <p class="kinu-ritual__subtitle js-kinu-ritual-el">
+      Los tres pasos que dan inicio a tu noche.
+    </p>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       LÍNEA DE TIEMPO
+       Desktop: grid 5 columnas (paso | seg | paso | seg | paso)
+       Móvil:   columna única, pasos centrados, animación vertical
+       ══════════════════════════════════════════════ -->
+  <div class="kinu-ritual__steps" id="js-kinu-steps-grid">
+
+    <!-- ─── PASO 01 ─── -->
+    <div class="kinu-ritual__step js-kinu-step" data-seq="1" style="--sd:0s">
+      <div class="kinu-ritual__num-row">
+        <div class="kinu-ritual__num js-kinu-badge" data-step="1"
+             aria-label="Paso 1">01</div>
+      </div>
+
+      <img
+        src="https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Foto_Producto_Fondo_Negro_Paso_1.png?v=1780358471"
+        alt="Dos cucharadas de KINU"
+        loading="lazy" width="400" height="400"
+        class="kinu-ritual__step-img">
+
+      <h3 class="kinu-ritual__step-title">Dos cucharadas.</h3>
+      <p class="kinu-ritual__step-desc">
+        La cuchara incluida mide 1&nbsp;g. La dosis diaria son
+        2&nbsp;cucharadas rasas&nbsp;= 2&nbsp;g. Sin balanza, sin adivinar.
+      </p>
+
+      <!-- Conector vertical (móvil únicamente) -->
+      <div class="kinu-ritual__vert" aria-hidden="true">
+        <div class="kinu-ritual__vert-fill"></div>
+      </div>
+    </div>
+
+    <!-- ─── LÍNEA 01→02 (desktop únicamente) ─── -->
+    <div class="kinu-ritual__seg js-kinu-seg" data-seg="1" aria-hidden="true">
+      <div class="kinu-ritual__seg-fill"></div>
+    </div>
+
+    <!-- ─── PASO 02 ─── -->
+    <div class="kinu-ritual__step js-kinu-step" data-seq="2" style="--sd:0.18s">
+      <div class="kinu-ritual__num-row">
+        <div class="kinu-ritual__num js-kinu-badge" data-step="2"
+             aria-label="Paso 2">02</div>
+      </div>
+
+      <img
+        src="https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Foto_Producto_Fondo_Negro_Paso_2.png?v=1780358471"
+        alt="KINU disuelto en vaso de agua"
+        loading="lazy" width="400" height="400"
+        class="kinu-ritual__step-img">
+
+      <h3 class="kinu-ritual__step-title">En tu vaso de la noche.</h3>
+      <p class="kinu-ritual__step-desc">
+        Sin sabor. Sin polvo que flote. Se disuelve invisible
+        en agua, leche de almendras o lo que prefieras.
+      </p>
+
+      <div class="kinu-ritual__vert" aria-hidden="true">
+        <div class="kinu-ritual__vert-fill"></div>
+      </div>
+    </div>
+
+    <!-- ─── LÍNEA 02→03 (desktop únicamente) ─── -->
+    <div class="kinu-ritual__seg js-kinu-seg" data-seg="2" aria-hidden="true">
+      <div class="kinu-ritual__seg-fill"></div>
+    </div>
+
+    <!-- ─── PASO 03 + ZZZ ─── -->
+    <div class="kinu-ritual__step js-kinu-step" data-seq="3" style="--sd:0.36s">
+      <div class="kinu-ritual__num-row">
+        <div class="kinu-ritual__num js-kinu-badge" data-step="3"
+             aria-label="Paso 3">03</div>
+        <!-- Zzz simbolizan el sueño que se acerca -->
+        <div class="kinu-ritual__zzz js-kinu-zzz-wrap" aria-hidden="true">
+          <span class="kinu-ritual__z">z</span>
+          <span class="kinu-ritual__z">Z</span>
+          <span class="kinu-ritual__z">Z</span>
+        </div>
+      </div>
+
+      <img
+        src="https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Foto_Producto_Fondo_Negro_Paso_3.png?v=1780358471"
+        alt="Ritual nocturno KINU antes de dormir"
+        loading="lazy" width="400" height="400"
+        class="kinu-ritual__step-img">
+
+      <h3 class="kinu-ritual__step-title">30 min antes de dormir.</h3>
+      <p class="kinu-ritual__step-desc">
+        Hazlo la señal de que la noche empieza.
+        Un gesto pequeño que se acumula noche a noche.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ── Pregunta flotante → respuesta subordinada ── -->
+  <div class="kinu-ritual__bridge js-kinu-bridge">
+    <p class="kinu-ritual__bridge-q">¿Por qué funciona?</p>
+    <span class="kinu-ritual__bridge-sep" aria-hidden="true"></span>
+    <p class="kinu-ritual__bridge-a">
+      Por lo que hay <strong>dentro del tarro</strong>.
+      Un solo ingrediente. Puro. Sin nada más.
+    </p>
+  </div>
+
+</section>
+
+<script>
+(function () {
+  var REDUCED  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var grid     = document.getElementById('js-kinu-steps-grid');
+  var bridge   = document.querySelector('.js-kinu-bridge');
+  var hEls     = Array.prototype.slice.call(document.querySelectorAll('.js-kinu-ritual-el'));
+  var section  = grid && (grid.closest('section') || grid);
+
+  if (!grid || !section) return;
+
+  var steps   = Array.prototype.slice.call(grid.querySelectorAll('.js-kinu-step'));
+  var segs    = Array.prototype.slice.call(grid.querySelectorAll('.js-kinu-seg'));
+  var badges  = Array.prototype.slice.call(grid.querySelectorAll('.js-kinu-badge'));
+  var zzzWrap = grid.querySelector('.js-kinu-zzz-wrap');
+  var sFills  = segs.map(function(s)  { return s.querySelector('.kinu-ritual__seg-fill'); });
+  var vFills  = steps.map(function(s) { return s.querySelector('.kinu-ritual__vert-fill'); });
+
+  /* ── Sin movimiento ── */
+  if (REDUCED) {
+    hEls.forEach(function(e) { e.classList.add('is-visible'); });
+    steps.forEach(function(s)  { s.classList.add('is-active'); });
+    badges.forEach(function(b) { b.classList.add('is-lit'); });
+    sFills.forEach(function(f) { if (f) { f.style.transition='none'; f.style.transform='scaleX(1)'; } });
+    vFills.forEach(function(f) { if (f) { f.style.transition='none'; f.style.transform='scaleY(1)'; } });
+    if (zzzWrap) zzzWrap.classList.add('is-lit');
+    if (bridge)  bridge.classList.add('is-visible');
+    return;
+  }
+
+  /* ── Helpers ── */
+  function lit(el, on) {
+    if (!el) return;
+    on ? el.classList.add('is-lit') : el.classList.remove('is-lit');
+  }
+  function active(el, on) {
+    if (!el) return;
+    on ? el.classList.add('is-active') : el.classList.remove('is-active');
+  }
+  function isMobile() { return window.innerWidth <= 768; }
+
+  /* ── Cabecera ── */
+  if (typeof IntersectionObserver !== 'undefined') {
+    var hObs = new IntersectionObserver(function(es) {
+      es.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('is-visible'); hObs.unobserve(e.target); } });
+    }, { threshold: 0.2 });
+    hEls.forEach(function(e) { hObs.observe(e); });
+
+    if (bridge) {
+      var bObs = new IntersectionObserver(function(e) {
+        if (e[0].isIntersecting) { bridge.classList.add('is-visible'); bObs.disconnect(); }
+      }, { threshold: 0.15 });
+      bObs.observe(bridge);
+    }
+  }
+
+  /* ══════════════════════════════════════════════════
+     DESKTOP — secuencia automática de ~8 s
+     Entra al viewport → recorrido se ilumina.
+     Sale del viewport → todo retrocede.
+     ══════════════════════════════════════════════════ */
+  var dTimers  = [];
+  var dPlaying = false;
+
+  function dClear() { dTimers.forEach(clearTimeout); dTimers = []; }
+  function dAfter(ms, fn) { dTimers.push(setTimeout(fn, ms)); }
+
+  function desktopReset() {
+    dClear(); dPlaying = false;
+    steps.forEach(function(s)  { active(s, false); });
+    badges.forEach(function(b) { lit(b, false); });
+    lit(zzzWrap, false);
+    sFills.forEach(function(f) { if (f) f.style.transform = 'scaleX(0)'; });
+  }
+
+  function desktopPlay() {
+    if (dPlaying) return;
+    dPlaying = true;
+    /*
+      Secuencia ~8 s:
+       0.0 s  Paso 1 aparece
+       0.4 s  Badge 01 se ilumina
+       1.3 s  Línea 01→02 se dibuja (2.2 s CSS transition)
+       2.6 s  Paso 2 aparece
+       3.2 s  Badge 02 se ilumina
+       4.0 s  Línea 02→03 se dibuja (2.2 s CSS transition)
+       5.6 s  Paso 3 aparece
+       6.3 s  Badge 03 se ilumina
+       7.3 s  Zzz flotan
+    */
+    dAfter(0,    function() { active(steps[0], true); });
+    dAfter(400,  function() { lit(badges[0], true); });
+    dAfter(1300, function() { if (sFills[0]) sFills[0].style.transform = 'scaleX(1)'; });
+    dAfter(2600, function() { active(steps[1], true); });
+    dAfter(3200, function() { lit(badges[1], true); });
+    dAfter(4000, function() { if (sFills[1]) sFills[1].style.transform = 'scaleX(1)'; });
+    dAfter(5600, function() { active(steps[2], true); });
+    dAfter(6300, function() { lit(badges[2], true); });
+    dAfter(7300, function() { lit(zzzWrap, true); });
+  }
+
+  /* ══════════════════════════════════════════════════
+     MÓVIL — cada paso se ilumina al entrar al viewport
+     y retrocede al salir (scroll arriba = apaga)
+     ══════════════════════════════════════════════════ */
+  function mobileToggle(step, on) {
+    var badge  = step.querySelector('.js-kinu-badge');
+    var zzz    = step.querySelector('.js-kinu-zzz-wrap');
+    var vFill  = step.querySelector('.kinu-ritual__vert-fill');
+    active(step, on);
+    lit(badge, on);
+    if (zzz) lit(zzz, on);
+    if (vFill) {
+      if (on) { setTimeout(function() { vFill.style.transform = 'scaleY(1)'; }, 350); }
+      else    { vFill.style.transform = 'scaleY(0)'; }
+    }
+  }
+
+  /* ══════════════════════════════════════════════════
+     OBSERVERS
+     ══════════════════════════════════════════════════ */
+  if (typeof IntersectionObserver === 'undefined') return;
+
+  /* Sección entera — activa secuencia desktop */
+  var secObs = new IntersectionObserver(function(entries) {
+    if (isMobile()) return;
+    if (entries[0].isIntersecting) desktopPlay();
+    else desktopReset();
+  }, { threshold: 0.15 });
+  secObs.observe(section);
+
+  /* Pasos individuales — activa/apaga en móvil */
+  var stepObs = new IntersectionObserver(function(entries) {
+    if (!isMobile()) return;
+    entries.forEach(function(e) { mobileToggle(e.target, e.isIntersecting); });
+  }, { rootMargin: '-10% 0px -10% 0px', threshold: 0.3 });
+  steps.forEach(function(s) { stepObs.observe(s); });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "KINU – El ritual",
+  "tag": "section",
+  "class": "kinu-section-ritual",
+  "presets": [{ "name": "KINU – El ritual" }]
+}
+{% endschema %}

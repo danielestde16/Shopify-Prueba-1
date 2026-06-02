@@ -1,0 +1,120 @@
+{{ 'kinu-revelacion.css' | asset_url | stylesheet_tag }}
+
+{%- comment -%}
+  Sección 4 — La Revelación
+  Diseño: conversación problema → solución en 5 bloques compactos.
+  Alineación variada (centro / izquierda / centro) para ritmo visual.
+  Animaciones selectivas: el headline desliza desde la izquierda,
+  el cierre "Es química." escala hacia el lector.
+  [REVISAR LEGAL INVIMA antes de publicar en producción]
+{%- endcomment -%}
+
+<section class="kinu-rev" aria-label="La razón detrás del problema">
+  <div class="kinu-rev__inner">
+
+    <!-- Ancla visual de la sección -->
+    <div class="kinu-rev__accent js-kinu-rev-single" aria-hidden="true"></div>
+
+    <!-- ① Gancho — CENTRADO, italic, pequeño
+         Como una persona que te dice "espera, escucha esto" -->
+    <div class="kinu-rev__hook js-kinu-rev-single">
+      <p>Si marcaste dos o más, hay algo que <span class="kinu-rev__key">probablemente nadie te ha dicho:</span></p>
+    </div>
+
+    <!-- ② Revelación — IZQUIERDA, enorme, bold
+         El headline domina la pantalla.
+         Dos líneas: negación + reencuadre, aparecen escalonadas. -->
+    <div class="kinu-rev__headline js-kinu-rev-headline">
+      <span class="kinu-rev__hl-neg">No tienes un problema&nbsp;de sueño.</span>
+      <span class="kinu-rev__hl-pos">Tienes un problema de&nbsp;<span class="kinu-rev__key kinu-rev__glow">recuperación.</span></span>
+    </div>
+
+    <!-- ③ Explicación — CENTRADO, cuerpo, tono bajo
+         Acortado: dos frases directas, sin exceso -->
+    <div class="kinu-rev__body js-kinu-rev-single">
+      <p>
+        Dormir y recuperarse <span class="kinu-rev__key">no son lo mismo.</span>
+        Tu <span class="kinu-rev__key">sistema nervioso</span> puede seguir
+        activo toda la noche — sin que lo notes.{%- comment -%}[REVISAR LEGAL INVIMA]{%- endcomment -%}
+      </p>
+    </div>
+
+    <!-- ④ Kickers — IZQUIERDA, escalonados, medio-bold
+         Ritmo de tres golpes cortos que construyen tensión -->
+    <div class="kinu-rev__kickers js-kinu-rev-kickers">
+      <span class="kinu-rev__kicker-line" style="--kd: 0s">No es falta de disciplina.</span>
+      <span class="kinu-rev__kicker-line" style="--kd: 0.16s">No es estrés&nbsp;"normal".</span>
+    </div>
+
+    <!-- ⑤ Cierre — CENTRADO, enorme, azul eléctrico
+         La resolución que abre la siguiente sección (la solución).
+         Animación: fade + scale — aparece como una revelación. -->
+    <div class="kinu-rev__final-wrap js-kinu-rev-single">
+      <p class="kinu-rev__final">Es química.</p>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function () {
+  if (typeof IntersectionObserver === 'undefined') {
+    document.querySelectorAll(
+      '.js-kinu-rev-single, .kinu-rev__hl-neg, .kinu-rev__hl-pos, .kinu-rev__kicker-line'
+    ).forEach(function (el) { el.classList.add('is-visible'); });
+    return;
+  }
+
+  var opts = { threshold: 0.18 };
+
+  /* Elementos individuales: línea de acento, gancho, cuerpo, cierre */
+  var singleObs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        singleObs.unobserve(entry.target);
+      }
+    });
+  }, opts);
+
+  document.querySelectorAll('.js-kinu-rev-single').forEach(function (el) {
+    singleObs.observe(el);
+  });
+
+  /* Headline: activa las dos líneas juntas — hl-pos tiene delay en CSS */
+  var headline = document.querySelector('.js-kinu-rev-headline');
+  if (headline) {
+    var hlObs = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) {
+        headline.querySelector('.kinu-rev__hl-neg').classList.add('is-visible');
+        headline.querySelector('.kinu-rev__hl-pos').classList.add('is-visible');
+        hlObs.disconnect();
+      }
+    }, opts);
+    hlObs.observe(headline);
+  }
+
+  /* Kickers: activa las dos líneas juntas — stagger via CSS --kd */
+  var kickers = document.querySelector('.js-kinu-rev-kickers');
+  if (kickers) {
+    var kickObs = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) {
+        kickers.querySelectorAll('.kinu-rev__kicker-line').forEach(function (el) {
+          el.classList.add('is-visible');
+        });
+        kickObs.disconnect();
+      }
+    }, opts);
+    kickObs.observe(kickers);
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "KINU – La revelación",
+  "tag": "section",
+  "class": "kinu-section-revelacion",
+  "presets": [{ "name": "KINU – La revelación" }]
+}
+{% endschema %}
