@@ -1,0 +1,369 @@
+{{ 'kinu-bundles.css' | asset_url | stylesheet_tag }}
+
+{%- comment -%}
+  Sección 8 — Bundles con ahorro
+  3 opciones: 1 tarro / 2 tarros / 3 tarros
+  Selección interactiva → CTA único "Agregar al carrito"
+  NOTA: una vez crees las variantes en Shopify Admin,
+  reemplaza los data-variant-id con los IDs reales.
+{%- endcomment -%}
+
+{%- assign jar_img = 'https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Foto_Tarro_Transparente.png?v=1780027313' -%}
+
+{%- comment -%}
+  Producto y variante para el carrito.
+  El variant ID se lee directamente del producto seleccionado
+  en la configuración de la sección — no se necesitan IDs manuales.
+{%- endcomment -%}
+{%- if section.settings.product != blank -%}
+  {%- assign kinu_product   = section.settings.product -%}
+{%- else -%}
+  {%- assign kinu_product   = collections.all.products.first -%}
+{%- endif -%}
+{%- assign kinu_variant_id  = kinu_product.variants.first.id | default: '' -%}
+{%- assign product_url      = kinu_product.url | default: '#' -%}
+
+<section class="kinu-bun" aria-label="Selecciona tu pack KINU" id="kinu-bundles"
+         data-variant-id="{{ kinu_variant_id }}"
+         data-product-url="{{ product_url }}">
+  <div class="kinu-bun__inner">
+
+    <!-- ── Encabezado ── -->
+    <div class="kinu-bun__heading js-bun-fade">
+      <span class="kinu-bun__eyebrow">Elige tu ritual</span>
+      <h2 class="kinu-bun__title">Más noches, mejor<br>precio por noche.</h2>
+      <p class="kinu-bun__subtitle">
+        Cada tarro dura 110 noches. Cuanto más eliges, menos pagas por noche.
+      </p>
+    </div>
+
+    <!-- ── Grid de 3 packs ── -->
+    <div class="kinu-bun__grid js-bun-fade" role="list">
+
+      <!-- ─── PACK 1: 1 tarro ─── -->
+      <article
+        class="kinu-bun__card js-bun-card"
+        role="listitem"
+        data-pack="1"
+        data-quantity="1"
+        data-label="1 tarro · 110 noches"
+        data-price="$109.900"
+        tabindex="0"
+        aria-pressed="false">
+
+        <div class="kinu-bun__card-top">
+          <span class="kinu-bun__pack-name">1 TARRO</span>
+        </div>
+
+        <!-- 1 tarro centrado -->
+        <div class="kinu-bun__imgs kinu-bun__imgs--1">
+          <img src="{{ jar_img }}" alt="1 tarro KINU" loading="lazy"
+               width="300" height="300" class="kinu-bun__jar">
+        </div>
+
+        <div class="kinu-bun__nights">110 noches</div>
+
+        <div class="kinu-bun__pricing">
+          <span class="kinu-bun__price-main">$109.900</span>
+          <span class="kinu-bun__price-unit">$109.900 / tarro</span>
+          <span class="kinu-bun__price-night">$999 / noche</span>
+        </div>
+
+      </article>
+
+      <!-- ─── PACK 2: 2 tarros — MÁS POPULAR (pre-seleccionado) ─── -->
+      <article
+        class="kinu-bun__card kinu-bun__card--popular js-bun-card is-selected"
+        role="listitem"
+        data-pack="2"
+        data-quantity="2"
+        data-label="2 tarros · 220 noches"
+        data-price="$199.900"
+        tabindex="0"
+        aria-pressed="true">
+
+        <div class="kinu-bun__card-top">
+          <span class="kinu-bun__pack-name">2 TARROS</span>
+          <span class="kinu-bun__badge kinu-bun__badge--off">9% Off</span>
+        </div>
+
+        <span class="kinu-bun__popular-tag">Más popular</span>
+
+        <!-- 2 tarros superpuestos -->
+        <div class="kinu-bun__imgs kinu-bun__imgs--2">
+          <img src="{{ jar_img }}" alt="tarro KINU" loading="lazy"
+               width="300" height="300" class="kinu-bun__jar">
+          <img src="{{ jar_img }}" alt="tarro KINU" loading="lazy"
+               width="300" height="300" class="kinu-bun__jar">
+        </div>
+
+        <div class="kinu-bun__nights">220 noches</div>
+
+        <div class="kinu-bun__pricing">
+          <div class="kinu-bun__price-row">
+            <span class="kinu-bun__price-main">$99.950</span>
+            <span class="kinu-bun__price-old">$109.900</span>
+          </div>
+          <span class="kinu-bun__price-unit">$199.900 total · ahorra $19.900</span>
+          <span class="kinu-bun__price-night">$909 / noche</span>
+        </div>
+
+      </article>
+
+      <!-- ─── PACK 3: 3 tarros — MEJOR VALOR ─── -->
+      <article
+        class="kinu-bun__card kinu-bun__card--best js-bun-card"
+        role="listitem"
+        data-pack="3"
+        data-quantity="3"
+        data-label="3 tarros · 330 noches"
+        data-price="$269.900"
+        tabindex="0"
+        aria-pressed="false">
+
+        <div class="kinu-bun__card-top">
+          <span class="kinu-bun__pack-name">3 TARROS</span>
+          <span class="kinu-bun__badge kinu-bun__badge--best">18% Off</span>
+        </div>
+
+        <span class="kinu-bun__best-tag">Mejor valor</span>
+
+        <!-- 3 tarros en abanico -->
+        <div class="kinu-bun__imgs kinu-bun__imgs--3">
+          <img src="{{ jar_img }}" alt="tarro KINU" loading="lazy"
+               width="300" height="300" class="kinu-bun__jar">
+          <img src="{{ jar_img }}" alt="tarro KINU" loading="lazy"
+               width="300" height="300" class="kinu-bun__jar">
+          <img src="{{ jar_img }}" alt="tarro KINU" loading="lazy"
+               width="300" height="300" class="kinu-bun__jar">
+        </div>
+
+        <div class="kinu-bun__nights">330 noches</div>
+
+        <div class="kinu-bun__pricing">
+          <div class="kinu-bun__price-row">
+            <span class="kinu-bun__price-main">$89.967</span>
+            <span class="kinu-bun__price-old">$109.900</span>
+          </div>
+          <span class="kinu-bun__price-unit">$269.900 total · ahorra $59.800</span>
+          <span class="kinu-bun__price-night">$818 / noche</span>
+        </div>
+
+      </article>
+
+    </div><!-- /.kinu-bun__grid -->
+
+    <!-- ── CTA principal ── -->
+    <div class="kinu-bun__cta-wrap js-bun-fade">
+
+      <p class="kinu-bun__selection-label">
+        Seleccionado: <strong id="js-bun-label">2 tarros · 220 noches</strong>
+        <span class="kinu-bun__selection-price" id="js-bun-price">$199.900</span>
+      </p>
+
+      {%- comment -%}
+        NOTA TÉCNICA: Para conectar este botón al carrito de Shopify:
+        1. Crea las variantes (1/2/3 tarros) en Shopify Admin → Productos
+        2. Copia el ID de cada variante
+        3. Reemplaza los data-variant-id="TODO_VARIANT_X" en las cards de arriba
+        El JS abajo ya usa esos IDs para llamar a /cart/add.js
+      {%- endcomment -%}
+      <button class="kinu-bun__buy" id="js-bun-buy"
+              data-product-url="{{ product_url }}">
+        Agregar al carrito &nbsp;→
+      </button>
+
+      <!-- Banner de envío grande y llamativo -->
+      <div class="kinu-bun__ship-banner">
+        <div class="kinu-bun__ship-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 40" fill="none" xmlns="http://www.w3.org/2000/svg"
+               width="72" height="45">
+            <!-- Caja/carga -->
+            <rect x="2" y="8" width="34" height="22" rx="3"
+                  stroke="currentColor" stroke-width="2" fill="none"/>
+            <!-- Cabina del camión -->
+            <path d="M36 18 L36 30 L56 30 L56 18 L48 8 L36 8 Z"
+                  stroke="currentColor" stroke-width="2" fill="none" stroke-linejoin="round"/>
+            <!-- Ventana cabina -->
+            <path d="M38 12 L38 18 L52 18 L52 12 L46 8 Z"
+                  stroke="currentColor" stroke-width="1.5" fill="rgba(26,111,173,0.2)"
+                  stroke-linejoin="round"/>
+            <!-- Ruedas -->
+            <circle cx="14" cy="32" r="6" stroke="currentColor" stroke-width="2" fill="#0A2540"/>
+            <circle cx="14" cy="32" r="2.5" fill="currentColor"/>
+            <circle cx="46" cy="32" r="6" stroke="currentColor" stroke-width="2" fill="#0A2540"/>
+            <circle cx="46" cy="32" r="2.5" fill="currentColor"/>
+            <!-- Suelo/plataforma -->
+            <line x1="2" y1="30" x2="36" y2="30" stroke="currentColor" stroke-width="2"/>
+            <!-- Velocidad: 3 líneas -->
+            <line x1="0" y1="13" x2="10" y2="13" stroke="currentColor" stroke-width="1.5"
+                  stroke-linecap="round" opacity="0.5"/>
+            <line x1="0" y1="18" x2="8"  y2="18" stroke="currentColor" stroke-width="1.5"
+                  stroke-linecap="round" opacity="0.35"/>
+            <line x1="0" y1="23" x2="6"  y2="23" stroke="currentColor" stroke-width="1.5"
+                  stroke-linecap="round" opacity="0.2"/>
+          </svg>
+        </div>
+        <div class="kinu-bun__ship-text">
+          <strong class="kinu-bun__ship-headline">Envío rápido a toda Colombia</strong>
+          <span class="kinu-bun__ship-cities">
+            2 días en Bogotá, Medellín y Cali · envío a todo el país
+          </span>
+        </div>
+      </div>
+
+      <!-- Sellos de confianza estilo certificación -->
+      <div class="kinu-bun__seals">
+
+        <!-- Sello 1: Envío rápido -->
+        <div class="kinu-bun__seal">
+          <div class="kinu-bun__seal-ring" aria-hidden="true">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+              <path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/>
+              <rect x="9" y="11" width="14" height="10" rx="2"/>
+              <path d="M16 11V9a2 2 0 0 0-2-2"/>
+              <line x1="12" y1="16" x2="12" y2="16"/>
+            </svg>
+          </div>
+          <div class="kinu-bun__seal-body">
+            <strong>Envío express</strong>
+            <span>2 días · ciudades principales</span>
+          </div>
+        </div>
+
+        <!-- Sello 2: Garantía -->
+        <div class="kinu-bun__seal kinu-bun__seal--gold">
+          <div class="kinu-bun__seal-ring" aria-hidden="true">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                 stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <polyline points="9 12 11 14 15 10"/>
+            </svg>
+          </div>
+          <div class="kinu-bun__seal-body">
+            <strong>Garantía 30 días</strong>
+            <span>Satisfecho o devolución</span>
+          </div>
+        </div>
+
+        <!-- Sello 3: Pago seguro -->
+        <div class="kinu-bun__seal">
+          <div class="kinu-bun__seal-ring" aria-hidden="true">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                 stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              <line x1="12" y1="15" x2="12" y2="17"/>
+            </svg>
+          </div>
+          <div class="kinu-bun__seal-body">
+            <strong>Pago 100% seguro</strong>
+            <span>Tarjeta crédito · PSE</span>
+          </div>
+        </div>
+
+      </div><!-- /.kinu-bun__seals -->
+
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function () {
+  var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ── Fade-in de elementos al entrar al viewport ── */
+  var fades = Array.prototype.slice.call(document.querySelectorAll('.js-bun-fade'));
+  if (typeof IntersectionObserver !== 'undefined') {
+    var fObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('is-visible'); fObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    fades.forEach(function (el) { fObs.observe(el); });
+  } else {
+    fades.forEach(function (el) { el.classList.add('is-visible'); });
+  }
+
+  /* ── Selección de cards ── */
+  var cards    = Array.prototype.slice.call(document.querySelectorAll('.js-bun-card'));
+  var labelEl  = document.getElementById('js-bun-label');
+  var priceEl  = document.getElementById('js-bun-price');
+  var buyBtn   = document.getElementById('js-bun-buy');
+
+  function selectCard(card) {
+    cards.forEach(function (c) {
+      c.classList.remove('is-selected');
+      c.setAttribute('aria-pressed', 'false');
+    });
+    card.classList.add('is-selected');
+    card.setAttribute('aria-pressed', 'true');
+    if (labelEl) labelEl.textContent = card.dataset.label;
+    if (priceEl) priceEl.textContent = card.dataset.price;
+  }
+
+  cards.forEach(function (card) {
+    card.addEventListener('click', function () { selectCard(card); });
+    card.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectCard(card); }
+    });
+  });
+
+  /* ── Botón de compra ── */
+  if (buyBtn) {
+    buyBtn.addEventListener('click', function () {
+      var selected  = document.querySelector('.js-bun-card.is-selected');
+      if (!selected) return;
+
+      var variantId = selected.dataset.variantId;
+
+      /* Si el variant ID ya está configurado → agregar al carrito vía fetch */
+      if (variantId && variantId !== 'TODO_VARIANT_1'
+                     && variantId !== 'TODO_VARIANT_2'
+                     && variantId !== 'TODO_VARIANT_3') {
+        buyBtn.textContent = 'Agregando…';
+        buyBtn.disabled    = true;
+
+        fetch('/cart/add.js', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body:    JSON.stringify({ id: variantId, quantity: 1 })
+        })
+        .then(function (res) { return res.json(); })
+        .then(function () {
+          window.location.href = '/cart';
+        })
+        .catch(function () {
+          buyBtn.textContent = 'Agregar al carrito  →';
+          buyBtn.disabled    = false;
+          window.location.href = buyBtn.dataset.productUrl || '/cart';
+        });
+
+      } else {
+        /* Variantes aún no configuradas → ir a la página del producto */
+        window.location.href = buyBtn.dataset.productUrl || '/products';
+      }
+    });
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "KINU – Bundles",
+  "tag": "section",
+  "class": "kinu-section-bundles",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Producto KINU"
+    }
+  ],
+  "presets": [{ "name": "KINU – Bundles" }]
+}
+{% endschema %}

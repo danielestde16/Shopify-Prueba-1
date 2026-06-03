@@ -1,0 +1,605 @@
+/* ═══════════════════════════════════════════
+   KINU — Sección Bundles con ahorro
+   3 packs seleccionables · CTA único
+   ═══════════════════════════════════════════ */
+
+@keyframes bun-shimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+@keyframes bun-pulse-best {
+  0%, 100% {
+    box-shadow:
+      0 0 0 1px rgba(201, 168, 76, 0.35),
+      0 0 24px rgba(201, 168, 76, 0.25),
+      0 8px 40px rgba(0, 0, 0, 0.35);
+  }
+  50% {
+    box-shadow:
+      0 0 0 2px rgba(201, 168, 76, 0.55),
+      0 0 40px rgba(201, 168, 76, 0.4),
+      0 8px 40px rgba(0, 0, 0, 0.35);
+  }
+}
+
+@keyframes bun-cta-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(26, 111, 173, 0.5); }
+  50%       { box-shadow: 0 0 0 14px rgba(26, 111, 173, 0); }
+}
+
+/* ── Sección base ──────────────────────── */
+.kinu-bun {
+  background: #0A2540;
+  padding: 104px 0 128px;
+  position: relative;
+}
+
+.kinu-bun__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* ── Encabezado ────────────────────────── */
+.kinu-bun__heading {
+  text-align: center;
+  margin-bottom: 56px;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.kinu-bun__heading.is-visible { opacity: 1; transform: translateY(0); }
+
+.kinu-bun__eyebrow {
+  display: inline-block;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #1A6FAD;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(26, 111, 173, 0.4);
+}
+
+.kinu-bun__title {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(2.2rem, 3.5vw, 3.8rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+  margin: 0 0 18px;
+  background: linear-gradient(
+    90deg,
+    #F0F4FD 25%, #4AADDF 42%, #1A6FAD 50%, #4AADDF 58%, #F0F4FD 75%
+  );
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: bun-shimmer 5s ease-in-out infinite;
+}
+
+.kinu-bun__subtitle {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(1rem, 1.4vw, 1.12rem);
+  font-weight: 300;
+  color: #BACFDD;
+  margin: 0;
+  line-height: 1.7;
+}
+
+/* ── Grid de 3 cards ───────────────────── */
+.kinu-bun__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 48px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s ease 0.12s, transform 0.7s ease 0.12s;
+}
+.kinu-bun__grid.is-visible { opacity: 1; transform: translateY(0); }
+
+/* ── Card base ─────────────────────────── */
+.kinu-bun__card {
+  position: relative;
+  background: #0D1F35;
+  border: 1.5px solid rgba(186, 207, 221, 0.14);
+  border-radius: 18px;
+  padding: 24px 20px 28px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition:
+    border-color 0.25s ease,
+    box-shadow   0.25s ease,
+    transform    0.2s ease;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.28);
+  outline: none;
+  user-select: none;
+}
+.kinu-bun__card:hover {
+  border-color: rgba(26, 111, 173, 0.45);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.35);
+}
+/* Estado seleccionado */
+.kinu-bun__card.is-selected {
+  border-color: #1A6FAD;
+  box-shadow:
+    0 0 0 3px rgba(26, 111, 173, 0.2),
+    0 0 32px rgba(26, 111, 173, 0.4),
+    0 8px 40px rgba(0, 0, 0, 0.35);
+  transform: translateY(-3px);
+}
+/* Card "mejor valor" — glow dorado */
+.kinu-bun__card--best {
+  border-color: rgba(201, 168, 76, 0.3);
+}
+.kinu-bun__card--best.is-selected {
+  border-color: #C9A84C;
+  animation: bun-pulse-best 2.5s ease-in-out infinite;
+  transform: translateY(-3px);
+}
+
+/* ── Top row: nombre + badge ────────────── */
+.kinu-bun__card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.kinu-bun__pack-name {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #BACFDD;
+}
+.kinu-bun__card.is-selected .kinu-bun__pack-name { color: #F0F4FD; }
+
+/* Badges de descuento */
+.kinu-bun__badge {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 20px;
+  padding: 3px 9px;
+  letter-spacing: 0.03em;
+}
+.kinu-bun__badge--off {
+  background: rgba(26, 111, 173, 0.2);
+  color: #4AADDF;
+}
+.kinu-bun__badge--best {
+  background: rgba(201, 168, 76, 0.18);
+  color: #C9A84C;
+}
+
+/* Tags "Más popular" / "Mejor valor" */
+.kinu-bun__popular-tag,
+.kinu-bun__best-tag {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 20px;
+  padding: 4px 14px;
+  white-space: nowrap;
+}
+.kinu-bun__popular-tag {
+  background: #1A6FAD;
+  color: #F0F4FD;
+}
+.kinu-bun__best-tag {
+  background: #C9A84C;
+  color: #0A2540;
+}
+
+/* ── Imágenes del tarro ─────────────────── */
+.kinu-bun__imgs {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  width: 100%;
+  height: 160px;
+  margin: 8px 0 12px;
+  position: relative;
+}
+
+.kinu-bun__jar {
+  height: 150px;
+  width: auto;
+  object-fit: contain;
+  mix-blend-mode: screen;
+  flex-shrink: 0;
+}
+
+/* 1 tarro — centrado */
+.kinu-bun__imgs--1 .kinu-bun__jar {
+  height: 155px;
+}
+
+/* 2 tarros — ligeramente superpuestos */
+.kinu-bun__imgs--2 .kinu-bun__jar {
+  height: 148px;
+  margin: 0 -18px;
+}
+.kinu-bun__imgs--2 .kinu-bun__jar:nth-child(1) {
+  transform: rotate(-6deg) translateX(6px);
+  z-index: 1;
+}
+.kinu-bun__imgs--2 .kinu-bun__jar:nth-child(2) {
+  transform: rotate(6deg) translateX(-6px);
+  z-index: 2;
+}
+
+/* 3 tarros — abanico */
+.kinu-bun__imgs--3 .kinu-bun__jar {
+  height: 140px;
+  margin: 0 -22px;
+}
+.kinu-bun__imgs--3 .kinu-bun__jar:nth-child(1) {
+  transform: rotate(-12deg) translateX(10px);
+  z-index: 1;
+}
+.kinu-bun__imgs--3 .kinu-bun__jar:nth-child(2) {
+  transform: translateY(-8px);
+  z-index: 3;
+  height: 148px;
+}
+.kinu-bun__imgs--3 .kinu-bun__jar:nth-child(3) {
+  transform: rotate(12deg) translateX(-10px);
+  z-index: 2;
+}
+
+/* ── Noches ─────────────────────────────── */
+.kinu-bun__nights {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #1A6FAD;
+  margin-bottom: 14px;
+  padding: 4px 12px;
+  border: 1px solid rgba(26, 111, 173, 0.3);
+  border-radius: 20px;
+}
+.kinu-bun__card--best .kinu-bun__nights {
+  color: #C9A84C;
+  border-color: rgba(201, 168, 76, 0.3);
+}
+
+/* ── Precios ────────────────────────────── */
+.kinu-bun__pricing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  margin-top: auto;
+}
+
+.kinu-bun__price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.kinu-bun__price-main {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(1.6rem, 2.2vw, 2.2rem);
+  font-weight: 800;
+  color: #F0F4FD;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.kinu-bun__price-old {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: rgba(186, 207, 221, 0.5);
+  text-decoration: line-through;
+}
+
+.kinu-bun__price-unit {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 11.5px;
+  font-weight: 400;
+  color: #BACFDD;
+  line-height: 1.5;
+}
+
+.kinu-bun__price-night {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #4AADDF;
+  letter-spacing: 0.04em;
+}
+.kinu-bun__card--best .kinu-bun__price-night { color: #C9A84C; }
+
+/* ── CTA wrap ───────────────────────────── */
+.kinu-bun__cta-wrap {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.7s ease 0.22s, transform 0.7s ease 0.22s;
+}
+.kinu-bun__cta-wrap.is-visible { opacity: 1; transform: translateY(0); }
+
+.kinu-bun__selection-label {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 1rem;
+  color: #BACFDD;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.kinu-bun__selection-label strong { color: #F0F4FD; font-weight: 700; }
+
+.kinu-bun__selection-price {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #4AADDF;
+}
+
+.kinu-bun__buy {
+  background: #1A6FAD;
+  color: #F0F4FD;
+  border: none;
+  border-radius: 50px;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 1.1rem 3rem;
+  min-height: 58px;
+  cursor: pointer;
+  transition: background 0.22s ease, transform 0.18s ease;
+  animation: bun-cta-pulse 2.2s ease-in-out infinite;
+}
+.kinu-bun__buy:hover {
+  background: #155d93;
+  transform: translateY(-2px);
+  animation: none;
+  box-shadow: 0 8px 32px rgba(26, 111, 173, 0.5);
+}
+.kinu-bun__buy:disabled {
+  opacity: 0.7;
+  cursor: wait;
+  animation: none;
+}
+
+/* ── Banner de envío ────────────────────── */
+.kinu-bun__ship-banner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: rgba(26, 111, 173, 0.1);
+  border: 1px solid rgba(26, 111, 173, 0.3);
+  border-radius: 16px;
+  padding: 18px 28px;
+  max-width: 520px;
+  width: 100%;
+}
+
+.kinu-bun__ship-icon {
+  flex-shrink: 0;
+  color: #4AADDF;
+  filter:
+    drop-shadow(0 0 8px rgba(74, 173, 223, 0.7))
+    drop-shadow(0 0 20px rgba(26, 111, 173, 0.4));
+}
+
+.kinu-bun__ship-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+}
+
+.kinu-bun__ship-headline {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #F0F4FD;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.kinu-bun__ship-cities {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 12.5px;
+  font-weight: 400;
+  color: #BACFDD;
+  line-height: 1.4;
+}
+
+/* ── Sellos de confianza ────────────────── */
+.kinu-bun__seals {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  max-width: 560px;
+}
+
+.kinu-bun__seal {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(5, 15, 26, 0.7);
+  border: 1px solid rgba(186, 207, 221, 0.18);
+  border-radius: 12px;
+  padding: 12px 16px;
+  flex: 1;
+  min-width: 150px;
+  max-width: 200px;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.kinu-bun__seal:hover {
+  border-color: rgba(26, 111, 173, 0.45);
+  box-shadow: 0 0 18px rgba(26, 111, 173, 0.15);
+}
+
+/* Sello dorado — garantía */
+.kinu-bun__seal--gold {
+  border-color: rgba(201, 168, 76, 0.28);
+}
+.kinu-bun__seal--gold:hover {
+  border-color: rgba(201, 168, 76, 0.55);
+  box-shadow: 0 0 18px rgba(201, 168, 76, 0.18);
+}
+
+.kinu-bun__seal-ring {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(26, 111, 173, 0.5);
+  background: rgba(26, 111, 173, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4AADDF;
+}
+.kinu-bun__seal--gold .kinu-bun__seal-ring {
+  border-color: rgba(201, 168, 76, 0.5);
+  background: rgba(201, 168, 76, 0.08);
+  color: #C9A84C;
+}
+
+.kinu-bun__seal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.kinu-bun__seal-body strong {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #F0F4FD;
+  line-height: 1.2;
+}
+.kinu-bun__seal-body span {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  color: rgba(186, 207, 221, 0.65);
+  line-height: 1.3;
+}
+
+/* ── Accesibilidad ─────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .kinu-bun__title    { animation: none; -webkit-text-fill-color: #F0F4FD; }
+  .kinu-bun__buy      { animation: none; }
+  .kinu-bun__card--best.is-selected { animation: none; }
+  .kinu-bun__heading,
+  .kinu-bun__grid,
+  .kinu-bun__cta-wrap { opacity: 1; transform: none; transition: none; }
+  .kinu-bun__card     { transition: none; }
+}
+
+/* ══════════════════════════════════════════
+   TABLET 480–767px
+   ══════════════════════════════════════════ */
+@media (max-width: 767px) and (min-width: 480px) {
+  .kinu-bun         { padding: 72px 0 88px; }
+  .kinu-bun__inner  { padding: 0 20px; }
+  .kinu-bun__grid   { grid-template-columns: 1fr; gap: 20px; }
+
+  /* Horizontal en tablet */
+  .kinu-bun__card {
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    padding: 20px 24px;
+    gap: 20px;
+  }
+  .kinu-bun__card-top { flex-direction: column; align-items: flex-start; margin-bottom: 0; }
+  .kinu-bun__imgs     { height: 100px; width: 120px; flex-shrink: 0; margin: 0; }
+  .kinu-bun__jar      { height: 95px; }
+  .kinu-bun__imgs--2 .kinu-bun__jar { height: 88px; }
+  .kinu-bun__imgs--3 .kinu-bun__jar { height: 80px; }
+  .kinu-bun__pricing  { align-items: flex-start; }
+  .kinu-bun__nights   { align-self: flex-start; }
+  .kinu-bun__popular-tag,
+  .kinu-bun__best-tag { top: -11px; }
+}
+
+/* ══════════════════════════════════════════
+   MÓVIL <480px
+   ══════════════════════════════════════════ */
+@media (max-width: 479px) {
+  .kinu-bun        { padding: 72px 0 88px; }
+  .kinu-bun__inner { padding: 0 16px; }
+
+  .kinu-bun__title { font-size: clamp(2rem, 8.5vw, 2.8rem); }
+
+  .kinu-bun__grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .kinu-bun__card { padding: 22px 18px 24px; }
+
+  .kinu-bun__imgs    { height: 140px; }
+  .kinu-bun__jar     { height: 130px; }
+  .kinu-bun__imgs--2 .kinu-bun__jar { height: 122px; }
+  .kinu-bun__imgs--3 .kinu-bun__jar { height: 112px; }
+  .kinu-bun__imgs--3 .kinu-bun__jar:nth-child(2) { height: 120px; }
+
+  .kinu-bun__price-main { font-size: clamp(1.8rem, 8vw, 2.4rem); }
+  .kinu-bun__price-unit { font-size: 12px; }
+
+  .kinu-bun__buy {
+    width: 100%;
+    max-width: 360px;
+    font-size: 1.08rem;
+  }
+
+  /* Banner de envío en móvil */
+  .kinu-bun__ship-banner {
+    padding: 14px 18px;
+    gap: 14px;
+  }
+  .kinu-bun__ship-icon svg { width: 54px; height: 34px; }
+  .kinu-bun__ship-headline  { font-size: 0.95rem; }
+  .kinu-bun__ship-cities    { font-size: 11.5px; }
+
+  /* Sellos apilados en móvil */
+  .kinu-bun__seals {
+    flex-direction: column;
+    gap: 10px;
+    max-width: 360px;
+  }
+  .kinu-bun__seal {
+    max-width: 100%;
+    min-width: 0;
+  }
+}

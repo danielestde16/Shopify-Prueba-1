@@ -28,6 +28,10 @@
       "type": "kinu-reviews",
       "settings": {}
     },
+    "kinu-bundles": {
+      "type": "kinu-bundles",
+      "settings": {}
+    },
     "kinu-valor": {
       "type": "kinu-valor",
       "settings": {}
@@ -38,9 +42,10 @@
     "kinu-hero",
     "kinu-problema",
     "kinu-revelacion",
+    "kinu-valor",
     "kinu-ritual",
     "kinu-ingredient",
     "kinu-reviews",
-    "kinu-valor"
+    "kinu-bundles"
   ]
 }
