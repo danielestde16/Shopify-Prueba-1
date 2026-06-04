@@ -1,14 +1,14 @@
-/* ═══════════════════════════════════════════
+/* ===========================================
    KINU — Gradiente de página unificado
-   Un solo fondo continuo: noche → claridad
-   ═══════════════════════════════════════════ */
+   Un solo fondo continuo: noche -> claridad
+   =========================================== */
 
 body {
   background: linear-gradient(
     to bottom,
     #050F1A   0%,   /* Sección 1: noche profunda   */
-    #0A2540  18%,   /* Sección 1 → 2               */
-    #0D3358  36%,   /* Sección 2 → 3               */
+    #0A2540  18%,   /* Sección 1 -> 2               */
+    #0D3358  36%,   /* Sección 2 -> 3               */
     #10385f  47%,   /* Sección 3 final             */
     #2d6b85  60%,
     #6698ad  72%,
@@ -19,12 +19,12 @@ body {
   min-height: 100vh;
 }
 
-/* ── Neutralizar todas las variables de gradiente de Dawn ── */
+/* -- Neutralizar todas las variables de gradiente de Dawn -- */
 :root {
   --gradient-background: transparent !important;
 }
 
-/* ── Transparencia total en secciones de contenido ── */
+/* -- Transparencia total en secciones de contenido -- */
 .shopify-section:not(.section-header) {
   background: transparent !important;
   background-color: transparent !important;
@@ -40,7 +40,7 @@ body {
   background-image: none !important;
 }
 
-/* ── Bordes y márgenes que crean separación visual ── */
+/* -- Bordes y márgenes que crean separación visual -- */
 .shopify-section {
   border-top: none !important;
   border-bottom: none !important;
@@ -61,12 +61,12 @@ body {
   border-bottom: 1px solid rgba(186, 207, 221, 0.3) !important;
 }
 
-/* ── Wrapper de la sección de estrellas (ocupa cero espacio) ── */
+/* -- Wrapper de la sección de estrellas (ocupa cero espacio) -- */
 .kinu-stars-wrapper {
   display: contents;
 }
 
-/* ── Capa de estrellas fija ──────────────── */
+/* -- Capa de estrellas fija ---------------- */
 .kinu-starfield-fixed {
   position: fixed;
   inset: 0;
@@ -82,7 +82,7 @@ body {
   display: block;
 }
 
-/* ── Z-index: contenido sobre las estrellas ── */
+/* -- Z-index: contenido sobre las estrellas -- */
 .kinu-announcement-wrapper,
 .section-header,
 #MainContent,
@@ -91,7 +91,7 @@ footer {
   z-index: 1;
 }
 
-/* ── Sin fondo propio en el contenedor principal ── */
+/* -- Sin fondo propio en el contenedor principal -- */
 #MainContent {
   background: transparent !important;
   background-color: transparent !important;

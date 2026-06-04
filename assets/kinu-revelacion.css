@@ -1,9 +1,9 @@
-/* ═══════════════════════════════════════════════════
+/* ===================================================
    KINU — Sección 4: La Revelación
-   Diseño: conversación problema → solución
+   Diseño: conversación problema -> solución
    Principios: alineación variada, jerarquía fuerte,
    animaciones selectivas, sin bloques forzados.
-   ═══════════════════════════════════════════════════ */
+   =================================================== */
 
 .kinu-rev {
   background: #0A2540;
@@ -26,7 +26,7 @@
   padding: 0 40px 100px;
 }
 
-/* ── Línea de acento: ancla la sección ── */
+/* -- Línea de acento: ancla la sección -- */
 .kinu-rev__accent {
   width: 72px;
   height: 2px;
@@ -37,11 +37,11 @@
 }
 .kinu-rev__accent.is-visible { opacity: 1; }
 
-/* ─────────────────────────────────────────
+/* -----------------------------------------
    BLOQUE 1: GANCHO
    Centrado, italic, pequeño — el setup
    Como una pregunta que alguien te hace
-   ───────────────────────────────────────── */
+   ----------------------------------------- */
 .kinu-rev__hook {
   text-align: center;
   margin-bottom: 52px;
@@ -61,12 +61,12 @@
   margin: 0;
 }
 
-/* ─────────────────────────────────────────
+/* -----------------------------------------
    BLOQUE 2: LA REVELACIÓN
    Izquierda, enorme, bold — el golpe
    Dos líneas: negación luego reencuadre
    Animación: desliza desde la izquierda
-   ───────────────────────────────────────── */
+   ----------------------------------------- */
 .kinu-rev__headline {
   margin-bottom: 60px;
 }
@@ -103,11 +103,11 @@
 }
 .kinu-rev__hl-pos.is-visible { opacity: 1; transform: translateX(0); }
 
-/* ─────────────────────────────────────────
+/* -----------------------------------------
    BLOQUE 3: CUERPO EXPLICATIVO
    Centrado, tono conversacional — el porqué
    Más pequeño: subordinado al headline
-   ───────────────────────────────────────── */
+   ----------------------------------------- */
 .kinu-rev__body {
   text-align: center;
   max-width: 620px;
@@ -134,7 +134,7 @@
   font-weight: 500;
 }
 
-/* ── Animación LED permanente: "recuperación" y "química" ──
+/* -- Animación LED permanente: "recuperación" y "química" --
    Pulso suave de color y glow — como una luz LED calmada.
    Coherente con el ritmo de la marca (lento, sereno).     */
 @keyframes kinu-led {
@@ -154,11 +154,11 @@
   animation: kinu-led 2.8s ease-in-out infinite;
 }
 
-/* ─────────────────────────────────────────
+/* -----------------------------------------
    BLOQUE 4: RITMO DE KICKER
    Izquierda, medio-bold — construye tensión
    Cada línea aparece escalonada
-   ───────────────────────────────────────── */
+   ----------------------------------------- */
 .kinu-rev__kickers {
   margin-bottom: 72px;
 }
@@ -179,12 +179,12 @@
 }
 .kinu-rev__kicker-line.is-visible { opacity: 1; transform: translateY(0); }
 
-/* ─────────────────────────────────────────
+/* -----------------------------------------
    BLOQUE 5: CIERRE — "Es química."
    Centrado, enorme, azul eléctrico
    Animación: fade + escala sutil — el momento
    que lo resuelve todo antes de la solución
-   ───────────────────────────────────────── */
+   ----------------------------------------- */
 .kinu-rev__final-wrap {
   text-align: center;
   opacity: 0;
@@ -204,7 +204,7 @@
   animation: kinu-led 2.8s ease-in-out infinite;
 }
 
-/* ── Accesibilidad ── */
+/* -- Accesibilidad -- */
 @media (prefers-reduced-motion: reduce) {
   .kinu-rev__accent,
   .kinu-rev__hook,
@@ -224,7 +224,7 @@
   }
 }
 
-/* ── Móvil ── */
+/* -- Móvil -- */
 @media (max-width: 768px) {
   .kinu-rev__inner { padding: 0 24px 80px; }
 

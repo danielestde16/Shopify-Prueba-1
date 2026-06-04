@@ -1,6 +1,6 @@
-/* ═══════════════════════════════════════════
+/* ===========================================
    KINU Announcement Bar — marquee infinito
-   ═══════════════════════════════════════════ */
+   =========================================== */
 
 .kinu-announcement-wrapper {
   position: sticky;
@@ -25,7 +25,7 @@
   align-items: center;
 }
 
-/* ── Track: dos grupos idénticos en fila ─── */
+/* -- Track: dos grupos idénticos en fila --- */
 
 .kinu-bar__track {
   display: flex;
@@ -60,7 +60,7 @@
   padding: 0 0.25rem;
 }
 
-/* ── Versión estática (prefers-reduced-motion) */
+/* -- Versión estática (prefers-reduced-motion) */
 
 .kinu-bar__static {
   display: none;
@@ -74,21 +74,21 @@
   width: 100%;
 }
 
-/* ── Keyframe: mueve exactamente 1 grupo (50% del track total) */
+/* -- Keyframe: mueve exactamente 1 grupo (50% del track total) */
 
 @keyframes kinu-marquee {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 
-/* ── prefers-reduced-motion ──────────────── */
+/* -- prefers-reduced-motion ---------------- */
 
 @media (prefers-reduced-motion: reduce) {
   .kinu-bar__track   { display: none; }
   .kinu-bar__static  { display: block; }
 }
 
-/* ── Ocultar el utility-bar de Dawn ─────── */
+/* -- Ocultar el utility-bar de Dawn ------- */
 
 .utility-bar {
   display: none !important;

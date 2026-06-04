@@ -1,8 +1,8 @@
-/* ═══════════════════════════════════════════
+/* ===========================================
    KINU — Sección 3: El Problema
    Layout: columna centrada, imagen arriba,
    checklist al medio, narrativa abajo.
-   ═══════════════════════════════════════════ */
+   =========================================== */
 
 .kinu-prob {
   background: #050F1A;
@@ -18,7 +18,7 @@
   pointer-events: none;
 }
 
-/* ── Cabecera ── */
+/* -- Cabecera -- */
 .kinu-prob__header {
   max-width: 760px;
   margin: 0 auto;
@@ -36,11 +36,11 @@
   margin: 0;
 }
 
-/* ── Foto integrada ──────────────────────────────────────
+/* -- Foto integrada --------------------------------------
    La imagen NO se pega como un bloque: se funde con el
    fondo oscuro mediante gradientes superior e inferior y
    un filtro que la lleva a la paleta nocturna de KINU.
-   ──────────────────────────────────────────────────────── */
+   -------------------------------------------------------- */
 .kinu-prob__photo {
   position: relative;
   width: 100%;
@@ -82,7 +82,7 @@
   filter: brightness(0.82) saturate(0.8) contrast(1.08);
 }
 
-/* ── Checklist — columna centrada ── */
+/* -- Checklist — columna centrada -- */
 .kinu-prob__checklist-wrap {
   max-width: 640px;
   margin: 0 auto;
@@ -136,7 +136,7 @@
   stroke-dashoffset: 0;
 }
 
-/* ── Checkbox ── */
+/* -- Checkbox -- */
 .kinu-prob__check {
   flex-shrink: 0;
   width: 38px;
@@ -180,7 +180,7 @@
   transition: color 0.5s ease, text-shadow 0.5s ease;
 }
 
-/* ── Narrativa / Respuesta ── */
+/* -- Narrativa / Respuesta -- */
 .kinu-prob__narrative-wrap {
   max-width: 640px;
   margin: 0 auto;
@@ -250,7 +250,7 @@
   color: #1A6FAD;
 }
 
-/* ── Narrativa interactiva — cada bloque por separado ── */
+/* -- Narrativa interactiva — cada bloque por separado -- */
 .kinu-prob__narr-item {
   max-width: 640px;
   margin: 0 auto;
@@ -286,13 +286,13 @@
   margin: 0;
 }
 
-/* ── Animaciones SVG (placeholder moon) ── */
+/* -- Animaciones SVG (placeholder moon) -- */
 @keyframes kinu-glow-moon {
   0%, 100% { opacity: 0.18; }
   50%       { opacity: 0.28; }
 }
 
-/* ── Accesibilidad ── */
+/* -- Accesibilidad -- */
 @media (prefers-reduced-motion: reduce) {
   .kinu-prob__quote,
   .kinu-prob__narrative {
@@ -302,7 +302,7 @@
   .kinu-prob__checkmark { stroke-dashoffset: 0; }
 }
 
-/* ── Móvil ── */
+/* -- Móvil -- */
 @media (max-width: 768px) {
 
   .kinu-prob__header {

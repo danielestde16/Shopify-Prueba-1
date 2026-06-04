@@ -300,21 +300,8 @@
         {%- endcase -%}
       {%- endfor -%}
 
-      <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
-        {% if cart == empty %}
-          <span class="svg-wrapper">{{ 'icon-cart-empty.svg' | inline_asset_content }}</span>
-        {% else %}
-          <span class="svg-wrapper">{{ 'icon-cart.svg' | inline_asset_content }}</span>
-        {% endif %}
-        <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
-        {%- if cart != empty -%}
-          <div class="cart-count-bubble">
-            {%- if cart.item_count < 100 -%}
-              <span aria-hidden="true">{{ cart.item_count }}</span>
-            {%- endif -%}
-            <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
-          </div>
-        {%- endif -%}
+      <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset kinu-fill-btn" id="cart-icon-bubble">
+        <span class="kinu-cart-text">Carrito ({{ cart.item_count }})</span>
       </a>
     </div>
   </header>
@@ -541,6 +528,41 @@
   } else {
     init();
   }
+})();
+
+/* -- Limpiar llenado naranja al volver con el botón "atrás" (bfcache) -- */
+window.addEventListener('pageshow', function (e) {
+  document.querySelectorAll('.kinu-fill-btn.is-filling').forEach(function (btn) {
+    btn.classList.remove('is-filling');
+    btn._kfilling = false;
+  });
+});
+
+/* -- Animación de llenado naranja en todos los .kinu-fill-btn -- */
+(function () {
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.kinu-fill-btn');
+    if (!btn || btn._kfilling) return;
+
+    var href = btn.tagName === 'A' ? btn.getAttribute('href') : null;
+    var isNav = href && href !== '#' && !href.startsWith('javascript') && !href.startsWith('#');
+
+    btn._kfilling = true;
+    btn.classList.add('is-filling');
+
+    if (isNav) {
+      e.preventDefault();
+      /* Desktop hover ya llenó el botón -> navegación casi inmediata */
+      var alreadyFilled = window.matchMedia('(hover: hover)').matches && btn.matches(':hover');
+      var delay = alreadyFilled ? 80 : 460;
+      setTimeout(function () { window.location.href = href; }, delay);
+    } else {
+      setTimeout(function () {
+        btn.classList.remove('is-filling');
+        btn._kfilling = false;
+      }, 620);
+    }
+  }, false);
 })();
 </script>
 

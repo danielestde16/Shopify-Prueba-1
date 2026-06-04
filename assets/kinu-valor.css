@@ -1,8 +1,8 @@
-/* ═══════════════════════════════════════════
+/* ===========================================
    KINU Valor — Layout tipo Collider
    Desktop: 2 col (Spline izq | tabs + contenido der)
    Móvil:   Spline centrado arriba · grid 2×N abajo
-   ═══════════════════════════════════════════ */
+   =========================================== */
 
 @keyframes kv-fade-in {
   from { opacity: 0; transform: translateY(8px); }
@@ -19,13 +19,13 @@
   50%       { box-shadow: 0 0 0 12px rgba(26, 111, 173, 0),   0 4px 28px rgba(26,111,173,0.6); }
 }
 
-/* ─── Contenedor raíz ───────────────────── */
+/* --- Contenedor raíz --------------------- */
 .kinu-v2 {
   position: relative;
   z-index: 2;
 }
 
-/* ─── Spline (compartido desktop/móvil) ── */
+/* --- Spline (compartido desktop/móvil) -- */
 .kinu-spline {
   position: relative;
   width: 100%;
@@ -51,7 +51,7 @@
 
 .kinu-spline--mobile { max-width: 320px; }
 
-/* ─── Icono + tipografía compartidos ───── */
+/* --- Icono + tipografía compartidos ----- */
 .kinu-v2__icon {
   display: flex;
   color: #E8F4FD;
@@ -78,9 +78,9 @@
   line-height: 1.6;
 }
 
-/* ═══════════════════════════════════════════
-   DESKTOP ≥ 769px
-   ═══════════════════════════════════════════ */
+/* ===========================================
+   DESKTOP >= 769px
+   =========================================== */
 .kinu-v2__mobile  { display: none; }
 .kinu-v2__desktop { display: block; }
 
@@ -95,7 +95,7 @@
   padding: 4rem 4rem 4rem 3rem;
 }
 
-/* ─── Columna izquierda: Spline ─────────── */
+/* --- Columna izquierda: Spline ----------- */
 .kinu-v2__product-col {
   display: flex;
   justify-content: center;
@@ -107,7 +107,7 @@
   width: 100%;
 }
 
-/* ─── Columna derecha: contenido ─────────── */
+/* --- Columna derecha: contenido ----------- */
 .kinu-v2__content-col {
   padding: 2rem 2rem 2rem 3rem;
   display: flex;
@@ -150,7 +150,7 @@
 }
 .kinu-v2__hero-title.is-visible { opacity: 1; }
 
-/* ─── Tabs ─────────────────────────────── */
+/* --- Tabs ------------------------------- */
 .kinu-v2__tabs {
   display: flex;
   gap: 8px;
@@ -207,7 +207,7 @@
   line-height: 1.3;
 }
 
-/* ─── Panel de contenido activo ─────────── */
+/* --- Panel de contenido activo ----------- */
 .kinu-v2__content-panel {
   background: rgba(13, 31, 53, 0.75);
   border: 1px solid rgba(186, 207, 221, 0.14);
@@ -242,7 +242,7 @@
   margin: 0;
 }
 
-/* ─── CTAs ──────────────────────────────── */
+/* --- CTAs -------------------------------- */
 .kinu-v2__ctas {
   display: flex;
   gap: 12px;
@@ -288,7 +288,7 @@
   transform: translateY(-1px);
 }
 
-/* ─── Tablet 769-1100px: ajuste proporciones ── */
+/* --- Tablet 769-1100px: ajuste proporciones -- */
 @media screen and (min-width: 769px) and (max-width: 1100px) {
   .kinu-v2__layout     { padding: 3rem 2rem; }
   .kinu-v2__hero-title { font-size: clamp(1.7rem, 2.4vw, 2.4rem); }
@@ -296,10 +296,10 @@
   .kinu-v2__tab        { padding: 10px 6px 9px; }
 }
 
-/* ═══════════════════════════════════════════
-   MÓVIL ≤ 768px
+/* ===========================================
+   MÓVIL <= 768px
    Spline centrado arriba · grid 2×N abajo
-   ═══════════════════════════════════════════ */
+   =========================================== */
 @media screen and (max-width: 768px) {
   .kinu-v2__desktop { display: none; }
   .kinu-v2__mobile  { display: block; }
@@ -375,7 +375,7 @@
   }
 }
 
-/* ─── prefers-reduced-motion ─────────────── */
+/* --- prefers-reduced-motion --------------- */
 @media (prefers-reduced-motion: reduce) {
   .kinu-v2__panel-content  { animation: none; }
   .kinu-v2__hero-title     { animation: none; -webkit-text-fill-color: #F0F4FD; opacity: 1; transition: none; }

@@ -1,8 +1,8 @@
-/* ═══════════════════════════════════════════
+/* ===========================================
    KINU Header & Menú
-   ═══════════════════════════════════════════ */
+   =========================================== */
 
-/* ── Logo del nav ────────────────────────── */
+/* -- Logo del nav -------------------------- */
 
 .kinu-nav-logo {
   /* Logo horizontal 600×150 (ratio 4:1) */
@@ -12,7 +12,7 @@
   flex-shrink: 0;
 }
 
-/* ── Header compacto para ceder protagonismo al hero ── */
+/* -- Header compacto para ceder protagonismo al hero -- */
 
 .header {
   padding-top: 5px !important;
@@ -26,7 +26,7 @@
   }
 }
 
-/* ── Sticky debajo del announcement bar (38px) ──────────
+/* -- Sticky debajo del announcement bar (38px) ----------
    Sin este ajuste el header pega en top:0 y el
    announcement (z-index:400) lo tapa por arriba.        */
 .section-header {
@@ -41,7 +41,7 @@
   top: 38px !important;
 }
 
-/* ── Menú: dropdown pequeño que cae desde el botón ── */
+/* -- Menú: dropdown pequeño que cae desde el botón -- */
 
 header-drawer {
   position: relative !important;
@@ -167,4 +167,266 @@ details.menu-drawer-container > summary::after {
 
 .menu-drawer__utility-links {
   display: none !important;
+}
+
+/* ============================================
+   MÓVIL — Header simplificado y menú KINU
+   ============================================ */
+
+/* Ocultar búsqueda en móvil */
+@media screen and (max-width: 749px) {
+  .header__icon--search,
+  details-modal { display: none !important; }
+}
+
+/* -- Íconos del header: espaciado correcto -- */
+.header__icons {
+  gap: 10px !important;
+  align-items: center !important;
+}
+
+/* -- Carrito: el <a> ES el pill button -- */
+#cart-icon-bubble {
+  position: relative !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 7px 16px !important;
+  width: auto !important;
+  height: auto !important;
+  background: rgba(26, 111, 173, 0.22) !important;
+  border: 1.5px solid rgba(74, 173, 223, 0.5) !important;
+  border-radius: 50px !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+  z-index: 0 !important;
+}
+#cart-icon-bubble::after { display: none !important; }
+
+/* Texto del carrito — solo tipografía, sin caja propia */
+.kinu-cart-text {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #0A2540;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  text-decoration: none !important;
+  position: relative;
+  z-index: 1;
+}
+
+@media screen and (max-width: 749px) {
+  .kinu-nav-logo { width: 160px !important; }
+}
+
+/* ============================================
+   Llenado naranja — todos los .kinu-fill-btn
+   ============================================ */
+.kinu-fill-btn {
+  position: relative !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+  z-index: 0 !important;
+  text-decoration: none !important;
+}
+.kinu-fill-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #D96830 0%, #F09050 55%, #E07540 100%);
+  transform: translateX(-101%);
+  transition: transform 0.48s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: -1;
+  border-radius: inherit;
+}
+/* Click / tap: JS agrega is-filling */
+.kinu-fill-btn.is-filling::before { transform: translateX(0); }
+
+/* Desktop hover: el cursor llena el botón */
+@media (hover: hover) {
+  .kinu-fill-btn:hover::before { transform: translateX(0); }
+}
+
+/* El contenido del botón queda encima del llenado */
+.kinu-fill-btn > * { position: relative; z-index: 1; }
+
+/* ============================================
+   MÓVIL — Drawer: panel que baja desde arriba
+   ============================================ */
+@media screen and (max-width: 749px) {
+  .menu-drawer {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: 88vh !important;
+    overflow-y: auto !important;
+    border-radius: 0 0 24px 24px !important;
+    padding: 0 !important;
+    background: #05121E !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+
+    /* Slide desde arriba */
+    transform: translateY(-110%) !important;
+    opacity: 1 !important;
+    visibility: hidden !important;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                visibility 0.35s !important;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5) !important;
+    z-index: 500 !important;
+  }
+
+  .menu-drawer-container[open] .menu-drawer {
+    transform: translateY(0) !important;
+    visibility: visible !important;
+  }
+}
+
+/* ============================================
+   Contenido del menú KINU
+   ============================================ */
+.kinu-nav {
+  padding: calc(var(--header-height, 64px) + 12px) 20px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: #05121E;
+}
+
+/* Etiqueta de sección */
+.kinu-nav__label {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #1A6FAD;
+  margin: 0 0 10px;
+}
+
+/* Tarjeta del producto */
+.kinu-nav__product {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(240, 244, 253, 0.05);
+  border: 1px solid rgba(186, 207, 221, 0.12);
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+.kinu-nav__product:hover,
+.kinu-nav__product:active {
+  background: rgba(240, 244, 253, 0.1);
+}
+
+.kinu-nav__product-img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  border-radius: 10px;
+  flex-shrink: 0;
+  mix-blend-mode: screen;
+}
+
+.kinu-nav__product-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.kinu-nav__product-name {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #F0F4FD;
+  line-height: 1.2;
+}
+
+.kinu-nav__product-desc {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: #BACFDD;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.kinu-nav__arrow {
+  font-size: 20px;
+  color: #4AADDF;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+/* Separador */
+.kinu-nav__sep {
+  height: 1px;
+  background: rgba(186, 207, 221, 0.1);
+  margin: 14px 0;
+}
+
+/* Crea tu combo */
+.kinu-nav__combo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(26, 111, 173, 0.1);
+  border: 1px solid rgba(26, 111, 173, 0.22);
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+.kinu-nav__combo:hover,
+.kinu-nav__combo:active {
+  background: rgba(26, 111, 173, 0.18);
+}
+
+.kinu-nav__combo-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.kinu-nav__combo-text strong {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #F0F4FD;
+}
+.kinu-nav__combo-text small {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: #BACFDD;
+}
+
+/* Links de sección */
+.kinu-nav__sections {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.kinu-nav__link {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #BACFDD;
+  text-decoration: none;
+  padding: 11px 14px;
+  border-radius: 10px;
+  transition: background 0.18s ease, color 0.18s ease;
+  display: block;
+}
+.kinu-nav__link:hover,
+.kinu-nav__link:active {
+  background: rgba(240, 244, 253, 0.07);
+  color: #F0F4FD;
 }

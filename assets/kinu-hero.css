@@ -1,6 +1,6 @@
-/* ═══════════════════════════════════════════
+/* ===========================================
    KINU Hero
-   ═══════════════════════════════════════════ */
+   =========================================== */
 
 .kinu-hero {
   position: relative;
@@ -13,19 +13,19 @@
   overflow: visible;
 }
 
-/* ═══════════════════════════════════════════
+/* ===========================================
    ESTRELLA FUGAZ — puro CSS
    - Sutil, lenta, esporádica
    - El rasto/estela se desvanece (cometa)
    - prefers-reduced-motion: sin movimiento
-   ═══════════════════════════════════════════ */
+   =========================================== */
 
 .kinu-hero__shoot {
   position: absolute;
   /* Posición base: centro-izquierda del hero, cerca del titular */
   top: 60%;
   left: 0;
-  /* Cola del cometa: gradiente de transparente → blanco brillante */
+  /* Cola del cometa: gradiente de transparente -> blanco brillante */
   width: 280px;
   height: 2px;
   background: linear-gradient(
@@ -43,7 +43,7 @@
   z-index: 10;
   /* Empieza fuera de pantalla por la izquierda, inclinada -20° */
   transform: translateX(-320px) rotate(-20deg);
-  /* Ciclo total 24s: 5s espera → 8s viaje → 2s fade → 9s espera */
+  /* Ciclo total 24s: 5s espera -> 8s viaje -> 2s fade -> 9s espera */
   animation: kinu-shoot 24s ease-in-out 3s infinite;
 }
 
@@ -66,12 +66,12 @@
 }
 
 @keyframes kinu-shoot {
-  /* ── Espera invisible ── */
+  /* -- Espera invisible -- */
   0%, 20% {
     transform: translateX(-320px) rotate(-20deg);
     opacity: 0;
   }
-  /* ── Aparece suavemente ── */
+  /* -- Aparece suavemente -- */
   24% {
     transform: translateX(-80px) rotate(-20deg);
     opacity: 0;
@@ -80,17 +80,17 @@
     transform: translateX(40px) rotate(-20deg);
     opacity: 0.95;
   }
-  /* ── Viaje lento y visible ── */
+  /* -- Viaje lento y visible -- */
   62% {
     transform: translateX(1300px) rotate(-20deg);
     opacity: 0.9;
   }
-  /* ── Desvanece suavemente ── */
+  /* -- Desvanece suavemente -- */
   70% {
     transform: translateX(1550px) rotate(-20deg);
     opacity: 0;
   }
-  /* ── Espera invisible hasta el próximo ciclo ── */
+  /* -- Espera invisible hasta el próximo ciclo -- */
   100% {
     transform: translateX(1600px) rotate(-20deg);
     opacity: 0;
@@ -103,7 +103,7 @@
   }
 }
 
-/* ── Inner ───────────────────────────────── */
+/* -- Inner --------------------------------- */
 
 .kinu-hero__inner {
   position: relative;
@@ -116,7 +116,7 @@
   gap: 2rem;
 }
 
-/* ── Logo ────────────────────────────────── */
+/* -- Logo ---------------------------------- */
 
 .kinu-hero__logo-link {
   display: inline-block;
@@ -129,7 +129,7 @@
   display: block;
 }
 
-/* ── Content block ───────────────────────── */
+/* -- Content block ------------------------- */
 
 .kinu-hero__content {
   display: flex;
@@ -140,7 +140,7 @@
   width: 100%;
 }
 
-/* ── Titular ─────────────────────────────── */
+/* -- Titular ------------------------------- */
 
 .kinu-hero__headline {
   font-family: 'Rubik 80s Fade', cursive;
@@ -153,7 +153,7 @@
   text-align: center;
 }
 
-/* ── Subtexto ────────────────────────────── */
+/* -- Subtexto ------------------------------ */
 
 .kinu-hero__sub {
   font-family: 'Cormorant Garamond', 'Plus Jakarta Sans', Georgia, serif;
@@ -166,7 +166,7 @@
   margin: 0;
 }
 
-/* ── CTA ─────────────────────────────────── */
+/* -- CTA ----------------------------------- */
 
 .kinu-hero__cta {
   font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
@@ -193,7 +193,7 @@
   transform: translateY(-1px);
 }
 
-/* ── Product image ───────────────────────── */
+/* -- Product image ------------------------- */
 
 .kinu-hero__media {
   order: -1;
@@ -210,7 +210,7 @@
   animation: kinu-sway 8s ease-in-out infinite;
 }
 
-/* ── Animaciones de estrellas ────────────── */
+/* -- Animaciones de estrellas -------------- */
 
 @keyframes kinu-sway {
   0%   { transform: translateX(-14px); }
@@ -234,11 +234,11 @@
   }
 }
 
-/* ═══════════════════════════════════════════
+/* ===========================================
    Móvil (max 749px) — gradiente centrado
    para retrato y fusión suave con la sección
    siguiente
-   ═══════════════════════════════════════════ */
+   =========================================== */
 
 @media screen and (max-width: 749px) {
   .kinu-hero {
@@ -258,7 +258,7 @@
     font-size: clamp(1.8rem, 6vw, 2.6rem);
   }
 
-  /* Cursiva: Cormorant Garamond muy fina en móvil →
+  /* Cursiva: Cormorant Garamond muy fina en móvil ->
      Plus Jakarta Sans italic bold, siempre legible */
   .kinu-hero__sub {
     font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
@@ -275,9 +275,9 @@
   }
 }
 
-/* ═══════════════════════════════════════════
+/* ===========================================
    Desktop (750px+)
-   ═══════════════════════════════════════════ */
+   =========================================== */
 
 @media screen and (min-width: 750px) {
   .kinu-hero {

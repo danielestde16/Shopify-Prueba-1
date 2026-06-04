@@ -7,16 +7,16 @@
   [REVISAR LEGAL INVIMA antes de publicar]
 {%- endcomment -%}
 
-<section class="kinu-ing" aria-label="Ingrediente único y respaldo científico">
+<section class="kinu-ing" id="kinu-formula" aria-label="Ingrediente único y respaldo científico">
 
   <!-- Canvas: red molecular animada de fondo -->
   <canvas class="kinu-ing__canvas" id="ing-canvas" aria-hidden="true"></canvas>
 
   <div class="kinu-ing__inner">
 
-    <!-- ══════════════════════════════════════════
+    <!-- ==========================================
          COLUMNA IZQUIERDA — texto + acordeón
-         ══════════════════════════════════════════ -->
+         ========================================== -->
     <div class="kinu-ing__text-col">
 
       <h2 class="kinu-ing__title js-ing-fade">
@@ -31,7 +31,7 @@
         vacías.{%- comment -%} [REVISAR LEGAL INVIMA] {%- endcomment -%}
       </p>
 
-      <!-- ── Sellos dorados ── -->
+      <!-- -- Sellos dorados -- -->
       <div class="kinu-ing__badges js-ing-fade" role="list" aria-label="Garantías de fórmula">
 
         <div class="kinu-ing__badge" role="listitem">
@@ -68,10 +68,10 @@
 
       </div>
 
-      <!-- ── Acordeón: 4 tarjetas, todas cerradas por defecto ── -->
+      <!-- -- Acordeón: 4 tarjetas, todas cerradas por defecto -- -->
       <div class="kinu-ing__accordion" role="list">
 
-        <!-- ─── TARJETA 1: sueño ─── -->
+        <!-- --- TARJETA 1: sueño --- -->
         <div class="kinu-ing__item js-ing-item" role="listitem">
           <button class="kinu-ing__trigger" aria-expanded="false" aria-controls="ing-panel-1">
             <span class="kinu-ing__item-icon" aria-hidden="true">
@@ -99,13 +99,13 @@
               </p>
               <p class="kinu-ing__cite">
                 Wang et al. (2024). The Mechanisms of Magnesium in Sleep Disorders. <em>Dove Medical Press.</em>
-                <a href="https://www.dovepress.com/article/download/107872" class="kinu-ing__cite-link" target="_blank" rel="noopener noreferrer">doi:10.2147/NSS ↗</a>
+                <a href="https://www.dovepress.com/article/download/107872" class="kinu-ing__cite-link" target="_blank" rel="noopener noreferrer">doi:10.2147/NSS -></a>
               </p>
             </div>
           </div>
         </div>
 
-        <!-- ─── TARJETA 2: cortisol ─── -->
+        <!-- --- TARJETA 2: cortisol --- -->
         <div class="kinu-ing__item js-ing-item" role="listitem">
           <button class="kinu-ing__trigger" aria-expanded="false" aria-controls="ing-panel-2">
             <span class="kinu-ing__item-icon" aria-hidden="true">
@@ -134,13 +134,13 @@
               </p>
               <p class="kinu-ing__cite">
                 Boyle et al. (2017). The Effects of Magnesium Supplementation on Subjective Anxiety and Stress. <em>Nutrients, 9(5), 429.</em>
-                <a href="https://pubmed.ncbi.nlm.nih.gov/28445426/" class="kinu-ing__cite-link" target="_blank" rel="noopener noreferrer">doi:10.3390/nu9050429 ↗</a>
+                <a href="https://pubmed.ncbi.nlm.nih.gov/28445426/" class="kinu-ing__cite-link" target="_blank" rel="noopener noreferrer">doi:10.3390/nu9050429 -></a>
               </p>
             </div>
           </div>
         </div>
 
-        <!-- ─── TARJETA 3: biodisponibilidad ─── -->
+        <!-- --- TARJETA 3: biodisponibilidad --- -->
         <div class="kinu-ing__item js-ing-item" role="listitem">
           <button class="kinu-ing__trigger" aria-expanded="false" aria-controls="ing-panel-3">
             <span class="kinu-ing__item-icon" aria-hidden="true">
@@ -171,13 +171,13 @@
               </p>
               <p class="kinu-ing__cite">
                 Kappeler et al. (2017). Higher bioavailability of magnesium citrate vs. magnesium oxide. <em>BMC Nutrition, 3(1).</em>
-                <a href="https://link.springer.com/article/10.1186/s40795-016-0121-3" class="kinu-ing__cite-link" target="_blank" rel="noopener noreferrer">doi:10.1186/s40795-016-0121-3 ↗</a>
+                <a href="https://link.springer.com/article/10.1186/s40795-016-0121-3" class="kinu-ing__cite-link" target="_blank" rel="noopener noreferrer">doi:10.1186/s40795-016-0121-3 -></a>
               </p>
             </div>
           </div>
         </div>
 
-        <!-- ─── TARJETA 4: pureza ─── -->
+        <!-- --- TARJETA 4: pureza --- -->
         <div class="kinu-ing__item js-ing-item" role="listitem">
           <button class="kinu-ing__trigger" aria-expanded="false" aria-controls="ing-panel-4">
             <span class="kinu-ing__item-icon" aria-hidden="true">
@@ -206,7 +206,7 @@
               </p>
               <p class="kinu-ing__cite">
                 NIH Office of Dietary Supplements (2022). Magnesium — Fact Sheet for Health Professionals.
-                <a href="https://ods.od.nih.gov/factsheets/Magnesium-HealthProfessional/" class="kinu-ing__cite-link" target="_blank" rel="noopener noreferrer">ods.od.nih.gov ↗</a>
+                <a href="https://ods.od.nih.gov/factsheets/Magnesium-HealthProfessional/" class="kinu-ing__cite-link" target="_blank" rel="noopener noreferrer">ods.od.nih.gov -></a>
               </p>
             </div>
           </div>
@@ -215,10 +215,10 @@
       </div><!-- /.kinu-ing__accordion -->
     </div><!-- /.kinu-ing__text-col -->
 
-    <!-- ══════════════════════════════════════════
+    <!-- ==========================================
          COLUMNA DERECHA — imágenes sticky (desktop)
          En móvil estas imágenes se usan como fondo
-         ══════════════════════════════════════════ -->
+         ========================================== -->
     <div class="kinu-ing__media-col" aria-hidden="true">
       <div class="kinu-ing__sticky">
 
@@ -253,9 +253,9 @@
 (function () {
   var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ══════════════════════════════════════════════
+  /* ==============================================
      FADE-IN: eyebrow, título, intro, sellos
-     ══════════════════════════════════════════════ */
+     ============================================== */
   var fades = Array.prototype.slice.call(document.querySelectorAll('.js-ing-fade'));
   if (typeof IntersectionObserver !== 'undefined') {
     var fObs = new IntersectionObserver(function (entries) {
@@ -268,9 +268,9 @@
     fades.forEach(function (el) { el.classList.add('is-visible'); });
   }
 
-  /* ══════════════════════════════════════════════
+  /* ==============================================
      ACORDEÓN
-     ══════════════════════════════════════════════ */
+     ============================================== */
   var items = Array.prototype.slice.call(document.querySelectorAll('.js-ing-item'));
 
   function getPanel(item)   { return item.querySelector('.kinu-ing__panel'); }
@@ -318,9 +318,9 @@
     });
   });
 
-  /* ══════════════════════════════════════════════
+  /* ==============================================
      CANVAS: red molecular de fondo
-     ══════════════════════════════════════════════ */
+     ============================================== */
   var canvas = document.getElementById('ing-canvas');
   if (!canvas) return;
 
@@ -389,6 +389,28 @@
     });
 
     if (!REDUCED) raf = requestAnimationFrame(drawFrame);
+  }
+
+  /* ══ Sellos: llenado dorado — se reinicia si el usuario vuelve a subir ══ */
+  var badges = Array.prototype.slice.call(document.querySelectorAll('.kinu-ing__badge'));
+  if (badges.length) {
+    if (REDUCED) {
+      badges.forEach(function (b) { b.classList.add('is-filled'); });
+    } else if (typeof IntersectionObserver !== 'undefined') {
+      var badgeObs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting && e.intersectionRatio >= 0.5) {
+            /* Al entrar: añadir clase — la animación arranca desde 0 */
+            e.target.classList.add('is-filled');
+          } else if (!e.isIntersecting) {
+            /* Al salir completamente: quitar clase para que la animación
+               vuelva al estado inicial (::before vuelve a clip 100%) */
+            e.target.classList.remove('is-filled');
+          }
+        });
+      }, { threshold: [0, 0.5] });
+      badges.forEach(function (b) { badgeObs.observe(b); });
+    }
   }
 
   /* Pausar cuando la sección sale del viewport */

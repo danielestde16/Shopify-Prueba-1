@@ -1,309 +1,394 @@
 {{ 'kinu-valor.css' | asset_url | stylesheet_tag }}
 
-{%- comment -%} SVG íconos reutilizables {%- endcomment -%}
-{%- capture icon_atom -%}
-<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28" aria-hidden="true">
-  <circle cx="24" cy="24" r="3.5" fill="currentColor"/>
-  <ellipse cx="24" cy="24" rx="18" ry="7" stroke="currentColor" stroke-width="1.5" opacity="0.8"/>
-  <ellipse cx="24" cy="24" rx="18" ry="7" stroke="currentColor" stroke-width="1.5" opacity="0.8" transform="rotate(60 24 24)"/>
-  <ellipse cx="24" cy="24" rx="18" ry="7" stroke="currentColor" stroke-width="1.5" opacity="0.8" transform="rotate(-60 24 24)"/>
-</svg>
-{%- endcapture -%}
+<style>
+/* ==============================================
+   KINU Valor — Layout Collider scroll-swap
+   ============================================== */
 
-{%- capture icon_drop -%}
-<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28" aria-hidden="true">
-  <path d="M24 6 C24 6 10 22 10 32 A14 14 0 0 0 38 32 C38 22 24 6 24 6Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-  <path d="M16 31 C16 28 15 26 15 24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
-</svg>
-{%- endcapture -%}
+/* Título protagonista — line-height >= 1 para no cortar descenders */
+.kinu-v2__hero-title {
+  font-size: clamp(3rem, 7vw, 7rem) !important;
+  font-weight: 900 !important;
+  line-height: 1.04 !important;
+  letter-spacing: -0.05em !important;
+  margin-bottom: 28px !important;
+  padding-bottom: 4px !important; /* espacio para descenders */
+}
 
-{%- capture icon_moon -%}
-<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28" aria-hidden="true">
-  <path d="M29 9 A17 17 0 1 0 29 39 A14 14 0 1 1 29 9Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-  <circle cx="36" cy="13" r="1.5" fill="currentColor" opacity="0.6"/>
-  <circle cx="40" cy="22" r="1" fill="currentColor" opacity="0.4"/>
-</svg>
-{%- endcapture -%}
+/* --- DESKTOP >=769px: sección 2×alto, layout sticky --- */
+@media (min-width: 769px) {
+  /* Sección tiene 2 alturas de viewport para que haya espacio de scroll */
+  .kinu-v2__desktop { height: 200vh; position: relative; }
 
-{%- capture icon_scale -%}
-<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28" aria-hidden="true">
-  <path d="M6 22 Q5 10 18 10 Q31 10 30 22 Q29 32 18 32 Q7 32 6 22Z" stroke="currentColor" stroke-width="1.5"/>
-  <path d="M28 28 C35 33 38 36 43 42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-  <circle cx="18" cy="22" r="2.5" fill="currentColor" opacity="0.35"/>
-</svg>
-{%- endcapture -%}
+  /* El layout se queda pegado mientras el usuario scrollea la sección */
+  .kinu-v2__layout {
+    position: sticky !important;
+    top: calc(var(--header-height, 72px) + 2px) !important;
+    height: calc(100vh - var(--header-height, 72px) - 4px) !important;
+    align-items: stretch !important;
+    overflow: hidden;
+  }
 
-{%- capture icon_hex -%}
-<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28" aria-hidden="true">
-  <polygon points="24,5 40,14 40,32 24,41 8,32 8,14" stroke="currentColor" stroke-width="1.5" fill="none"/>
-  <circle cx="24" cy="23" r="3" fill="currentColor"/>
-  <line x1="24" y1="5"  x2="24" y2="20" stroke="currentColor" stroke-width="1" opacity="0.4"/>
-  <line x1="40" y1="14" x2="27" y2="21" stroke="currentColor" stroke-width="1" opacity="0.4"/>
-  <line x1="40" y1="32" x2="27" y2="25" stroke="currentColor" stroke-width="1" opacity="0.4"/>
-  <line x1="24" y1="41" x2="24" y2="26" stroke="currentColor" stroke-width="1" opacity="0.4"/>
-  <line x1="8"  y1="32" x2="21" y2="25" stroke="currentColor" stroke-width="1" opacity="0.4"/>
-  <line x1="8"  y1="14" x2="21" y2="21" stroke="currentColor" stroke-width="1" opacity="0.4"/>
-</svg>
-{%- endcapture -%}
+  /* Columna izquierda: llena el alto del layout */
+  .kinu-v2__product-col {
+    display: flex !important;
+    align-items: center !important;
+    height: 100% !important;
+  }
 
-{%- comment -%} URL del producto para el CTA {%- endcomment -%}
+  /* Columna derecha: contenedor de los dos paneles */
+  .kinu-v2__content-col {
+    position: relative !important;
+    overflow: hidden !important;
+    height: 100% !important;
+  }
+
+  /* Paneles superpuestos en el mismo espacio */
+  .kinu-v2__panel-a,
+  .kinu-v2__panel-b {
+    position: absolute !important;
+    inset: 0 !important;
+    padding: 44px 0 44px 64px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    overflow-y: auto !important;
+    transition: opacity 0.55s ease, transform 0.55s ease !important;
+  }
+
+  .kinu-v2__panel-a { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .kinu-v2__panel-b { opacity: 0; transform: translateY(44px); pointer-events: none; }
+
+  .kinu-v2--stats .kinu-v2__panel-a { opacity: 0; transform: translateY(-44px); pointer-events: none; }
+  .kinu-v2--stats .kinu-v2__panel-b { opacity: 1; transform: translateY(0); pointer-events: auto; }
+}
+
+/* Títulos panel B */
+.kinu-v2__panel-b-title {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(2.4rem, 5vw, 5rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.97;
+  color: #F0F4FD;
+  margin: 0 0 16px;
+}
+.kinu-v2__panel-b-sub {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: #BACFDD;
+  line-height: 1.6;
+  margin: 0 0 36px;
+  max-width: 420px;
+}
+
+/* Stat grid */
+.kinu-v2__stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 480px; }
+
+.kinu-v2__stat {
+  background: rgba(5, 15, 26, 0.7);
+  border: 1px solid rgba(74, 173, 223, 0.28);
+  border-radius: 18px;
+  padding: 28px 18px 22px;
+  display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px;
+  position: relative; overflow: hidden;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.kinu-v2__stat.is-visible { opacity: 1; transform: translateY(0); }
+.kinu-v2__stat::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(74,173,223,0.1) 0%, transparent 65%);
+  pointer-events: none;
+}
+.kinu-v2__stat--gold { border-color: rgba(201,168,76,0.38); }
+.kinu-v2__stat--gold::before { background: radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.12) 0%, transparent 65%); }
+
+.kinu-v2__stat-num {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 900; line-height: 1; letter-spacing: -0.03em;
+  color: #4AADDF; text-shadow: 0 0 32px rgba(74,173,223,0.5);
+}
+.kinu-v2__stat--gold .kinu-v2__stat-num { color: #C9A84C; text-shadow: 0 0 32px rgba(201,168,76,0.45); }
+.kinu-v2__stat-label { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 12.5px; font-weight: 500; color: #BACFDD; line-height: 1.45; margin: 0; }
+.kinu-v2__stat-cite  { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 9.5px; color: rgba(186,207,221,0.4); letter-spacing: 0.03em; }
+
+/* --- MÓVIL --- */
+.kinu-v2__m-hero { padding: 48px 20px 0; text-align: center; }
+.kinu-v2__m-hero-title {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(2.4rem, 9vw, 3.4rem); font-weight: 900; letter-spacing: -0.05em; line-height: 0.97;
+  color: #F0F4FD; margin: 0 0 12px;
+}
+.kinu-v2__m-hero-sub { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 1rem; color: #BACFDD; line-height: 1.6; margin: 0; }
+
+.kinu-v2__m-stats { padding: 40px 20px 48px; background: rgba(5, 15, 26, 0.4); }
+.kinu-v2__m-stats-title {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(1.8rem, 7vw, 2.6rem); font-weight: 900; letter-spacing: -0.04em; line-height: 1.0;
+  color: #F0F4FD; text-align: center; margin: 0 0 8px;
+}
+.kinu-v2__m-stats-sub { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 0.95rem; color: #BACFDD; text-align: center; margin: 0 0 24px; line-height: 1.5; }
+.kinu-v2__m-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+@media (max-width: 479px) {
+  .kinu-v2__m-stat-grid .kinu-v2__stat { padding: 18px 10px 14px; }
+  .kinu-v2__stat-num { font-size: clamp(2.4rem, 10vw, 3.2rem) !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kinu-v2__panel-a, .kinu-v2__panel-b { transition: none !important; }
+  .kinu-v2__stat { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
+</style>
+
+{%- capture icon_atom -%}<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28" aria-hidden="true"><circle cx="24" cy="24" r="3.5" fill="currentColor"/><ellipse cx="24" cy="24" rx="18" ry="7" stroke="currentColor" stroke-width="1.5" opacity="0.8"/><ellipse cx="24" cy="24" rx="18" ry="7" stroke="currentColor" stroke-width="1.5" opacity="0.8" transform="rotate(60 24 24)"/><ellipse cx="24" cy="24" rx="18" ry="7" stroke="currentColor" stroke-width="1.5" opacity="0.8" transform="rotate(-60 24 24)"/></svg>{%- endcapture -%}
+{%- capture icon_drop -%}<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28" aria-hidden="true"><path d="M24 6 C24 6 10 22 10 32 A14 14 0 0 0 38 32 C38 22 24 6 24 6Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M16 31 C16 28 15 26 15 24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/></svg>{%- endcapture -%}
+{%- capture icon_moon -%}<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28" aria-hidden="true"><path d="M29 9 A17 17 0 1 0 29 39 A14 14 0 1 1 29 9Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="36" cy="13" r="1.5" fill="currentColor" opacity="0.6"/><circle cx="40" cy="22" r="1" fill="currentColor" opacity="0.4"/></svg>{%- endcapture -%}
+{%- capture icon_scale -%}<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28" aria-hidden="true"><path d="M6 22 Q5 10 18 10 Q31 10 30 22 Q29 32 18 32 Q7 32 6 22Z" stroke="currentColor" stroke-width="1.5"/><path d="M28 28 C35 33 38 36 43 42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="18" cy="22" r="2.5" fill="currentColor" opacity="0.35"/></svg>{%- endcapture -%}
+{%- capture icon_hex -%}<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28" aria-hidden="true"><polygon points="24,5 40,14 40,32 24,41 8,32 8,14" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="24" cy="23" r="3" fill="currentColor"/><line x1="24" y1="5" x2="24" y2="20" stroke="currentColor" stroke-width="1" opacity="0.4"/><line x1="40" y1="14" x2="27" y2="21" stroke="currentColor" stroke-width="1" opacity="0.4"/><line x1="40" y1="32" x2="27" y2="25" stroke="currentColor" stroke-width="1" opacity="0.4"/><line x1="24" y1="41" x2="24" y2="26" stroke="currentColor" stroke-width="1" opacity="0.4"/><line x1="8" y1="32" x2="21" y2="25" stroke="currentColor" stroke-width="1" opacity="0.4"/><line x1="8" y1="14" x2="21" y2="21" stroke="currentColor" stroke-width="1" opacity="0.4"/></svg>{%- endcapture -%}
+
 {%- if section.settings.product != blank -%}
   {%- assign product_url = section.settings.product.url -%}
 {%- else -%}
   {%- assign product_url = collections.all.products.first.url | default: '#' -%}
 {%- endif -%}
 
-<div class="kinu-v2" role="region" aria-label="Qué hace especial a KINU">
+<div class="kinu-v2" id="kinu-beneficios" role="region" aria-label="Qué hace especial a KINU">
 
-  <!-- ══════════════════════════════════════════════════
-       DESKTOP (≥ 769px)
-       2 columnas: Spline izquierda | tabs + contenido derecha
-       ══════════════════════════════════════════════════ -->
+  <!-- ========== DESKTOP >=769px ========== -->
   <div class="kinu-v2__desktop">
     <div class="kinu-v2__layout">
 
-      <!-- Columna izquierda: Spline 3D -->
+      <!-- Izquierda: Spline sticky -->
       <div class="kinu-v2__product-col">
         <div class="kinu-spline" id="kinu-spline-desktop">
-          <iframe
-            src="https://my.spline.design/kinudef-NRPFFaG0qACP6RXXJmzxyEml/"
-            frameborder="0"
-            loading="lazy"
-            title="KINU Magnesio 3D"
-          ></iframe>
+          <iframe src="https://my.spline.design/kinudef-NRPFFaG0qACP6RXXJmzxyEml/" frameborder="0" loading="lazy" title="KINU Magnesio 3D"></iframe>
         </div>
       </div>
 
-      <!-- Columna derecha: eyebrow + título + tabs + panel + CTAs -->
+      <!-- Derecha: dos paneles superpuestos -->
       <div class="kinu-v2__content-col">
 
-        <span class="kinu-v2__eyebrow">Citrato de magnesio puro · 110 porciones</span>
-
-        <h2 class="kinu-v2__hero-title js-kv-title">
-          Magnesio puro para mentes<br>que no se apagan.
-        </h2>
-
-        <!-- Selector de beneficios (tabs) -->
-        <div class="kinu-v2__tabs" role="tablist" aria-label="Beneficios KINU">
-
-          <button class="kinu-v2__tab is-active"
-                  data-target="kv-tab-1"
-                  role="tab" aria-selected="true" aria-controls="kv-tab-1">
-            <span class="kinu-v2__tab-icon">{{ icon_atom }}</span>
-            <span class="kinu-v2__tab-lbl">1 solo<br>ingrediente</span>
-          </button>
-
-          <button class="kinu-v2__tab"
-                  data-target="kv-tab-2"
-                  role="tab" aria-selected="false" aria-controls="kv-tab-2">
-            <span class="kinu-v2__tab-icon">{{ icon_drop }}</span>
-            <span class="kinu-v2__tab-lbl">Sin sabor.<br>Sin stevia.</span>
-          </button>
-
-          <button class="kinu-v2__tab"
-                  data-target="kv-tab-3"
-                  role="tab" aria-selected="false" aria-controls="kv-tab-3">
-            <span class="kinu-v2__tab-icon">{{ icon_moon }}</span>
-            <span class="kinu-v2__tab-lbl">110<br>noches</span>
-          </button>
-
-          <button class="kinu-v2__tab"
-                  data-target="kv-tab-4"
-                  role="tab" aria-selected="false" aria-controls="kv-tab-4">
-            <span class="kinu-v2__tab-icon">{{ icon_scale }}</span>
-            <span class="kinu-v2__tab-lbl">280mg<br>por porción</span>
-          </button>
-
-          <button class="kinu-v2__tab"
-                  data-target="kv-tab-5"
-                  role="tab" aria-selected="false" aria-controls="kv-tab-5">
-            <span class="kinu-v2__tab-icon">{{ icon_hex }}</span>
-            <span class="kinu-v2__tab-lbl">Citrato<br>puro</span>
-          </button>
-
-        </div><!-- /.kinu-v2__tabs -->
-
-        <!-- Panel de contenido del beneficio activo -->
-        <div class="kinu-v2__content-panel" role="region" aria-live="polite">
-
-          <div class="kinu-v2__panel-content is-active" id="kv-tab-1" role="tabpanel">
-            <h3 class="kinu-v2__panel-title">1 solo ingrediente</h3>
-            <p class="kinu-v2__panel-desc">
-              Citrato de magnesio puro. Sin mezclas. Sin rellenos.
-              Sabes exactamente qué entra a tu cuerpo.
-            </p>
+        <!-- Panel A: Beneficios (visible primero) -->
+        <div class="kinu-v2__panel-a">
+          <span class="kinu-v2__eyebrow">Citrato de magnesio puro · 110 porciones</span>
+          <h2 class="kinu-v2__hero-title js-kv-title">
+            Magnesio puro<br>para mentes<br>que no se apagan.
+          </h2>
+          <div class="kinu-v2__tabs" role="tablist" aria-label="Beneficios KINU">
+            <button class="kinu-v2__tab is-active" data-target="kv-tab-1" role="tab" aria-selected="true" aria-controls="kv-tab-1"><span class="kinu-v2__tab-icon">{{ icon_atom }}</span><span class="kinu-v2__tab-lbl">1 solo<br>ingrediente</span></button>
+            <button class="kinu-v2__tab" data-target="kv-tab-2" role="tab" aria-selected="false" aria-controls="kv-tab-2"><span class="kinu-v2__tab-icon">{{ icon_drop }}</span><span class="kinu-v2__tab-lbl">Sin sabor.<br>Sin stevia.</span></button>
+            <button class="kinu-v2__tab" data-target="kv-tab-3" role="tab" aria-selected="false" aria-controls="kv-tab-3"><span class="kinu-v2__tab-icon">{{ icon_moon }}</span><span class="kinu-v2__tab-lbl">110<br>noches</span></button>
+            <button class="kinu-v2__tab" data-target="kv-tab-4" role="tab" aria-selected="false" aria-controls="kv-tab-4"><span class="kinu-v2__tab-icon">{{ icon_scale }}</span><span class="kinu-v2__tab-lbl">280mg<br>por porción</span></button>
+            <button class="kinu-v2__tab" data-target="kv-tab-5" role="tab" aria-selected="false" aria-controls="kv-tab-5"><span class="kinu-v2__tab-icon">{{ icon_hex }}</span><span class="kinu-v2__tab-lbl">Citrato<br>puro</span></button>
           </div>
-
-          <div class="kinu-v2__panel-content" id="kv-tab-2" role="tabpanel">
-            <h3 class="kinu-v2__panel-title">Sin sabor. Sin stevia.</h3>
-            <p class="kinu-v2__panel-desc">
-              Se disuelve invisible en cualquier líquido.
-              Sin comprometer nada — ni el gusto ni la pureza.
-            </p>
+          <div class="kinu-v2__content-panel" role="region" aria-live="polite">
+            <div class="kinu-v2__panel-content is-active" id="kv-tab-1" role="tabpanel"><h3 class="kinu-v2__panel-title">1 solo ingrediente</h3><p class="kinu-v2__panel-desc">Citrato de magnesio puro. Sin mezclas. Sin rellenos. Sabes exactamente qué entra a tu cuerpo.</p></div>
+            <div class="kinu-v2__panel-content" id="kv-tab-2" role="tabpanel"><h3 class="kinu-v2__panel-title">Sin sabor. Sin stevia.</h3><p class="kinu-v2__panel-desc">Se disuelve invisible en cualquier líquido. Sin comprometer nada — ni el gusto ni la pureza.</p></div>
+            <div class="kinu-v2__panel-content" id="kv-tab-3" role="tabpanel"><h3 class="kinu-v2__panel-title">110 noches</h3><p class="kinu-v2__panel-desc">Un tarro. Cuatro meses de ritual nocturno. 2 g por noche, 110 porciones de calma.</p></div>
+            <div class="kinu-v2__panel-content" id="kv-tab-4" role="tabpanel"><h3 class="kinu-v2__panel-title">280 mg por porción</h3><p class="kinu-v2__panel-desc">La dosis respaldada por la ciencia. 280 mg de magnesio elemental por cada porción de 2 g.</p></div>
+            <div class="kinu-v2__panel-content" id="kv-tab-5" role="tabpanel"><h3 class="kinu-v2__panel-title">Citrato puro</h3><p class="kinu-v2__panel-desc">La forma de magnesio con mayor biodisponibilidad. Se absorbe más, trabaja mejor. No es marketing: es química.</p></div>
           </div>
-
-          <div class="kinu-v2__panel-content" id="kv-tab-3" role="tabpanel">
-            <h3 class="kinu-v2__panel-title">110 noches</h3>
-            <p class="kinu-v2__panel-desc">
-              Un tarro. Cuatro meses de ritual nocturno.
-              2 g por noche, 110 porciones de calma.
-            </p>
+          <div class="kinu-v2__ctas">
+            <a href="{{ product_url }}" class="kinu-v2__cta kinu-v2__cta--primary kinu-fill-btn">Quiero mi KINU &nbsp;-></a>
           </div>
+        </div>
 
-          <div class="kinu-v2__panel-content" id="kv-tab-4" role="tabpanel">
-            <h3 class="kinu-v2__panel-title">280 mg por porción</h3>
-            <p class="kinu-v2__panel-desc">
-              La dosis respaldada por la ciencia.
-              280 mg de magnesio elemental por cada porción de 2 g.
-            </p>
+        <!-- Panel B: Contadores (aparece al scrollear) -->
+        <div class="kinu-v2__panel-b">
+          <h3 class="kinu-v2__panel-b-title">Respaldado<br>por la ciencia.</h3>
+          <p class="kinu-v2__panel-b-sub">El citrato de magnesio tiene décadas de investigación detrás. No es tendencia — es bioquímica.</p>
+          <div class="kinu-v2__stat-grid">
+            <div class="kinu-v2__stat js-kv-stat">
+              <div class="kinu-v2__stat-num"><span class="js-kv-count" data-target="300" data-prefix="+" data-suffix="">0</span></div>
+              <p class="kinu-v2__stat-label">estudios científicos respaldan el citrato de magnesio</p>
+              <span class="kinu-v2__stat-cite">PubMed</span>
+            </div>
+            <div class="kinu-v2__stat kinu-v2__stat--gold js-kv-stat">
+              <div class="kinu-v2__stat-num"><span class="js-kv-count" data-target="80" data-prefix="" data-suffix="%">0</span></div>
+              <p class="kinu-v2__stat-label">mayor absorción del citrato vs. óxido de magnesio</p>
+              <span class="kinu-v2__stat-cite">Kappeler et al., BMC Nutrition (2017)</span>
+            </div>
           </div>
-
-          <div class="kinu-v2__panel-content" id="kv-tab-5" role="tabpanel">
-            <h3 class="kinu-v2__panel-title">Citrato puro</h3>
-            <p class="kinu-v2__panel-desc">
-              La forma de magnesio con mayor biodisponibilidad.
-              Se absorbe más, trabaja mejor. No es marketing: es química.
-            </p>
+          <!-- CTA siempre visible en ambos paneles -->
+          <div class="kinu-v2__ctas" style="margin-top: 32px;">
+            <a href="{{ product_url }}" class="kinu-v2__cta kinu-v2__cta--primary kinu-fill-btn">Quiero mi KINU &nbsp;-></a>
           </div>
-
-        </div><!-- /.kinu-v2__content-panel -->
-
-        <!-- CTAs -->
-        <div class="kinu-v2__ctas">
-          <a href="{{ product_url }}" class="kinu-v2__cta kinu-v2__cta--primary">
-            Quiero mi KINU &nbsp;→
-          </a>
-          <a href="#kinu-ingredient" class="kinu-v2__cta kinu-v2__cta--secondary">
-            Ver el ingrediente ↓
-          </a>
         </div>
 
       </div><!-- /.kinu-v2__content-col -->
-    </div><!-- /.kinu-v2__layout -->
-  </div><!-- /.kinu-v2__desktop -->
+    </div>
+  </div>
 
-  <!-- ══════════════════════════════════════════════════
-       MÓVIL (≤ 768px)
-       Spline centrado arriba · grid 2 columnas abajo
-       ══════════════════════════════════════════════════ -->
+  <!-- ========== MÓVIL <=768px ========== -->
   <div class="kinu-v2__mobile">
-
-    <!-- Spline centrado -->
+    <div class="kinu-v2__m-hero">
+      <h2 class="kinu-v2__m-hero-title">Magnesio puro<br>para mentes que<br>no se apagan.</h2>
+      <p class="kinu-v2__m-hero-sub">Citrato de magnesio puro · 110 porciones · 280 mg</p>
+    </div>
     <div class="kinu-v2__m-jar">
       <div class="kinu-spline kinu-spline--mobile" id="kinu-spline-mobile">
-        <iframe
-          src="https://my.spline.design/kinudef-NRPFFaG0qACP6RXXJmzxyEml/"
-          frameborder="0"
-          loading="lazy"
-          title="KINU Magnesio 3D"
-        ></iframe>
+        <iframe src="https://my.spline.design/kinudef-NRPFFaG0qACP6RXXJmzxyEml/" frameborder="0" loading="lazy" title="KINU Magnesio 3D"></iframe>
       </div>
     </div>
-
-    <!-- Grid 2 × N de cards -->
     <div class="kinu-v2__m-grid">
-
-      <div class="kinu-v2__m-attr" data-seq="1">
-        <div class="kinu-v2__icon">{{ icon_atom }}</div>
-        <h3 class="kinu-v2__title">1 solo ingrediente</h3>
-        <p class="kinu-v2__desc">Citrato de magnesio puro. Sin mezclas. Sin rellenos.</p>
+      <div class="kinu-v2__m-attr" data-seq="1"><div class="kinu-v2__icon">{{ icon_atom }}</div><h3 class="kinu-v2__title">1 solo ingrediente</h3><p class="kinu-v2__desc">Citrato de magnesio puro. Sin mezclas. Sin rellenos.</p></div>
+      <div class="kinu-v2__m-attr" data-seq="2"><div class="kinu-v2__icon">{{ icon_drop }}</div><h3 class="kinu-v2__title">Sin sabor. Sin stevia.</h3><p class="kinu-v2__desc">Se disuelve invisible en cualquier líquido.</p></div>
+      <div class="kinu-v2__m-attr" data-seq="3"><div class="kinu-v2__icon">{{ icon_moon }}</div><h3 class="kinu-v2__title">110 noches</h3><p class="kinu-v2__desc">Un tarro. Cuatro meses de ritual nocturno.</p></div>
+      <div class="kinu-v2__m-attr" data-seq="4"><div class="kinu-v2__icon">{{ icon_scale }}</div><h3 class="kinu-v2__title">280mg por porción</h3><p class="kinu-v2__desc">La dosis respaldada por la ciencia.</p></div>
+      <div class="kinu-v2__m-attr kinu-v2__m-attr--full" data-seq="5"><div class="kinu-v2__icon">{{ icon_hex }}</div><h3 class="kinu-v2__title">Citrato puro</h3><p class="kinu-v2__desc">La forma de magnesio con mayor biodisponibilidad.</p></div>
+    </div>
+    <!-- Contadores móvil -->
+    <div class="kinu-v2__m-stats">
+      <h3 class="kinu-v2__m-stats-title">Respaldado por la ciencia.</h3>
+      <p class="kinu-v2__m-stats-sub">Los números detrás del citrato de magnesio.</p>
+      <div class="kinu-v2__m-stat-grid">
+        <div class="kinu-v2__stat js-kv-stat"><div class="kinu-v2__stat-num"><span class="js-kv-count" data-target="300" data-prefix="+" data-suffix="">0</span></div><p class="kinu-v2__stat-label">estudios científicos respaldan el citrato</p><span class="kinu-v2__stat-cite">PubMed</span></div>
+        <div class="kinu-v2__stat kinu-v2__stat--gold js-kv-stat"><div class="kinu-v2__stat-num"><span class="js-kv-count" data-target="80" data-prefix="" data-suffix="%">0</span></div><p class="kinu-v2__stat-label">mayor absorción vs. óxido de magnesio</p><span class="kinu-v2__stat-cite">Kappeler et al. (2017)</span></div>
       </div>
-
-      <div class="kinu-v2__m-attr" data-seq="2">
-        <div class="kinu-v2__icon">{{ icon_drop }}</div>
-        <h3 class="kinu-v2__title">Sin sabor. Sin stevia.</h3>
-        <p class="kinu-v2__desc">Se disuelve invisible en cualquier líquido.</p>
-      </div>
-
-      <div class="kinu-v2__m-attr" data-seq="3">
-        <div class="kinu-v2__icon">{{ icon_moon }}</div>
-        <h3 class="kinu-v2__title">110 noches</h3>
-        <p class="kinu-v2__desc">Un tarro. Cuatro meses de ritual nocturno.</p>
-      </div>
-
-      <div class="kinu-v2__m-attr" data-seq="4">
-        <div class="kinu-v2__icon">{{ icon_scale }}</div>
-        <h3 class="kinu-v2__title">280mg por porción</h3>
-        <p class="kinu-v2__desc">La dosis respaldada por la ciencia.</p>
-      </div>
-
-      <!-- 5a card: ocupa columna completa -->
-      <div class="kinu-v2__m-attr kinu-v2__m-attr--full" data-seq="5">
-        <div class="kinu-v2__icon">{{ icon_hex }}</div>
-        <h3 class="kinu-v2__title">Citrato puro</h3>
-        <p class="kinu-v2__desc">La forma de magnesio con mayor biodisponibilidad.</p>
-      </div>
-
-    </div><!-- /.kinu-v2__m-grid -->
-
-  </div><!-- /.kinu-v2__mobile -->
+    </div>
+  </div>
 
 </div><!-- /.kinu-v2 -->
 
 <script>
 (function () {
   var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var kvEl    = document.querySelector('.kinu-v2');
+  var desktop = document.querySelector('.kinu-v2__desktop');
 
-  /* ── Título: fade-in al entrar al viewport ── */
+  /* -- Fade-in título -- */
   var heroTitle = document.querySelector('.js-kv-title');
-  if (heroTitle && typeof IntersectionObserver !== 'undefined') {
-    var tObs = new IntersectionObserver(function (entries) {
-      if (entries[0].isIntersecting) {
-        heroTitle.classList.add('is-visible');
-        tObs.disconnect();
-      }
-    }, { threshold: 0.2 });
-    tObs.observe(heroTitle);
-  } else if (heroTitle) {
-    heroTitle.classList.add('is-visible');
+  if (heroTitle) {
+    if (REDUCED || typeof IntersectionObserver === 'undefined') {
+      heroTitle.classList.add('is-visible');
+    } else {
+      var tObs = new IntersectionObserver(function (e) {
+        if (e[0].isIntersecting) { heroTitle.classList.add('is-visible'); tObs.disconnect(); }
+      }, { threshold: 0.15 });
+      tObs.observe(heroTitle);
+    }
   }
 
-  /* ══════════════════════════════════════════════
-     DESKTOP — interacción por tabs (clic)
-     ══════════════════════════════════════════════ */
-  var desktop = document.querySelector('.kinu-v2__desktop');
+  /* -- Tabs desktop -- */
   if (desktop) {
     var tabs   = Array.prototype.slice.call(desktop.querySelectorAll('.kinu-v2__tab'));
     var panels = Array.prototype.slice.call(desktop.querySelectorAll('.kinu-v2__panel-content'));
-
     tabs.forEach(function (tab) {
       tab.addEventListener('click', function () {
-        var target = tab.dataset.target;
-
-        tabs.forEach(function (t) {
-          t.classList.remove('is-active');
-          t.setAttribute('aria-selected', 'false');
-        });
+        tabs.forEach(function (t) { t.classList.remove('is-active'); t.setAttribute('aria-selected', 'false'); });
         panels.forEach(function (p) { p.classList.remove('is-active'); });
-
-        tab.classList.add('is-active');
-        tab.setAttribute('aria-selected', 'true');
-        var panel = document.getElementById(target);
-        if (panel) panel.classList.add('is-active');
+        tab.classList.add('is-active'); tab.setAttribute('aria-selected', 'true');
+        var p = document.getElementById(tab.dataset.target);
+        if (p) p.classList.add('is-active');
       });
     });
   }
 
-  /* ══════════════════════════════════════════════
-     MÓVIL — IntersectionObserver: card activa al entrar
-     ══════════════════════════════════════════════ */
+  /* -- Cards móvil -- */
   var mobile = document.querySelector('.kinu-v2__mobile');
-  var mAttrs = mobile
-    ? Array.prototype.slice.call(mobile.querySelectorAll('.kinu-v2__m-attr'))
-    : [];
-
+  var mAttrs = mobile ? Array.prototype.slice.call(mobile.querySelectorAll('.kinu-v2__m-attr')) : [];
   if (mobile && mAttrs.length) {
-    if (REDUCED) {
-      mAttrs.forEach(function (a) { a.classList.add('is-active'); });
-    } else if (typeof IntersectionObserver !== 'undefined') {
-      var obs = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          e.target.classList.toggle('is-active', e.isIntersecting);
-        });
-      }, { threshold: 0.4, rootMargin: '-5% 0px -5% 0px' });
+    if (REDUCED) { mAttrs.forEach(function (a) { a.classList.add('is-active'); }); }
+    else if (typeof IntersectionObserver !== 'undefined') {
+      var obs = new IntersectionObserver(function (e) {
+        e.forEach(function (en) { en.target.classList.toggle('is-active', en.isIntersecting); });
+      }, { threshold: 0.3, rootMargin: '-5% 0px -5% 0px' });
       mAttrs.forEach(function (a) { obs.observe(a); });
     }
   }
+
+  /* ==============================================
+     SCROLL-CAPTURE desktop
+     -- Cuando la sección llena el viewport, el primer
+        scroll no mueve la página sino que cambia el panel.
+        El segundo scroll suelta el control y la página
+        continúa normalmente.
+     ============================================== */
+  if (desktop && !REDUCED) {
+    var showing      = 'benefits';
+    var capActive    = false;
+    var transitioning = false;
+
+    function showStats() {
+      showing = 'stats';
+      kvEl.classList.add('kinu-v2--stats');
+      desktop.querySelectorAll('.js-kv-stat').forEach(function (box) {
+        box.classList.add('is-visible');
+        var el = box.querySelector('.js-kv-count');
+        if (el && !el._counting) countUp(el);
+      });
+    }
+
+    function showBenefits() {
+      showing = 'benefits';
+      kvEl.classList.remove('kinu-v2--stats');
+      desktop.querySelectorAll('.js-kv-stat').forEach(function (box) {
+        box.classList.remove('is-visible');
+        var el = box.querySelector('.js-kv-count');
+        if (el) { el._counting = false; el.textContent = (el.dataset.prefix || '') + '0' + (el.dataset.suffix || ''); }
+      });
+    }
+
+    /* -- Scroll lineal: el progreso en la sección determina el panel --
+       La sección mide 200vh. El layout es sticky.
+       El usuario scrollea a su ritmo — la animación responde al progreso:
+         0 – 48 %  -> beneficios
+         48 – 100% -> cifras
+       Al volver (< 38%), se revierten automáticamente.
+    -- */
+    function onScroll() {
+      if (window.innerWidth < 769) return;
+      var rect     = desktop.getBoundingClientRect();
+      var total    = desktop.offsetHeight - window.innerHeight;
+      var scrolled = Math.max(0, -rect.top);
+      var pct      = total > 0 ? scrolled / total : 0;
+
+      if (pct >= 0.48 && showing === 'benefits') showStats();
+      if (pct <  0.38 && showing === 'stats')    showBenefits();
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  /* ==============================================
+     CONTADORES móvil: replay al entrar/salir viewport
+     ============================================== */
+  function countUp(el) {
+    if (!el || el._counting) return;
+    if (REDUCED) { el.textContent = (el.dataset.prefix || '') + el.dataset.target + (el.dataset.suffix || ''); return; }
+    var target = parseInt(el.dataset.target, 10);
+    var prefix = el.dataset.prefix || '', suffix = el.dataset.suffix || '';
+    var dur = 1500, t0 = null;
+    el._counting = true;
+    function step(ts) {
+      if (!t0) t0 = ts;
+      var p = Math.min((ts - t0) / dur, 1), ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = prefix + Math.round(ease * target) + suffix;
+      if (p < 1) requestAnimationFrame(step); else el._counting = false;
+    }
+    requestAnimationFrame(step);
+  }
+
+  var mobileStats = mobile ? Array.prototype.slice.call(mobile.querySelectorAll('.js-kv-stat')) : [];
+  if (mobileStats.length && typeof IntersectionObserver !== 'undefined') {
+    var ctObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        var el = e.target.querySelector('.js-kv-count');
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          if (el && !el._counting) countUp(el);
+        } else {
+          e.target.classList.remove('is-visible');
+          if (el) { el._counting = false; el.textContent = (el.dataset.prefix || '') + '0' + (el.dataset.suffix || ''); }
+        }
+      });
+    }, { threshold: 0.2, rootMargin: '0px 0px -30px 0px' });
+    mobileStats.forEach(function (b) { ctObs.observe(b); });
+  }
+
 })();
 </script>
 
@@ -313,11 +398,7 @@
   "tag": "section",
   "class": "kinu-valor-section",
   "settings": [
-    {
-      "type": "product",
-      "id": "product",
-      "label": "Producto KINU (para el CTA)"
-    }
+    { "type": "product", "id": "product", "label": "Producto KINU (para el CTA)" }
   ],
   "presets": [{ "name": "KINU Valor" }]
 }

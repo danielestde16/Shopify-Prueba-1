@@ -1,7 +1,7 @@
-/* ═══════════════════════════════════════════
+/* ===========================================
    KINU — Sección Bundles con ahorro
    3 packs seleccionables · CTA único
-   ═══════════════════════════════════════════ */
+   =========================================== */
 
 @keyframes bun-shimmer {
   0%   { background-position: 200% center; }
@@ -11,14 +11,16 @@
 @keyframes bun-pulse-best {
   0%, 100% {
     box-shadow:
-      0 0 0 1px rgba(201, 168, 76, 0.35),
-      0 0 24px rgba(201, 168, 76, 0.25),
+      0 0 0 3px rgba(201, 168, 76, 0.6),
+      0 0 28px rgba(201, 168, 76, 0.65),
+      0 0 60px rgba(201, 168, 76, 0.35),
       0 8px 40px rgba(0, 0, 0, 0.35);
   }
   50% {
     box-shadow:
-      0 0 0 2px rgba(201, 168, 76, 0.55),
-      0 0 40px rgba(201, 168, 76, 0.4),
+      0 0 0 4px rgba(201, 168, 76, 0.85),
+      0 0 50px rgba(201, 168, 76, 0.9),
+      0 0 100px rgba(201, 168, 76, 0.5),
       0 8px 40px rgba(0, 0, 0, 0.35);
   }
 }
@@ -28,11 +30,12 @@
   50%       { box-shadow: 0 0 0 14px rgba(26, 111, 173, 0); }
 }
 
-/* ── Sección base ──────────────────────── */
+/* -- Sección base ------------------------ */
 .kinu-bun {
   background: #0A2540;
   padding: 104px 0 128px;
   position: relative;
+  overflow-x: hidden;
 }
 
 .kinu-bun__inner {
@@ -41,7 +44,7 @@
   padding: 0 40px;
 }
 
-/* ── Encabezado ────────────────────────── */
+/* -- Encabezado -------------------------- */
 .kinu-bun__heading {
   text-align: center;
   margin-bottom: 56px;
@@ -84,14 +87,47 @@
 
 .kinu-bun__subtitle {
   font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-  font-size: clamp(1rem, 1.4vw, 1.12rem);
-  font-weight: 300;
+  font-size: clamp(1.08rem, 1.5vw, 1.18rem);
+  font-weight: 400;
   color: #BACFDD;
   margin: 0;
   line-height: 1.7;
 }
 
-/* ── Grid de 3 cards ───────────────────── */
+/* Tagline del año en el pack de 3 — banner protagonista */
+.kinu-bun__year-note {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #0A2540;
+  background: linear-gradient(120deg, #C9A84C 0%, #E8C76A 55%, #C9A84C 100%);
+  background-size: 200% auto;
+  border-radius: 30px;
+  padding: 5px 18px;
+  margin: -2px 0 12px;
+  animation: year-shimmer 3s ease-in-out infinite;
+}
+
+@keyframes year-shimmer {
+  0%   { background-position: 0% center; }
+  50%  { background-position: 100% center; }
+  100% { background-position: 0% center; }
+}
+
+/* Variante azul para pack 2 */
+.kinu-bun__year-note--blue {
+  background: linear-gradient(120deg, #1A6FAD 0%, #4AADDF 55%, #1A6FAD 100%);
+  background-size: 200% auto;
+  color: #F0F4FD;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kinu-bun__year-note { animation: none; }
+}
+
+/* -- Grid de 3 cards --------------------- */
 .kinu-bun__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -103,7 +139,7 @@
 }
 .kinu-bun__grid.is-visible { opacity: 1; transform: translateY(0); }
 
-/* ── Card base ─────────────────────────── */
+/* -- Card base --------------------------- */
 .kinu-bun__card {
   position: relative;
   background: #0D1F35;
@@ -130,10 +166,13 @@
 }
 /* Estado seleccionado */
 .kinu-bun__card.is-selected {
-  border-color: #1A6FAD;
+  border-color: #2899E0;
+  background: #0F2D50;
   box-shadow:
-    0 0 0 3px rgba(26, 111, 173, 0.2),
-    0 0 32px rgba(26, 111, 173, 0.4),
+    0 0 0 4px rgba(26, 111, 173, 0.5),
+    0 0 22px rgba(26, 111, 173, 0.85),
+    0 0 55px rgba(26, 111, 173, 0.5),
+    0 0 100px rgba(26, 111, 173, 0.2),
     0 8px 40px rgba(0, 0, 0, 0.35);
   transform: translateY(-3px);
 }
@@ -147,7 +186,7 @@
   transform: translateY(-3px);
 }
 
-/* ── Top row: nombre + badge ────────────── */
+/* -- Top row: nombre + badge -------------- */
 .kinu-bun__card-top {
   display: flex;
   align-items: center;
@@ -209,7 +248,7 @@
   color: #0A2540;
 }
 
-/* ── Imágenes del tarro ─────────────────── */
+/* -- Imágenes del tarro ------------------- */
 .kinu-bun__imgs {
   display: flex;
   justify-content: center;
@@ -266,7 +305,7 @@
   z-index: 2;
 }
 
-/* ── Noches ─────────────────────────────── */
+/* -- Noches ------------------------------- */
 .kinu-bun__nights {
   font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   font-size: 12px;
@@ -284,7 +323,7 @@
   border-color: rgba(201, 168, 76, 0.3);
 }
 
-/* ── Precios ────────────────────────────── */
+/* -- Precios ------------------------------ */
 .kinu-bun__pricing {
   display: flex;
   flex-direction: column;
@@ -334,7 +373,7 @@
 }
 .kinu-bun__card--best .kinu-bun__price-night { color: #C9A84C; }
 
-/* ── CTA wrap ───────────────────────────── */
+/* -- CTA wrap ----------------------------- */
 .kinu-bun__cta-wrap {
   text-align: center;
   display: flex;
@@ -394,7 +433,7 @@
   animation: none;
 }
 
-/* ── Banner de envío ────────────────────── */
+/* -- Banner de envío ---------------------- */
 .kinu-bun__ship-banner {
   display: flex;
   align-items: center;
@@ -439,59 +478,39 @@
   line-height: 1.4;
 }
 
-/* ── Sellos de confianza ────────────────── */
+/* -- Sellos de pago ----------------------- */
 .kinu-bun__seals {
   display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
+  gap: 12px;
   justify-content: center;
+  align-items: stretch;
   width: 100%;
-  max-width: 560px;
+  max-width: 420px;
 }
 
 .kinu-bun__seal {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 12px;
+  justify-content: center;
+  gap: 8px;
   background: rgba(5, 15, 26, 0.7);
   border: 1px solid rgba(186, 207, 221, 0.18);
   border-radius: 12px;
-  padding: 12px 16px;
+  padding: 14px 10px;
   flex: 1;
-  min-width: 150px;
-  max-width: 200px;
+  text-align: center;
+  min-width: 0;
   transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 .kinu-bun__seal:hover {
   border-color: rgba(26, 111, 173, 0.45);
-  box-shadow: 0 0 18px rgba(26, 111, 173, 0.15);
+  box-shadow: 0 0 16px rgba(26, 111, 173, 0.12);
 }
 
-/* Sello dorado — garantía */
-.kinu-bun__seal--gold {
-  border-color: rgba(201, 168, 76, 0.28);
-}
-.kinu-bun__seal--gold:hover {
-  border-color: rgba(201, 168, 76, 0.55);
-  box-shadow: 0 0 18px rgba(201, 168, 76, 0.18);
-}
-
-.kinu-bun__seal-ring {
-  flex-shrink: 0;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(26, 111, 173, 0.5);
-  background: rgba(26, 111, 173, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.kinu-bun__seal-icon {
   color: #4AADDF;
-}
-.kinu-bun__seal--gold .kinu-bun__seal-ring {
-  border-color: rgba(201, 168, 76, 0.5);
-  background: rgba(201, 168, 76, 0.08);
-  color: #C9A84C;
+  flex-shrink: 0;
 }
 
 .kinu-bun__seal-body {
@@ -508,13 +527,13 @@
 }
 .kinu-bun__seal-body span {
   font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 400;
   color: rgba(186, 207, 221, 0.65);
   line-height: 1.3;
 }
 
-/* ── Accesibilidad ─────────────────────── */
+/* -- Accesibilidad ----------------------- */
 @media (prefers-reduced-motion: reduce) {
   .kinu-bun__title    { animation: none; -webkit-text-fill-color: #F0F4FD; }
   .kinu-bun__buy      { animation: none; }
@@ -525,9 +544,9 @@
   .kinu-bun__card     { transition: none; }
 }
 
-/* ══════════════════════════════════════════
+/* ==========================================
    TABLET 480–767px
-   ══════════════════════════════════════════ */
+   ========================================== */
 @media (max-width: 767px) and (min-width: 480px) {
   .kinu-bun         { padding: 72px 0 88px; }
   .kinu-bun__inner  { padding: 0 20px; }
@@ -552,54 +571,88 @@
   .kinu-bun__best-tag { top: -11px; }
 }
 
-/* ══════════════════════════════════════════
+/* ==========================================
    MÓVIL <480px
-   ══════════════════════════════════════════ */
+   ========================================== */
 @media (max-width: 479px) {
-  .kinu-bun        { padding: 72px 0 88px; }
-  .kinu-bun__inner { padding: 0 16px; }
+  .kinu-bun { padding: 64px 0 80px; }
 
-  .kinu-bun__title { font-size: clamp(2rem, 8.5vw, 2.8rem); }
-
-  .kinu-bun__grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
+  .kinu-bun__inner {
+    padding: 0 14px;
   }
 
-  .kinu-bun__card { padding: 22px 18px 24px; }
+  .kinu-bun__title    { font-size: clamp(1.9rem, 8vw, 2.6rem); }
+  .kinu-bun__subtitle { font-size: 1.15rem; color: #D8E8F4; }
+  .kinu-bun__heading  { margin-bottom: 36px; }
 
-  .kinu-bun__imgs    { height: 140px; }
-  .kinu-bun__jar     { height: 130px; }
-  .kinu-bun__imgs--2 .kinu-bun__jar { height: 122px; }
-  .kinu-bun__imgs--3 .kinu-bun__jar { height: 112px; }
-  .kinu-bun__imgs--3 .kinu-bun__jar:nth-child(2) { height: 120px; }
+  /* -- Grid de cards: una columna -- */
+  .kinu-bun__grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
 
-  .kinu-bun__price-main { font-size: clamp(1.8rem, 8vw, 2.4rem); }
-  .kinu-bun__price-unit { font-size: 12px; }
+  /* Card: columna centrada, sin overflow */
+  .kinu-bun__card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px 16px 22px;
+  }
+
+  .kinu-bun__card-top {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .kinu-bun__nights  { align-self: center; }
+  .kinu-bun__pricing { align-items: center; }
+
+  .kinu-bun__imgs    { height: 128px; }
+  .kinu-bun__jar     { height: 118px; }
+  .kinu-bun__imgs--2 .kinu-bun__jar { height: 112px; }
+  .kinu-bun__imgs--3 .kinu-bun__jar { height: 102px; }
+  .kinu-bun__imgs--3 .kinu-bun__jar:nth-child(2) { height: 110px; }
+
+  .kinu-bun__price-main { font-size: clamp(1.7rem, 7.5vw, 2.2rem); }
+  .kinu-bun__price-unit { font-size: 11px; }
+
+  /* -- CTA -- */
+  .kinu-bun__cta-wrap { gap: 16px; }
 
   .kinu-bun__buy {
     width: 100%;
-    max-width: 360px;
-    font-size: 1.08rem;
+    font-size: 1.05rem;
   }
 
-  /* Banner de envío en móvil */
+  /* -- Banner de envío -- */
   .kinu-bun__ship-banner {
-    padding: 14px 18px;
-    gap: 14px;
-  }
-  .kinu-bun__ship-icon svg { width: 54px; height: 34px; }
-  .kinu-bun__ship-headline  { font-size: 0.95rem; }
-  .kinu-bun__ship-cities    { font-size: 11.5px; }
-
-  /* Sellos apilados en móvil */
-  .kinu-bun__seals {
-    flex-direction: column;
-    gap: 10px;
-    max-width: 360px;
-  }
-  .kinu-bun__seal {
+    padding: 12px 16px;
+    gap: 12px;
     max-width: 100%;
-    min-width: 0;
   }
+  .kinu-bun__ship-icon svg  { width: 48px; height: 30px; }
+  .kinu-bun__ship-headline  { font-size: 0.9rem; }
+  .kinu-bun__ship-cities    { font-size: 11px; }
+
+  /* -- Sellos de pago: grid 3 columnas iguales (siempre centrado) -- */
+  .kinu-bun__seals {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+
+  .kinu-bun__seal {
+    padding: 10px 6px;
+    gap: 6px;
+    border-radius: 10px;
+  }
+
+  .kinu-bun__seal-icon { width: 26px; height: 26px; }
+
+  .kinu-bun__seal-body strong { font-size: 11px; }
+  .kinu-bun__seal-body span   { font-size: 9.5px; }
 }
