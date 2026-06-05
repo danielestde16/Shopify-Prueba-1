@@ -1,0 +1,219 @@
+/* ==========================================================
+   KINU — Nosotros vs Otros (tabla comparativa interactiva)
+   Mobile-first. Paleta de marca KINU. Calma + premium.
+   ========================================================== */
+
+@keyframes kinu-vs-shimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+.kinu-vs {
+  background: radial-gradient(120% 90% at 50% 0%, #0A2540 0%, #061a30 60%, #050F1A 100%);
+  color: #F0F4FD;
+  padding: 48px 18px 56px;
+}
+.kinu-vs__inner {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* -- Encabezado -- */
+.kinu-vs__head { text-align: center; margin-bottom: 28px; }
+.kinu-vs__eyebrow {
+  display: inline-block;
+  font-size: 0.95rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #4AADDF;
+  margin-bottom: 14px;
+}
+.kinu-vs__title {
+  font-size: clamp(2.6rem, 9vw, 5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin: 0;
+  /* Brillo/shimmer como los demás títulos de KINU */
+  background: linear-gradient(90deg, #F0F4FD 25%, #4AADDF 42%, #1A6FAD 50%, #4AADDF 58%, #F0F4FD 75%);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: kinu-vs-shimmer 5s ease-in-out infinite;
+}
+
+/* -- Tabla (grid) -- */
+.kinu-vs__table {
+  border-radius: 22px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(186, 207, 221, 0.14);
+}
+.kinu-vs__row {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr 1fr 1fr;
+  align-items: stretch;
+  width: 100%;
+  margin: 0; padding: 0; border: 0;
+  border-top: 1px solid rgba(186, 207, 221, 0.1);
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.kinu-vs__row:first-child { border-top: 0; }
+button.kinu-vs__row:hover { background: rgba(74, 173, 223, 0.06); }
+button.kinu-vs__row.is-active { background: rgba(74, 173, 223, 0.1); }
+button.kinu-vs__row:focus-visible { outline: 2px solid #4AADDF; outline-offset: -2px; }
+
+/* -- Celdas -- */
+.kinu-vs__cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 6px;
+  text-align: center;
+  min-width: 0;
+}
+.kinu-vs__cell--label {
+  align-items: flex-start;
+  text-align: left;
+  padding-left: 16px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #F0F4FD;
+  line-height: 1.2;
+}
+
+/* -- Columna KINU destacada (suave, no clínica) -- */
+.kinu-vs__col--us {
+  background: linear-gradient(180deg, rgba(74,173,223,0.16), rgba(26,111,173,0.04));
+}
+
+/* -- Fila de encabezado -- */
+.kinu-vs__row--head { cursor: default; }
+.kinu-vs__row--head:hover { background: transparent; }
+.kinu-vs__col-img {
+  width: 56px; height: 56px; object-fit: contain;
+  filter: drop-shadow(0 6px 16px rgba(0,0,0,0.45));
+}
+.kinu-vs__col-icon { color: #7f9bb3; display: inline-flex; }
+.kinu-vs__col-name {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #F0F4FD;
+}
+.kinu-vs__col--us .kinu-vs__col-name { color: #FFFFFF; }
+
+/* -- Tokens Sí / No (grandes, legibles, verde = cumple) -- */
+.kinu-vs__tok {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.kinu-vs__tok svg { flex: 0 0 auto; }
+.kinu-vs__tok--val { font-size: 1.05rem; }
+
+/* Verde = cumple / lo bueno */
+.kinu-vs__tok[data-tone="yes"],
+.kinu-vs__tok[data-tone="good"] {
+  background: rgba(95, 209, 151, 0.16);
+  color: #7BE0AE;
+  border: 1px solid rgba(95, 209, 151, 0.4);
+}
+.kinu-vs__col--us .kinu-vs__tok[data-tone="yes"],
+.kinu-vs__col--us .kinu-vs__tok[data-tone="good"] {
+  background: #6FD79B;
+  color: #06301f;
+  border-color: transparent;
+  box-shadow: 0 6px 18px rgba(95, 209, 151, 0.3);
+}
+/* Gris = neutral / no lo cumple */
+.kinu-vs__tok[data-tone="no"],
+.kinu-vs__tok[data-tone="mid"] {
+  background: transparent;
+  color: #9aabba;
+  border: 1px solid rgba(154, 171, 186, 0.32);
+}
+/* Rojo suave = lo malo (ej. genera dependencia) */
+.kinu-vs__tok[data-tone="bad"] {
+  background: rgba(224, 115, 107, 0.14);
+  color: #E89089;
+  border: 1px solid rgba(224, 115, 107, 0.4);
+}
+
+/* -- Caja de explicación interactiva -- */
+.kinu-vs__explain {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 18px;
+  padding: 15px 18px;
+  border-radius: 16px;
+  background: rgba(74, 173, 223, 0.08);
+  border: 1px solid rgba(74, 173, 223, 0.22);
+  min-height: 56px;
+}
+.kinu-vs__explain-dot {
+  flex: 0 0 auto;
+  width: 9px; height: 9px; margin-top: 7px;
+  border-radius: 50%;
+  background: #4AADDF;
+  box-shadow: 0 0 0 5px rgba(74,173,223,0.16);
+}
+.kinu-vs__explain p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.45;
+  color: #E8F4FD;
+  transition: opacity 0.16s ease;
+}
+.kinu-vs__sr {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+/* -- Aparición suave -- */
+.js-vs-fade {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.js-vs-fade.is-in { opacity: 1; transform: none; }
+
+/* ===== ESCRITORIO: más ancho, más aire, letras grandes ===== */
+@media (min-width: 769px) {
+  .kinu-vs { padding: 80px 32px 88px; }
+  .kinu-vs__inner { max-width: 1120px; }
+  .kinu-vs__head { margin-bottom: 40px; }
+  .kinu-vs__eyebrow { font-size: 1.15rem; margin-bottom: 18px; }
+  .kinu-vs__row { grid-template-columns: 1.3fr 1fr 1fr 1fr; }
+  .kinu-vs__cell { padding: 28px 16px; gap: 12px; }
+  .kinu-vs__cell--label { font-size: 1.5rem; padding-left: 32px; }
+  .kinu-vs__col-img { width: 92px; height: 92px; }
+  .kinu-vs__col-icon svg { width: 58px; height: 58px; }
+  .kinu-vs__col-name { font-size: 1.25rem; }
+  .kinu-vs__tok { font-size: 1.3rem; padding: 13px 26px; gap: 8px; }
+  .kinu-vs__tok--val { font-size: 1.45rem; }
+  .kinu-vs__tok svg { width: 26px; height: 26px; }
+  .kinu-vs__explain p { font-size: 1.1rem; }
+}
+
+/* ===== Accesibilidad: sin movimiento ===== */
+@media (prefers-reduced-motion: reduce) {
+  .js-vs-fade { opacity: 1; transform: none; transition: none; }
+  .kinu-vs__explain p { transition: none; }
+  .kinu-vs__title { animation: none; }
+}

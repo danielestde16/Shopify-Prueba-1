@@ -7,10 +7,10 @@
         "review_count": "6"
       }
     },
-    "valor": {
-      "type": "kinu-valor",
+    "vs": {
+      "type": "kinu-vs",
       "settings": {}
     }
   },
-  "order": ["main", "valor"]
+  "order": ["main", "vs"]
 }

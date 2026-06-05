@@ -11,7 +11,7 @@
 .kinu-rv {
   /* Costura: arriba = base de ingrediente, abajo = tope de bundles */
   background: linear-gradient(to bottom, #12446e 0%, #154b79 100%);
-  padding: 104px 0 128px;
+  padding: 104px 0 56px;
   position: relative;
 }
 
@@ -246,9 +246,14 @@
   margin: 0;
   flex: 1;
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 6;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+/* Frase clave resaltada — hace la reseña más escaneable y convincente */
+.kinu-rc__body strong {
+  font-weight: 800;
+  color: #8FD9FF;
 }
 
 /* Pie: avatar + nombre + ciudad */
@@ -517,7 +522,7 @@
    TABLET 480–767px: 2 columnas
    ============================================== */
 @media (min-width: 480px) and (max-width: 767px) {
-  .kinu-rv         { padding: 72px 0 88px; }
+  .kinu-rv         { padding: 72px 0 40px; }
   .kinu-rv__inner  { padding: 0 20px; }
 
   .kinu-reviews-grid { grid-template-columns: repeat(2, 1fr); }
@@ -534,7 +539,7 @@
    MÓVIL <480px: carrusel scroll-snap
    ============================================== */
 @media (max-width: 479px) {
-  .kinu-rv        { padding: 72px 0 88px; }
+  .kinu-rv        { padding: 72px 0 40px; }
   .kinu-rv__inner { padding: 0 20px; }
 
   .kinu-rv__title    { font-size: 1.75rem; }

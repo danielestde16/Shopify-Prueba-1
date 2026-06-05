@@ -1,0 +1,180 @@
+/* ==========================================================
+   KINU — Qué esperar (tarjetas de colores tipo toggle) + Garantía
+   Fondo noche para que el color explote. Interactivo, pocas palabras.
+   ========================================================== */
+
+.kinu-prom {
+  position: relative;
+  background:
+    radial-gradient(60% 50% at 15% 0%, rgba(26,111,173,0.35), transparent 60%),
+    radial-gradient(55% 50% at 90% 100%, rgba(70,201,138,0.22), transparent 60%),
+    linear-gradient(165deg, #0A2540 0%, #061a30 60%, #050F1A 100%);
+  color: #F0F4FD;
+  padding: 56px 18px 64px;
+  overflow: hidden;
+}
+.kinu-prom__inner { position: relative; max-width: 780px; margin: 0 auto; }
+
+/* -- Encabezado -- */
+.kinu-prom__head { text-align: center; margin-bottom: 30px; }
+.kinu-prom__eyebrow {
+  display: inline-block;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #4AADDF;
+  padding: 7px 16px;
+  border: 1px solid rgba(74,173,223,0.4);
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+.kinu-prom__title {
+  font-size: clamp(2.1rem, 7.5vw, 3.2rem);
+  font-weight: 900;
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  margin: 0 0 10px;
+  color: #FFFFFF;
+}
+.kinu-prom__hint { font-size: 0.9rem; font-weight: 600; color: #8aa6c0; }
+
+/* -- Tarjetas de colores -- */
+.kinu-prom__cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+  counter-reset: phase;
+}
+.kinu-prom__card {
+  position: relative;
+  border: 0;
+  border-radius: 18px;
+  padding: 42px 8px 16px;
+  cursor: pointer;
+  color: #FFFFFF;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  text-align: center;
+  transition: transform 0.22s ease, box-shadow 0.28s ease, opacity 0.22s ease;
+  -webkit-tap-highlight-color: transparent;
+  opacity: 0.5;
+}
+/* Número de fase (badge) */
+.kinu-prom__card::before {
+  counter-increment: phase;
+  content: counter(phase);
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.22);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.kinu-prom__card:hover { transform: translateY(-2px); opacity: 0.8; }
+.kinu-prom__card.is-active {
+  opacity: 1;
+  transform: translateY(-4px) scale(1.04);
+}
+.kinu-prom__card:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+
+/* Cada fase un color: noche -> eléctrico -> cielo -> verde calma */
+.kinu-prom__card--1 { background: linear-gradient(160deg, #2E5B86, #14365b); }
+.kinu-prom__card--2 { background: linear-gradient(160deg, #2E8FC4, #1A6FAD); }
+.kinu-prom__card--3 { background: linear-gradient(160deg, #7CD0F0, #3FA0D4); }
+.kinu-prom__card--4 { background: linear-gradient(160deg, #8CE3B4, #46C98A); color: #06301f; }
+.kinu-prom__card--4::before { background: rgba(6,48,31,0.25); color: #06301f; }
+
+.kinu-prom__card--1.is-active { box-shadow: 0 14px 30px rgba(46,91,134,0.55); }
+.kinu-prom__card--2.is-active { box-shadow: 0 14px 30px rgba(26,111,173,0.55); }
+.kinu-prom__card--3.is-active { box-shadow: 0 14px 30px rgba(63,160,212,0.5); }
+.kinu-prom__card--4.is-active { box-shadow: 0 14px 30px rgba(70,201,138,0.5); }
+
+.kinu-prom__when {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+/* -- Display de la frase corta -- */
+.kinu-prom__display {
+  text-align: center;
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+.kinu-prom__display p {
+  margin: 0;
+  font-size: clamp(1.9rem, 7vw, 2.8rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-shadow: 0 6px 30px currentColor;
+  transition: opacity 0.15s ease;
+}
+
+/* -- Garantía (verde calma) -- */
+.kinu-prom__guarantee {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  background: linear-gradient(160deg, rgba(111,215,155,0.2), rgba(111,215,155,0.06));
+  border: 1px solid rgba(111, 215, 155, 0.45);
+  border-radius: 16px;
+  padding: 16px 18px;
+}
+.kinu-prom__seal {
+  flex: 0 0 auto;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #46C98A;
+  color: #06301f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.kinu-prom__guarantee-txt {
+  font-size: 1rem;
+  line-height: 1.4;
+  color: #E8F4FD;
+}
+.kinu-prom__guarantee-txt strong { font-weight: 800; color: #FFFFFF; }
+
+/* -- Aparición -- */
+.js-prom-fade {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.js-prom-fade.is-in { opacity: 1; transform: none; }
+
+/* ===== Escritorio ===== */
+@media (min-width: 769px) {
+  .kinu-prom { padding: 84px 24px 92px; }
+  .kinu-prom__head { margin-bottom: 40px; }
+  .kinu-prom__eyebrow { font-size: 1.35rem; }
+  .kinu-prom__cards { gap: 16px; }
+  .kinu-prom__card { padding: 52px 12px 22px; }
+  .kinu-prom__card::before { width: 26px; height: 26px; font-size: 0.82rem; top: 14px; }
+  .kinu-prom__when { font-size: 1.45rem; }
+  .kinu-prom__display { min-height: 86px; }
+  .kinu-prom__guarantee { padding: 18px 24px; justify-content: center; }
+  .kinu-prom__guarantee-txt { font-size: 1.12rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js-prom-fade { opacity: 1; transform: none; transition: none; }
+  .kinu-prom__display p { transition: none; }
+  .kinu-prom__card.is-active { transform: none; }
+}

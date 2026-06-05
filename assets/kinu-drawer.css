@@ -202,6 +202,7 @@
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
   width: 100%;
   margin-top: 6px;
@@ -213,19 +214,32 @@
   letter-spacing: 0.02em;
   color: #5C6F82;
   border: 1px solid #D3DEEC;
-  border-radius: 5px;
+  border-radius: 6px;
   padding: 4px 9px;
   background: #fff;
 }
+/* Cada logo en un "chip" blanco uniforme: misma altura de chip,
+   pero el logo dentro se escala según su forma para que TODOS se
+   lean parejos (Visa/Mastercard son compactos; PSE/Bancolombia/Bre-B
+   son marcas anchas y necesitan más zoom). */
 .kinu-drawer__pay img {
-  height: 30px;
-  width: auto;
-  max-width: 90px;
+  width: auto !important;
   object-fit: contain;
-  border-radius: 5px;
+  box-sizing: content-box;
+  height: 24px;          /* Visa / Mastercard */
+  max-width: 78px;
+  padding: 9px 11px;
+  background: #fff;
+  border: 1px solid #E1E8F2;
+  border-radius: 8px;
+  display: block;
 }
-/* PSE y Bancolombia más grandes para que se lean */
-.kinu-drawer__pay-lg { height: 44px !important; max-width: 130px !important; }
+/* Marcas anchas: más altas y con más ancho para que se distingan. */
+.kinu-drawer__pay-lg {
+  height: 30px !important;
+  max-width: 104px !important;
+  padding: 7px 12px !important;
+}
 
 .kinu-drawer.is-loading .kinu-drawer__content { opacity: 0.55; pointer-events: none; }
 

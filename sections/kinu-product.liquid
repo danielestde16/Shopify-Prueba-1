@@ -2,6 +2,7 @@
 
 {%- liquid
   assign jar_img = 'https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Foto_Tarro_Transparente.png?v=1780027313'
+  assign jar_thumb = jar_img | append: '&width=240'
   assign rating  = section.settings.rating_value | default: '4.9'
   assign reviews = section.settings.review_count | default: '6'
 -%}
@@ -43,8 +44,9 @@
     <div class="kinu-pb__media">
       <div class="kinu-pb__main">
         <img id="kinu-pb-main-img"
-             src="{% if product.featured_image %}{{ product.featured_image | image_url: width: 900 }}{% else %}{{ jar_img }}{% endif %}"
-             alt="{{ product.title | escape }}" width="900" height="900" loading="eager">
+             src="{% if product.featured_image %}{{ product.featured_image | image_url: width: 900 }}{% else %}{{ jar_img }}&width=900{% endif %}"
+             alt="{{ product.title | escape }}" width="900" height="900"
+             loading="eager" fetchpriority="high" decoding="async">
       </div>
       {%- if product.media.size > 1 -%}
         <div class="kinu-pb__thumbs">
@@ -64,7 +66,7 @@
             <div class="kinu-pb__mslide"><img src="{{ media | image_url: width: 800 }}" alt="{{ product.title | escape }}" width="800" height="800" loading="lazy"></div>
           {%- endfor -%}
         {%- else -%}
-          <div class="kinu-pb__mslide"><img src="{{ jar_img }}" alt="{{ product.title | escape }}" width="800" height="800" loading="lazy"></div>
+          <div class="kinu-pb__mslide"><img src="{{ jar_img }}&width=800" alt="{{ product.title | escape }}" width="800" height="800" loading="lazy"></div>
         {%- endif -%}
       </div>
       {%- if product.media.size > 1 -%}
@@ -118,10 +120,12 @@
                  data-variant-id="{{ v1.id }}"
                  data-label="1 tarro"
                  data-price="{% if dyn %}{{ v1.price | money_without_trailing_zeros }}{% else %}$121.900{% endif %}"
+                 data-compare=""
+                 data-save=""
                  aria-pressed="false">
           <span class="kinu-pb__check" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
           <div class="kinu-pb__card-imgs kinu-pb__card-imgs--1">
-            <img src="{{ jar_img }}" alt="1 tarro KINU" loading="lazy" width="120" height="120">
+            <img src="{{ jar_thumb }}" alt="1 tarro KINU" loading="lazy" width="120" height="120">
           </div>
           <span class="kinu-pb__card-name">1 tarro</span>
           <span class="kinu-pb__card-price">{% if dyn %}{{ v1.price | money_without_trailing_zeros }}{% else %}$121.900{% endif %}</span>
@@ -132,12 +136,14 @@
                  data-variant-id="{{ v2.id }}"
                  data-label="2 tarros"
                  data-price="{% if dyn %}{{ v2.price | money_without_trailing_zeros }}{% else %}$209.900{% endif %}"
+                 data-compare="{% if dyn %}{{ comp2 | money_without_trailing_zeros }}{% else %}$243.800{% endif %}"
+                 data-save="{% if dyn %}{{ sav2 | money_without_trailing_zeros }}{% else %}$33.900{% endif %}"
                  aria-pressed="true">
           <span class="kinu-pb__badge">Más popular</span>
           <span class="kinu-pb__check" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
           <div class="kinu-pb__card-imgs kinu-pb__card-imgs--2">
-            <img src="{{ jar_img }}" alt="" loading="lazy" width="120" height="120">
-            <img src="{{ jar_img }}" alt="2 tarros KINU" loading="lazy" width="120" height="120">
+            <img src="{{ jar_thumb }}" alt="" loading="lazy" width="120" height="120">
+            <img src="{{ jar_thumb }}" alt="2 tarros KINU" loading="lazy" width="120" height="120">
           </div>
           <span class="kinu-pb__card-name">2 tarros</span>
           <span class="kinu-pb__card-price">{% if dyn %}{{ v2.price | money_without_trailing_zeros }}{% else %}$209.900{% endif %}</span>
@@ -150,12 +156,14 @@
                  data-variant-id="{{ v3.id }}"
                  data-label="3 tarros"
                  data-price="{% if dyn %}{{ v3.price | money_without_trailing_zeros }}{% else %}$299.900{% endif %}"
+                 data-compare="{% if dyn %}{{ comp3 | money_without_trailing_zeros }}{% else %}$365.700{% endif %}"
+                 data-save="{% if dyn %}{{ sav3 | money_without_trailing_zeros }}{% else %}$65.800{% endif %}"
                  aria-pressed="false">
           <span class="kinu-pb__check" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
           <div class="kinu-pb__card-imgs kinu-pb__card-imgs--3">
-            <img src="{{ jar_img }}" alt="" loading="lazy" width="120" height="120">
-            <img src="{{ jar_img }}" alt="" loading="lazy" width="120" height="120">
-            <img src="{{ jar_img }}" alt="3 tarros KINU" loading="lazy" width="120" height="120">
+            <img src="{{ jar_thumb }}" alt="" loading="lazy" width="120" height="120">
+            <img src="{{ jar_thumb }}" alt="" loading="lazy" width="120" height="120">
+            <img src="{{ jar_thumb }}" alt="3 tarros KINU" loading="lazy" width="120" height="120">
           </div>
           <span class="kinu-pb__card-name">3 tarros</span>
           <span class="kinu-pb__card-price">{% if dyn %}{{ v3.price | money_without_trailing_zeros }}{% else %}$299.900{% endif %}</span>
@@ -166,9 +174,17 @@
       </div>
 
       <div class="kinu-pb__summary">
-        <span class="kinu-pb__summary-label">Seleccionado: <strong id="kinu-pb-sel-label">2 tarros</strong></span>
-        <span class="kinu-pb__summary-price" id="kinu-pb-sel-price">{% if dyn %}{{ v2.price | money_without_trailing_zeros }}{% else %}$209.900{% endif %}</span>
+        <div class="kinu-pb__summary-top">
+          <span class="kinu-pb__summary-label">Seleccionado: <strong id="kinu-pb-sel-label">2 tarros</strong></span>
+          <span class="kinu-pb__summary-price-wrap">
+            <span class="kinu-pb__summary-compare" id="kinu-pb-sel-compare">{% if dyn %}{{ comp2 | money_without_trailing_zeros }}{% else %}$243.800{% endif %}</span>
+            <span class="kinu-pb__summary-price" id="kinu-pb-sel-price">{% if dyn %}{{ v2.price | money_without_trailing_zeros }}{% else %}$209.900{% endif %}</span>
+          </span>
+        </div>
+        <span class="kinu-pb__summary-save" id="kinu-pb-sel-save">Ahorras {% if dyn %}{{ sav2 | money_without_trailing_zeros }}{% else %}$33.900{% endif %} + envío gratis</span>
       </div>
+
+      <div class="kinu-pb__countdown">{% render 'kinu-countdown', theme: 'light' %}</div>
 
       <button class="kinu-pb__buy kinu-fill-btn" id="kinu-pb-buy" type="button">Agregar al carrito</button>
 
@@ -201,6 +217,12 @@
 
     </div>
   </div>
+
+  <!-- Pista de scroll: avisa que hay más abajo (sobre todo en escritorio) -->
+  <a href="#kinu-vs" class="kinu-pb__scrollcue" aria-label="Bajar para ver por qué elegir KINU">
+    <span>Por qué elegir KINU</span>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+  </a>
 </section>
 
 <script>
@@ -226,6 +248,8 @@
   var cards    = Array.prototype.slice.call(document.querySelectorAll('.js-pb-card'));
   var labelEl  = document.getElementById('kinu-pb-sel-label');
   var priceEl  = document.getElementById('kinu-pb-sel-price');
+  var compEl   = document.getElementById('kinu-pb-sel-compare');
+  var saveEl   = document.getElementById('kinu-pb-sel-save');
   var buyBtn   = document.getElementById('kinu-pb-buy');
 
   function select(card) {
@@ -234,6 +258,14 @@
     card.setAttribute('aria-pressed', 'true');
     if (labelEl && card.dataset.label) labelEl.textContent = card.dataset.label;
     if (priceEl && card.dataset.price) priceEl.textContent = card.dataset.price;
+    /* Comparación de precios: precio "antes" tachado + ahorro */
+    var comp = card.dataset.compare || '';
+    var save = card.dataset.save || '';
+    if (compEl) { compEl.textContent = comp; compEl.style.display = comp ? '' : 'none'; }
+    if (saveEl) {
+      saveEl.textContent = save ? ('Ahorras ' + save + ' + envío gratis') : 'Envío gratis';
+      saveEl.style.display = '';
+    }
   }
 
   cards.forEach(function (card) {

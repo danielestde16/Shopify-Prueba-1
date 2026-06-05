@@ -89,3 +89,87 @@ footer {
   background: transparent !important;
   background-color: transparent !important;
 }
+
+/* ============================================================
+   KINU — Cuenta regresiva "Envío gratis hoy" (componente global)
+   Visual, con cajas de dígitos. Variantes --dark (fondos oscuros)
+   y --light (fondos claros, p. ej. página de producto).
+   ============================================================ */
+.kinu-cd {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 16px 22px;
+  border-radius: 18px;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+.kinu-cd__ship {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.kinu-cd__ship strong { font-weight: 900; letter-spacing: 0.02em; }
+.kinu-cd__clock {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.kinu-cd__box {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 56px;
+  padding: 8px 6px 6px;
+  border-radius: 12px;
+  background: linear-gradient(160deg, #F2D673, #C9A84C);
+  color: #0A2540;
+  box-shadow: 0 0 18px rgba(201, 168, 76, 0.6);
+}
+.kinu-cd__box b {
+  font-size: 1.9rem;
+  font-weight: 900;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+.kinu-cd__box i {
+  font-style: normal;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 4px;
+  opacity: 0.7;
+}
+.kinu-cd__sep {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #E8C95E;
+  opacity: 0.85;
+  margin-top: -8px;
+}
+
+/* Texto "Envío GRATIS hoy" en amarillo brillante */
+.kinu-cd__ship { color: #F2D06B; }
+.kinu-cd__ship strong { color: #FFE08A; }
+
+/* Contenedor navy en AMBAS variantes para que el oro resalte
+   y el contador no se pierda (en bundles y en producto). */
+.kinu-cd--dark,
+.kinu-cd--light {
+  background: linear-gradient(160deg, #0E2C4A, #0A2540);
+  border: 1px solid rgba(201, 168, 76, 0.55);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(201, 168, 76, 0.18);
+  color: #F0F4FD;
+}
+
+@media (min-width: 700px) {
+  .kinu-cd { flex-direction: row; gap: 22px; padding: 16px 26px; }
+  .kinu-cd__box { min-width: 62px; }
+  .kinu-cd__box b { font-size: 2.2rem; }
+}

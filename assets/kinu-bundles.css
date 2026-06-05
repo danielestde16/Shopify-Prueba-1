@@ -34,7 +34,7 @@
 .kinu-bun {
   /* Costura: arriba = base de reviews, abajo = tope de FAQ */
   background: linear-gradient(to bottom, #154b79 0%, #185285 100%);
-  padding: 104px 0 128px;
+  padding: 56px 0 128px;
   position: relative;
   overflow-x: hidden;
 }
@@ -616,7 +616,7 @@
    TABLET 480–767px
    ========================================== */
 @media (max-width: 767px) and (min-width: 480px) {
-  .kinu-bun         { padding: 72px 0 88px; }
+  .kinu-bun         { padding: 40px 0 88px; }
   .kinu-bun__inner  { padding: 0 20px; }
   .kinu-bun__grid   { grid-template-columns: 1fr; gap: 20px; }
 
@@ -649,7 +649,7 @@
    MÓVIL <480px
    ========================================== */
 @media (max-width: 479px) {
-  .kinu-bun { padding: 64px 0 80px; }
+  .kinu-bun { padding: 36px 0 80px; }
 
   .kinu-bun__inner {
     padding: 0 14px;
@@ -733,4 +733,58 @@
 
   .kinu-bun__seal-body strong { font-size: 11px; }
   .kinu-bun__seal-body span   { font-size: 9.5px; }
+}
+
+/* ===========================================================
+   Barra de escasez discreta (envío gratis + cuenta regresiva)
+   Calmada, on-brand, sobre el azul de la sección de bundles.
+   =========================================================== */
+.kinu-bun__urgency {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 auto 26px;
+  padding: 9px 18px;
+  border-radius: 999px;
+  background: rgba(8, 24, 42, 0.32);
+  border: 1px solid rgba(186, 207, 221, 0.22);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  color: #E8F4FD;
+}
+.kinu-bun__urgency-ship {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #7BE0AE;
+}
+.kinu-bun__urgency-sep {
+  width: 1px;
+  height: 16px;
+  background: rgba(186, 207, 221, 0.3);
+}
+.kinu-bun__urgency-timer {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #BACFDD;
+  letter-spacing: 0.01em;
+}
+.kinu-bun__urgency-timer strong {
+  font-weight: 800;
+  color: #FFFFFF;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+/* Centrar la barra dentro del encabezado */
+.kinu-bun__heading + .kinu-bun__urgency {
+  display: flex;
+  width: fit-content;
+}
+@media (max-width: 420px) {
+  .kinu-bun__urgency { gap: 10px; padding: 8px 14px; }
+  .kinu-bun__urgency-ship { font-size: 0.82rem; }
+  .kinu-bun__urgency-timer { font-size: 0.76rem; }
 }

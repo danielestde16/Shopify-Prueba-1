@@ -1,0 +1,104 @@
+{{ 'kinu-promesa.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign eyebrow = section.settings.eyebrow | default: 'Qué esperar'
+  assign title   = section.settings.title   | default: 'Así llega la calma.'
+  assign g_days  = section.settings.guarantee_days | default: '30'
+  assign g_text  = section.settings.guarantee_text | default: 'No sientes la diferencia, te devolvemos tu plata.'
+-%}
+
+<section class="kinu-prom" id="kinu-promesa" aria-label="Qué esperar y garantía">
+  <div class="kinu-prom__inner">
+
+    <div class="kinu-prom__head js-prom-fade">
+      <span class="kinu-prom__eyebrow">{{ eyebrow }}</span>
+      <h2 class="kinu-prom__title">{{ title }}</h2>
+      <span class="kinu-prom__hint" aria-hidden="true">Toca cada fase ↓</span>
+    </div>
+
+    <div class="kinu-prom__cards js-prom-fade" role="list">
+      <button class="kinu-prom__card kinu-prom__card--1 js-prom-card is-active" type="button"
+              data-phrase="Arranca tu ritual." data-color="#8FD9FF">
+        <span class="kinu-prom__when">Noche 1</span>
+      </button>
+      <button class="kinu-prom__card kinu-prom__card--2 js-prom-card" type="button"
+              data-phrase="Menos tensión." data-color="#4AADDF">
+        <span class="kinu-prom__when">Días 4–7</span>
+      </button>
+      <button class="kinu-prom__card kinu-prom__card--3 js-prom-card" type="button"
+              data-phrase="Duermes mejor." data-color="#6FC6EC">
+        <span class="kinu-prom__when">Semana 2–3</span>
+      </button>
+      <button class="kinu-prom__card kinu-prom__card--4 js-prom-card" type="button"
+              data-phrase="Tu calma diaria." data-color="#7BE0AE">
+        <span class="kinu-prom__when">Después</span>
+      </button>
+    </div>
+
+    <div class="kinu-prom__display js-prom-fade" aria-live="polite">
+      <p class="js-prom-phrase" style="color:#8FD9FF;">Arranca tu ritual.</p>
+    </div>
+
+    <div class="kinu-prom__guarantee js-prom-fade">
+      <span class="kinu-prom__seal" aria-hidden="true">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+      </span>
+      <span class="kinu-prom__guarantee-txt"><strong>{{ g_days }} noches de garantía.</strong> {{ g_text }}</span>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function () {
+  var root = document.getElementById('kinu-promesa');
+  if (!root) return;
+  var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* -- Toggle de tarjetas -- */
+  var cards  = Array.prototype.slice.call(root.querySelectorAll('.js-prom-card'));
+  var phrase = root.querySelector('.js-prom-phrase');
+  function activate(card) {
+    cards.forEach(function (c) { c.classList.remove('is-active'); });
+    card.classList.add('is-active');
+    if (!phrase) return;
+    var txt = card.dataset.phrase || '';
+    var col = card.dataset.color || '#0A2540';
+    if (REDUCED) { phrase.textContent = txt; phrase.style.color = col; }
+    else {
+      phrase.style.opacity = '0';
+      setTimeout(function () { phrase.textContent = txt; phrase.style.color = col; phrase.style.opacity = '1'; }, 150);
+    }
+  }
+  cards.forEach(function (card) { card.addEventListener('click', function () { activate(card); }); });
+
+  /* -- Aparición suave -- */
+  var fades = Array.prototype.slice.call(root.querySelectorAll('.js-prom-fade'));
+  if (REDUCED || typeof IntersectionObserver === 'undefined') {
+    fades.forEach(function (el) { el.classList.add('is-in'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.15 });
+    fades.forEach(function (el) { io.observe(el); });
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "KINU – Qué esperar",
+  "tag": "section",
+  "class": "kinu-section-promesa",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Antetítulo", "default": "Qué esperar" },
+    { "type": "text", "id": "title", "label": "Título", "default": "Así llega la calma." },
+    { "type": "header", "content": "Garantía" },
+    { "type": "text", "id": "guarantee_days", "label": "Días de garantía", "default": "30" },
+    { "type": "text", "id": "guarantee_text", "label": "Texto de la garantía", "default": "No sientes la diferencia, te devolvemos tu plata." }
+  ],
+  "presets": [{ "name": "KINU – Qué esperar" }]
+}
+{% endschema %}

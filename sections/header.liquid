@@ -1,13 +1,6 @@
 <link rel="stylesheet" href="{{ 'component-list-menu.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'kinu-header.css' | asset_url }}">
-<link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-menu-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
-<link
-  rel="stylesheet"
-  href="{{ 'component-cart-notification.css' | asset_url }}"
-  media="print"
-  onload="this.media='all'"
->
 
 {%- if settings.predictive_search_enabled -%}
   <link rel="stylesheet" href="{{ 'component-price.css' | asset_url }}" media="print" onload="this.media='all'">
@@ -101,8 +94,6 @@
   }
 {%- endstyle -%}
 
-<script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
-
 {%- liquid
   for block in section.blocks
     if block.type == '@app'
@@ -141,10 +132,6 @@
     {%- liquid
       if section.settings.menu != blank
         render 'header-drawer'
-      endif
-
-      if section.settings.logo_position == 'top-center' or section.settings.menu == blank
-        render 'header-search', input_id: 'Search-In-Modal-1'
       endif
     -%}
 
@@ -262,7 +249,6 @@
           </localization-form>
         {%- endif -%}
       </div>
-      {% render 'header-search', input_id: 'Search-In-Modal' %}
 
       {%- if shop.customer_accounts_enabled -%}
         <a
@@ -306,13 +292,6 @@
     </div>
   </header>
 </{{ header_tag }}>
-
-{%- if settings.cart_type == 'notification' -%}
-  {%- render 'cart-notification',
-    color_scheme: section.settings.color_scheme,
-    desktop_menu_type: section.settings.menu_type_desktop
-  -%}
-{%- endif -%}
 
 {% javascript %}
   class StickyHeader extends HTMLElement {
@@ -421,7 +400,7 @@
 
     closeSearchModal() {
       this.searchModal = this.searchModal || this.header.querySelector('details-modal');
-      this.searchModal.close(false);
+      if (this.searchModal) this.searchModal.close(false);
     }
   }
 
@@ -545,7 +524,10 @@ window.addEventListener('pageshow', function (e) {
     if (!btn || btn._kfilling) return;
 
     var href = btn.tagName === 'A' ? btn.getAttribute('href') : null;
-    var isNav = href && href !== '#' && !href.startsWith('javascript') && !href.startsWith('#');
+    /* El ícono del carrito NO debe navegar: abre el drawer (lo maneja KinuCart).
+       Si navegara, la página se iría a /cart mientras el drawer está abierto. */
+    var isCartTrigger = btn.matches('#cart-icon-bubble, a[href$="/cart"], .header__icon--cart');
+    var isNav = href && href !== '#' && !href.startsWith('javascript') && !href.startsWith('#') && !isCartTrigger;
 
     btn._kfilling = true;
     btn.classList.add('is-filling');

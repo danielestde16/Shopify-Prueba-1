@@ -9,10 +9,6 @@
  */
 {
   "sections": {
-    "kinu-stars-bg": {
-      "type": "kinu-stars-bg",
-      "settings": {}
-    },
     "kinu-hero": {
       "type": "kinu-hero",
       "settings": {
@@ -51,6 +47,10 @@
         "product": "citrato-de-magnesio-en-polvo"
       }
     },
+    "kinu-promesa": {
+      "type": "kinu-promesa",
+      "settings": {}
+    },
     "kinu-faq": {
       "type": "kinu-faq",
       "settings": {}
@@ -65,7 +65,6 @@
     }
   },
   "order": [
-    "kinu-stars-bg",
     "kinu-hero",
     "kinu-problema",
     "kinu-revelacion",
@@ -74,6 +73,7 @@
     "kinu-ingredient",
     "kinu-reviews",
     "kinu-bundles",
+    "kinu-promesa",
     "kinu-faq",
     "kinu-footer",
     "kinu-sticky-cart"

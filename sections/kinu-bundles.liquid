@@ -8,7 +8,7 @@
   reemplaza los data-variant-id con los IDs reales.
 {%- endcomment -%}
 
-{%- assign jar_img = 'https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Foto_Tarro_Transparente.png?v=1780027313' -%}
+{%- assign jar_img = 'https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Foto_Tarro_Transparente.png?v=1780027313&width=240' -%}
 
 {%- comment -%}
   Producto del bundle (selecciónalo en el editor de tema → KINU Bundles).
@@ -65,6 +65,11 @@
       <p class="kinu-bun__subtitle">
         Cada tarro dura 110 noches. Cuanto más eliges, menos pagas por noche.
       </p>
+    </div>
+
+    <!-- -- Escasez: envío gratis + cuenta regresiva del día -- -->
+    <div class="js-bun-fade" style="margin-bottom:26px;">
+      {% render 'kinu-countdown', theme: 'dark' %}
     </div>
 
     <!-- -- Grid de 3 packs -- -->

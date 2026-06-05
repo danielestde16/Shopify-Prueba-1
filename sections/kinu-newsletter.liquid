@@ -1,0 +1,85 @@
+{{ 'kinu-newsletter.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign eyebrow   = section.settings.eyebrow | default: 'Un regalo para tus noches'
+  assign title     = section.settings.title   | default: 'Apaga la cabeza en 7 noches.'
+  assign highlight = section.settings.highlight | default: 'Guía gratis'
+  assign sub       = section.settings.subtitle | default: 'Déjanos tu correo y te la enviamos hoy.'
+  assign pdf_url   = section.settings.pdf_url
+-%}
+
+<section class="kinu-news" id="kinu-news" aria-label="Suscríbete y recibe la guía gratis">
+  <div class="kinu-news__card js-news-fade">
+
+    <span class="kinu-news__tag">🎁 Es un regalo</span>
+    <span class="kinu-news__eyebrow">{{ eyebrow }}</span>
+    <h2 class="kinu-news__title">{{ title }}<br><span class="kinu-news__hl">{{ highlight }}</span></h2>
+    <p class="kinu-news__sub">{{ sub }}</p>
+
+    {%- form 'customer', id: 'kinu-news-form', class: 'kinu-news__form' -%}
+      <input type="hidden" name="contact[tags]" value="newsletter, guia-7-noches">
+      {%- if form.posted_successfully? -%}
+        <div class="kinu-news__success">
+          <p>¡Listo! Te llega a tu correo. Revisa también spam o promociones.</p>
+          {%- if pdf_url != blank -%}
+            <a class="kinu-news__dl" href="{{ pdf_url }}" target="_blank" rel="noopener">Descargar la guía ahora</a>
+          {%- endif -%}
+        </div>
+      {%- else -%}
+        <div class="kinu-news__row">
+          <label class="kinu-news__sr" for="kinu-news-email">Tu correo</label>
+          <input class="kinu-news__input" id="kinu-news-email" type="email"
+                 name="contact[email]" placeholder="tu@email.com"
+                 autocomplete="email" inputmode="email" required>
+          <button class="kinu-news__btn kinu-fill-btn" type="submit" name="commit">
+            Quiero mi guía gratis
+          </button>
+        </div>
+        {%- if form.errors -%}
+          <p class="kinu-news__err">{{ form.errors | default_errors }}</p>
+        {%- endif -%}
+        <p class="kinu-news__fine">Sin spam. Te escribimos solo cuando vale la pena.</p>
+      {%- endif -%}
+    {%- endform -%}
+
+  </div>
+</section>
+
+<script>
+(function () {
+  var root = document.getElementById('kinu-news');
+  if (!root) return;
+  var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fades = Array.prototype.slice.call(root.querySelectorAll('.js-news-fade'));
+  if (REDUCED || typeof IntersectionObserver === 'undefined') {
+    fades.forEach(function (el) { el.classList.add('is-in'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.2 });
+    fades.forEach(function (el) { io.observe(el); });
+  }
+  /* Si el formulario se envió, lleva la vista a la sección */
+  if (root.querySelector('.kinu-news__success')) {
+    try { root.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) {}
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "KINU – Newsletter / PDF",
+  "tag": "section",
+  "class": "kinu-section-news",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Antetítulo", "default": "Regalo para tus noches" },
+    { "type": "text", "id": "title", "label": "Título", "default": "Apaga la cabeza en 7 noches." },
+    { "type": "text", "id": "highlight", "label": "Palabra clave resaltada", "default": "Guía gratis" },
+    { "type": "textarea", "id": "subtitle", "label": "Subtítulo", "default": "Déjanos tu correo y te la enviamos hoy." },
+    { "type": "text", "id": "pdf_url", "label": "Enlace al PDF (opcional)", "info": "Sube el PDF en Configuración → Archivos de Shopify y pega aquí su URL. Si lo dejas vacío, solo se muestra el mensaje de éxito." }
+  ],
+  "presets": [{ "name": "KINU – Newsletter / PDF" }]
+}
+{% endschema %}

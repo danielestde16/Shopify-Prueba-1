@@ -9,8 +9,10 @@
 
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+      <link rel="apple-touch-icon" href="{{ settings.favicon | image_url: width: 180, height: 180 }}">
     {%- else -%}
       <link rel="icon" type="image/png" href="https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Favicon_KINU.png?v=1780025331">
+      <link rel="apple-touch-icon" href="https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Favicon_KINU.png?v=1780025331">
     {%- endif -%}
 
     {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
@@ -18,9 +20,10 @@
     {%- endunless -%}
 
     <link rel="stylesheet" href="{{ 'kinu-page.css' | asset_url }}">
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik+80s+Fade&family=Cormorant+Garamond:ital,wght@1,400;1,500;1,700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;0,800;1,600;1,700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;0,800;1,600;1,700&display=swap">
 
     <title>
       {{ page_title }}
@@ -40,7 +43,6 @@
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'details-disclosure.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'details-modal.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'search-form.js' | asset_url }}" defer="defer"></script>
 
     {%- if settings.animations_reveal_on_scroll -%}
       <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
@@ -423,5 +425,27 @@
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+
+    <script>
+    /* Cuenta regresiva "Envío gratis hoy" — termina al final del día y se
+       renueva sola. Actualiza TODOS los [data-countdown] de la página. */
+    (function () {
+      var nodes = document.querySelectorAll('[data-countdown]');
+      if (!nodes.length) return;
+      function pad(n) { return n < 10 ? '0' + n : '' + n; }
+      function tick() {
+        var now = new Date();
+        var end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
+        var d = Math.max(0, Math.floor((end - now) / 1000));
+        var h = pad(Math.floor(d / 3600)), m = pad(Math.floor((d % 3600) / 60)), s = pad(d % 60);
+        nodes.forEach(function (el) {
+          var H = el.querySelector('[data-cd-h]'), M = el.querySelector('[data-cd-m]'), S = el.querySelector('[data-cd-s]');
+          if (H) H.textContent = h; if (M) M.textContent = m; if (S) S.textContent = s;
+        });
+      }
+      tick();
+      setInterval(tick, 1000);
+    })();
+    </script>
   </body>
 </html>

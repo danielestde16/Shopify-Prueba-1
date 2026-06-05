@@ -19,16 +19,13 @@
     muted
     playsinline
     webkit-playsinline
-    preload="auto"
+    preload="metadata"
     disablepictureinpicture
     disableremoteplayback
     {% if section.settings.video_poster != blank %}poster="{{ section.settings.video_poster | image_url: width: 1280 }}"{% endif %}
     aria-hidden="true">
     <source src="https://cdn.shopify.com/videos/c/o/v/a8385a2419ad42089670b7bdbf732aaf.mp4" type="video/mp4">
   </video>
-
-  <!-- -- Estrella fugaz — CSS puro, clipeada al hero -- -->
-  <div class="kinu-hero__shoot" aria-hidden="true"></div>
 
   <div class="kinu-hero__inner">
 
@@ -44,9 +41,15 @@
         >
       </a>
 
+      <span class="kinu-hero__kicker">El ritual de la calma</span>
+
       <h1 class="kinu-hero__headline">
-        Magnesio puro para mentes que no se apagan.
+        Apaga la cabeza.<br>Vuelve a dormir.
       </h1>
+
+      <p class="kinu-hero__subhead">
+        Relaja el cuerpo. Calma la mente. Sin atontamiento.
+      </p>
 
       <div class="kinu-hero__props">
         <div class="kinu-hero__prop">
@@ -76,18 +79,20 @@
       </div>
 
       <a href="{{ hero_product.url | default: '#' }}" class="kinu-hero__cta kinu-fill-btn">
-        Quiero mi KINU
+        Quiero dormir mejor
       </a>
     </div>
 
     <div class="kinu-hero__media">
       <img
-        src="https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Foto_Tarro_Transparente.png?v=1780027313"
+        src="https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Foto_Tarro_Transparente.png?v=1780027313&width=900"
         alt="KINU Citrato de Magnesio en Polvo"
         class="kinu-hero__product-img"
         width="500"
         height="500"
         loading="eager"
+        fetchpriority="high"
+        decoding="async"
       >
     </div>
 

@@ -70,10 +70,10 @@
           <span class="kinu-rc__badge">v Compra verificada</span>
         </div>
         <p class="kinu-rc__body">
-          Llevaba meses durmiendo horrible, me despertaba a las 3am con la
-          cabeza a mil. Con KINU llevo dos semanas y ya no me pasa. No sé
-          si es placebo pero a mí me funciona y eso es lo que importa. Lo
-          disuelvo en agua fría antes de acostarme y listo.
+          llevaba meses <strong>despertándome a las 3am con la cabeza a mil</strong>,
+          la verdad ya no daba más. empecé con kinu y como a las dos semanas
+          dejó de pasarme. lo disuelvo en agua fría antes de acostarme y ya,
+          <strong>vuelvo a dormir de corrido</strong>.
         </p>
         <div class="kinu-rc__footer">
           <div class="kinu-rc__avatar" aria-hidden="true">C</div>
@@ -92,10 +92,11 @@
           <span class="kinu-rc__badge">v Compra verificada</span>
         </div>
         <p class="kinu-rc__body">
-          Tengo TDAH y el cerebro literalmente no para. Probé melatonina
-          y me dejaba atontado al otro día. KINU no tiene sabor, no
-          te deja grogi y sí noto que me cuesta menos apagar la cabeza.
-          Ya pedí el paquete de tres.
+          tomaba melatonina y al principio me funcionaba, pero
+          <strong>cada vez necesitaba más dosis para dormir</strong>.
+          con kinu no me pasa eso, no sabe a nada y me cuesta menos
+          apagar la cabeza en la noche. ya pedí
+          <strong>el pack de tres para todo el año</strong>.
         </p>
         <div class="kinu-rc__footer">
           <div class="kinu-rc__avatar" aria-hidden="true">A</div>
@@ -114,10 +115,10 @@
           <span class="kinu-rc__badge">v Compra verificada</span>
         </div>
         <p class="kinu-rc__body">
-          Lo compré más por los calambres que por el sueño y también me
-          ayudó con eso. Mis piernas en las noches eran un martirio.
-          Ahora duermo sin esa tensión. Me parece un producto muy serio,
-          sin palabrería.
+          lo compré más por los calambres que por el sueño y me sirvió para
+          las dos cosas. mis piernas en la noche eran un martirio y
+          <strong>ahora duermo sin esa tensión</strong>. ah, y la cucharita
+          que trae para medir es súper práctica, uno no anda adivinando la dosis.
         </p>
         <div class="kinu-rc__footer">
           <div class="kinu-rc__avatar" aria-hidden="true">S</div>
@@ -136,11 +137,10 @@
           <span class="kinu-rc__badge">v Compra verificada</span>
         </div>
         <p class="kinu-rc__body">
-          Honestamente no noté nada la primera semana, casi lo dejo.
-          Pero en la segunda semana sí empecé a dormir más seguido sin
-          despertarme. No es mágico ni instantáneo, hay que darle
-          tiempo. Le quito una estrella por eso pero el producto
-          sí cumple.
+          honestamente la primera semana no sentí nada y casi lo dejo, pero
+          en la segunda <strong>empecé a dormir sin despertarme</strong>.
+          no es magia, hay que darle tiempo. por eso le quito una estrella
+          pero si cumple.
         </p>
         <div class="kinu-rc__footer">
           <div class="kinu-rc__avatar" aria-hidden="true">J</div>
@@ -159,10 +159,10 @@
           <span class="kinu-rc__badge">v Compra verificada</span>
         </div>
         <p class="kinu-rc__body">
-          Entreno fuerte y los calambres post-entrenamiento me tenían
-          loco. Con KINU se redujeron notablemente desde la primera
-          semana. Además duermo más profundo. La presentación está muy
-          bien hecha, parece de marca internacional.
+          entreno pesado y los calambres post entreno me tenían cansado.
+          con kinu <strong>bajaron un montón desde la primera semana</strong>
+          y además duermo más profundo. la presentación está muy bien hecha,
+          el tarro se ve de marca de afuera.
         </p>
         <div class="kinu-rc__footer">
           <div class="kinu-rc__avatar" aria-hidden="true">M</div>
@@ -181,10 +181,11 @@
           <span class="kinu-rc__badge">v Compra verificada</span>
         </div>
         <p class="kinu-rc__body">
-          Yo soy muy escéptica con los suplementos pero este sí lo
-          recomiendo. Sin sabor de verdad, se disuelve bien y no me
-          ha dado ningún malestar estomacal. Mi problema era que me
-          acostaba agotada pero no lograba dormir. Ya no me pasa.
+          soy súper escéptica con los suplementos pero este si lo recomiendo.
+          <strong>sin sabor de verdad</strong>, se disuelve bien y nada de
+          malestar de estómago. me gustó que viene con su cucharita medidora
+          así no me paso de dosis. me acostaba rendida y no lograba dormir...
+          eso <strong>ya no me pasa</strong>.
         </p>
         <div class="kinu-rc__footer">
           <div class="kinu-rc__avatar" aria-hidden="true">L</div>
@@ -256,16 +257,6 @@
                  placeholder="Tu nombre completo" autocomplete="name">
           <span class="kinu-rv__error" id="js-err-name" hidden>
             Por favor ingresa tu nombre.
-          </span>
-        </div>
-
-        <!-- Cédula -->
-        <div class="kinu-rv__field">
-          <label class="kinu-rv__label" for="rv-cedula">Número de cédula</label>
-          <input class="kinu-rv__input" id="rv-cedula" type="text"
-                 placeholder="Para verificar tu compra" inputmode="numeric">
-          <span class="kinu-rv__error" id="js-err-cedula" hidden>
-            Por favor ingresa tu número de cédula.
           </span>
         </div>
 
@@ -471,13 +462,11 @@
   var successMsg = document.getElementById('js-rv-success');
   var sendErrMsg = document.getElementById('js-rv-send-err');
   var nameInput  = document.getElementById('rv-name');
-  var cedulaInput = document.getElementById('rv-cedula');
   var emailInput = document.getElementById('rv-email');
   var phoneInput = document.getElementById('rv-phone');
   var textArea   = document.getElementById('rv-text');
   var errRating  = document.getElementById('js-err-rating');
   var errName    = document.getElementById('js-err-name');
-  var errCedula  = document.getElementById('js-err-cedula');
   var errEmail   = document.getElementById('js-err-email');
   var errPhone   = document.getElementById('js-err-phone');
   var errText    = document.getElementById('js-err-text');
@@ -487,19 +476,17 @@
   if (submitBtn) {
     submitBtn.addEventListener('click', function () {
       /* Limpiar errores previos */
-      [errRating, errName, errCedula, errEmail, errPhone, errText, sendErrMsg]
+      [errRating, errName, errEmail, errPhone, errText, sendErrMsg]
         .forEach(function (e) { if (e) e.hidden = true; });
 
       var valid  = true;
       var name   = nameInput   ? nameInput.value.trim()   : '';
-      var cedula = cedulaInput ? cedulaInput.value.trim() : '';
       var email  = emailInput  ? emailInput.value.trim()  : '';
       var phone  = phoneInput  ? phoneInput.value.trim()  : '';
       var text   = textArea    ? textArea.value.trim()    : '';
 
       if (currentRating < 1)    { errRating.hidden = false; valid = false; }
       if (!name)                { errName.hidden   = false; valid = false; }
-      if (!cedula)              { errCedula.hidden = false; valid = false; }
       if (!validEmail(email))   { errEmail.hidden  = false; valid = false; }
       if (!phone)               { errPhone.hidden  = false; valid = false; }
       if (!text)                { errText.hidden   = false; valid = false; }
@@ -518,7 +505,6 @@
         '=== RESEÑA KINU — PENDIENTE DE APROBACIÓN ===\n\n' +
         'Calificación : ' + stars + ' (' + currentRating + '/5)\n' +
         'Nombre       : ' + name   + '\n' +
-        'Cédula       : ' + cedula + '\n' +
         'Correo       : ' + email  + '\n' +
         'Teléfono     : ' + phone  + '\n\n' +
         'Reseña:\n' + text + '\n\n' +
@@ -544,7 +530,7 @@
               currentRating = 0;
               setStars(0);
               pickStars.forEach(function (s) { s.setAttribute('aria-checked', 'false'); });
-              [nameInput, cedulaInput, emailInput, phoneInput, textArea]
+              [nameInput, emailInput, phoneInput, textArea]
                 .forEach(function (el) { if (el) el.value = ''; });
               successMsg.hidden = true;
               submitBtn.hidden  = false;

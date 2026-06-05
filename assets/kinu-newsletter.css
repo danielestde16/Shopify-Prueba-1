@@ -1,0 +1,160 @@
+/* ==========================================================
+   KINU — Newsletter / PDF gratis. Compacto pero distinguible.
+   ========================================================== */
+
+.kinu-news {
+  background: #E8F4FD;
+  padding: 40px 18px;
+}
+.kinu-news__card {
+  position: relative;
+  max-width: 680px;
+  margin: 0 auto;
+  background: linear-gradient(160deg, #0A2540 0%, #061a30 100%);
+  color: #F0F4FD;
+  border-radius: 22px;
+  padding: 34px 24px 30px;
+  text-align: center;
+  box-shadow: 0 24px 60px rgba(10, 37, 64, 0.28);
+  overflow: hidden;
+}
+
+.kinu-news__tag {
+  display: inline-block;
+  font-size: 0.92rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #06301f;
+  background: #6FD79B;
+  border-radius: 999px;
+  padding: 8px 16px;
+  margin-bottom: 16px;
+}
+.kinu-news__eyebrow {
+  display: block;
+  font-size: 0.95rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #4AADDF;
+  margin-bottom: 10px;
+}
+.kinu-news__title {
+  font-size: clamp(2rem, 7vw, 3rem);
+  font-weight: 900;
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+  margin: 0 0 14px;
+  color: #FFFFFF;
+}
+/* Palabra clave resaltada (gratis / regalo) */
+.kinu-news__hl {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: clamp(2.2rem, 8vw, 3.4rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #6FD79B;
+  text-shadow: 0 4px 24px rgba(111, 215, 155, 0.35);
+}
+.kinu-news__sub {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  font-weight: 600;
+  color: #E8F4FD;
+  margin: 0 auto 24px;
+  max-width: 460px;
+}
+
+/* -- Formulario -- */
+.kinu-news__form { margin: 0; }
+.kinu-news__row {
+  display: flex;
+  gap: 10px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+.kinu-news__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 50px;
+  padding: 0 16px;
+  font-size: 16px;
+  color: #0A2540;
+  background: #F0F4FD;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  outline: none;
+}
+.kinu-news__input:focus { border-color: #4AADDF; box-shadow: 0 0 0 3px rgba(74,173,223,0.3); }
+.kinu-news__btn {
+  flex: 0 0 auto;
+  height: 52px;
+  padding: 0 22px;
+  font-size: 16px;
+  font-weight: 800;
+  color: #fff;
+  background: #1A6FAD;
+  border: 0;
+  border-radius: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.kinu-news__fine {
+  font-size: 0.9rem;
+  color: #9bb3c7;
+  margin: 14px 0 0;
+}
+.kinu-news__err {
+  font-size: 0.85rem;
+  color: #E89089;
+  margin: 12px 0 0;
+}
+
+/* -- Éxito -- */
+.kinu-news__success p {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #E8F4FD;
+  margin: 0 0 16px;
+}
+.kinu-news__dl {
+  display: inline-block;
+  padding: 13px 24px;
+  font-size: 15px;
+  font-weight: 800;
+  color: #06301f;
+  background: #6FD79B;
+  border-radius: 12px;
+  text-decoration: none;
+}
+
+.kinu-news__sr {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+/* -- Aparición -- */
+.js-news-fade {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.js-news-fade.is-in { opacity: 1; transform: none; }
+
+/* -- Móvil: botón debajo del input -- */
+@media (max-width: 520px) {
+  .kinu-news__row { flex-direction: column; }
+  .kinu-news__btn { width: 100%; }
+}
+
+/* -- Escritorio -- */
+@media (min-width: 769px) {
+  .kinu-news { padding: 64px 24px; }
+  .kinu-news__card { padding: 48px 44px 42px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js-news-fade { opacity: 1; transform: none; transition: none; }
+}

@@ -1,0 +1,160 @@
+{{ 'kinu-vs.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign jar_img = 'https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Foto_Tarro_Transparente.png?v=1780027313&width=240'
+  assign mela_url = 'https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Imagen_Comparativa_Melatonina.png?v=1780682814&width=240'
+  assign mag_url  = 'https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Imagen_Comparativa_Magnesio.webp?v=1780682814&width=240'
+  assign eyebrow = section.settings.eyebrow | default: 'KINU vs. lo de siempre'
+  assign title   = section.settings.title   | default: 'Lo simple gana.'
+  assign c1      = section.settings.col1_name | default: 'KINU'
+  assign c2      = section.settings.col2_name | default: 'Melatonina'
+  assign c3      = section.settings.col3_name | default: 'Otros magnesios'
+-%}
+
+{%- comment -%}
+  Tabla comparativa interactiva (patrón "Us vs Them", NO la estética de Collider).
+  4 filas, palabras cortas (Sí/No), verde = cumple. Paleta KINU.
+  Cada celda de competidores es un DEFAULT editable: verifica que cada
+  afirmación sea cierta y defendible antes de publicar.
+{%- endcomment -%}
+
+{%- capture yes_tok -%}<span class="kinu-vs__tok" data-tone="yes"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Sí</span>{%- endcapture -%}
+{%- capture no_tok -%}<span class="kinu-vs__tok" data-tone="no"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>No</span>{%- endcapture -%}
+
+<section class="kinu-vs" id="kinu-vs" aria-label="Comparativa KINU frente a otras opciones">
+  <div class="kinu-vs__inner">
+
+    <div class="kinu-vs__head js-vs-fade">
+      <span class="kinu-vs__eyebrow">{{ eyebrow }}</span>
+      <h2 class="kinu-vs__title">{{ title }}</h2>
+    </div>
+
+    <div class="kinu-vs__table js-vs-fade" role="table" aria-label="Tabla comparativa">
+
+      <!-- Encabezados -->
+      <div class="kinu-vs__row kinu-vs__row--head" role="row">
+        <div class="kinu-vs__cell kinu-vs__cell--label" role="columnheader"><span class="kinu-vs__sr">Atributo</span></div>
+        <div class="kinu-vs__cell kinu-vs__col--us" role="columnheader">
+          <img class="kinu-vs__col-img" src="{{ jar_img }}" alt="" width="120" height="120" loading="lazy">
+          <span class="kinu-vs__col-name">{{ c1 }}</span>
+        </div>
+        <div class="kinu-vs__cell" role="columnheader">
+          <img class="kinu-vs__col-img" src="{% if section.settings.col2_image %}{{ section.settings.col2_image | image_url: width: 240 }}{% else %}{{ mela_url }}{% endif %}" alt="" width="120" height="120" loading="lazy">
+          <span class="kinu-vs__col-name">{{ c2 }}</span>
+        </div>
+        <div class="kinu-vs__cell" role="columnheader">
+          <img class="kinu-vs__col-img" src="{% if section.settings.col3_image %}{{ section.settings.col3_image | image_url: width: 240 }}{% else %}{{ mag_url }}{% endif %}" alt="" width="120" height="120" loading="lazy">
+          <span class="kinu-vs__col-name">{{ c3 }}</span>
+        </div>
+      </div>
+
+      <!-- 1 -->
+      <button class="kinu-vs__row js-vs-rowbtn" type="button" role="row"
+              data-explain="Un solo ingrediente: citrato de magnesio puro. Nada más.">
+        <div class="kinu-vs__cell kinu-vs__cell--label" role="cell">Un ingrediente</div>
+        <div class="kinu-vs__cell kinu-vs__col--us" role="cell">{{ yes_tok }}</div>
+        <div class="kinu-vs__cell" role="cell">{{ no_tok }}</div>
+        <div class="kinu-vs__cell" role="cell">{{ no_tok }}</div>
+      </button>
+
+      <!-- 2 -->
+      <button class="kinu-vs__row js-vs-rowbtn" type="button" role="row"
+              data-explain="Sin sabor, sin azúcar, sin stevia. Se disuelve invisible.">
+        <div class="kinu-vs__cell kinu-vs__cell--label" role="cell">Sin azúcar</div>
+        <div class="kinu-vs__cell kinu-vs__col--us" role="cell">{{ yes_tok }}</div>
+        <div class="kinu-vs__cell" role="cell">{{ no_tok }}</div>
+        <div class="kinu-vs__cell" role="cell">{{ yes_tok }}</div>
+      </button>
+
+      <!-- 3 — Genera dependencia (aquí el "No" es lo bueno) -->
+      <button class="kinu-vs__row js-vs-rowbtn" type="button" role="row"
+              data-explain="KINU es un mineral, no una hormona: no genera la dependencia de la melatonina.">
+        <div class="kinu-vs__cell kinu-vs__cell--label" role="cell">Genera dependencia</div>
+        <div class="kinu-vs__cell kinu-vs__col--us" role="cell"><span class="kinu-vs__tok" data-tone="good">No</span></div>
+        <div class="kinu-vs__cell" role="cell"><span class="kinu-vs__tok" data-tone="bad">Sí</span></div>
+        <div class="kinu-vs__cell" role="cell"><span class="kinu-vs__tok" data-tone="good">No</span></div>
+      </button>
+
+      <!-- 4 — Duración -->
+      <button class="kinu-vs__row js-vs-rowbtn" type="button" role="row"
+              data-explain="110 noches por tarro: más de 3 meses de ritual frente a 1 mes de lo demás.">
+        <div class="kinu-vs__cell kinu-vs__cell--label" role="cell">Duración</div>
+        <div class="kinu-vs__cell kinu-vs__col--us" role="cell"><span class="kinu-vs__tok kinu-vs__tok--val" data-tone="good">+3 meses</span></div>
+        <div class="kinu-vs__cell" role="cell"><span class="kinu-vs__tok kinu-vs__tok--val" data-tone="mid">1 mes</span></div>
+        <div class="kinu-vs__cell" role="cell"><span class="kinu-vs__tok kinu-vs__tok--val" data-tone="mid">1 mes</span></div>
+      </button>
+
+      <!-- 5 -->
+      <button class="kinu-vs__row js-vs-rowbtn" type="button" role="row"
+              data-explain="Al ser polvo, ajustas la dosis a tu cuerpo: empiezas bajo y subes.">
+        <div class="kinu-vs__cell kinu-vs__cell--label" role="cell">Dosis ajustable</div>
+        <div class="kinu-vs__cell kinu-vs__col--us" role="cell">{{ yes_tok }}</div>
+        <div class="kinu-vs__cell" role="cell">{{ no_tok }}</div>
+        <div class="kinu-vs__cell" role="cell">{{ no_tok }}</div>
+      </button>
+
+    </div>
+
+    <div class="kinu-vs__explain js-vs-fade" aria-live="polite">
+      <span class="kinu-vs__explain-dot" aria-hidden="true"></span>
+      <p class="js-vs-explain">Toca una fila para ver la diferencia.</p>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function () {
+  var root = document.getElementById('kinu-vs');
+  if (!root) return;
+  var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* -- Tocar una fila: resaltar + explicación -- */
+  var rows    = Array.prototype.slice.call(root.querySelectorAll('.js-vs-rowbtn'));
+  var explain = root.querySelector('.js-vs-explain');
+  function activate(row) {
+    rows.forEach(function (r) { r.classList.remove('is-active'); });
+    row.classList.add('is-active');
+    if (explain && row.dataset.explain) {
+      if (REDUCED) { explain.textContent = row.dataset.explain; }
+      else {
+        explain.style.opacity = '0';
+        setTimeout(function () { explain.textContent = row.dataset.explain; explain.style.opacity = '1'; }, 160);
+      }
+    }
+  }
+  rows.forEach(function (row) { row.addEventListener('click', function () { activate(row); }); });
+
+  /* -- Aparición suave al hacer scroll -- */
+  var fades = Array.prototype.slice.call(root.querySelectorAll('.js-vs-fade'));
+  if (REDUCED || typeof IntersectionObserver === 'undefined') {
+    fades.forEach(function (el) { el.classList.add('is-in'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.15 });
+    fades.forEach(function (el) { io.observe(el); });
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "KINU – Nosotros vs Otros",
+  "tag": "section",
+  "class": "kinu-section-vs",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Antetítulo", "default": "KINU vs. lo de siempre" },
+    { "type": "text", "id": "title", "label": "Título", "default": "Lo simple gana." },
+    { "type": "header", "content": "Columnas" },
+    { "type": "text", "id": "col1_name", "label": "Columna 1 (nosotros)", "default": "KINU" },
+    { "type": "text", "id": "col2_name", "label": "Columna 2", "default": "Melatonina" },
+    { "type": "image_picker", "id": "col2_image", "label": "Imagen columna 2", "info": "Vacío = usa la imagen por defecto." },
+    { "type": "text", "id": "col3_name", "label": "Columna 3", "default": "Otros magnesios" },
+    { "type": "image_picker", "id": "col3_image", "label": "Imagen columna 3" }
+  ],
+  "presets": [{ "name": "KINU – Nosotros vs Otros" }]
+}
+{% endschema %}

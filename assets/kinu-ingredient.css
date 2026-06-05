@@ -63,7 +63,7 @@
 .kinu-ing {
   /* Costura: arriba = base de ritual, abajo = tope de reviews */
   background: linear-gradient(to bottom, #103d63 0%, #12446e 100%);
-  padding: 104px 0 128px;
+  padding: 64px 0 80px;
   position: relative;
   overflow: hidden;
 }
@@ -83,8 +83,9 @@
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 1fr 380px;
-  gap: 0 64px;
+  grid-template-columns: minmax(0, 560px) 380px;
+  justify-content: center;
+  gap: 0 56px;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 40px;
@@ -120,8 +121,8 @@
   font-size: clamp(1.08rem, 1.4vw, 1.22rem);
   font-weight: 400;
   color: #C8DCEA;
-  line-height: 1.85;
-  margin: 0 0 40px;
+  line-height: 1.7;
+  margin: 0 0 28px;
   max-width: 520px;
   opacity: 0;
   transform: translateY(12px);
@@ -135,7 +136,7 @@
 .kinu-ing__badges {
   display: flex;
   gap: 28px;
-  margin-bottom: 52px;
+  margin-bottom: 34px;
   flex-wrap: nowrap;
   opacity: 0;
   transform: translateY(10px);
