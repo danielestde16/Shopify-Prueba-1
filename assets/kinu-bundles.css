@@ -32,7 +32,8 @@
 
 /* -- Sección base ------------------------ */
 .kinu-bun {
-  background: #0A2540;
+  /* Costura: arriba = base de reviews, abajo = tope de FAQ */
+  background: linear-gradient(to bottom, #154b79 0%, #185285 100%);
   padding: 104px 0 128px;
   position: relative;
   overflow-x: hidden;
@@ -61,10 +62,10 @@
   font-weight: 700;
   letter-spacing: 0.32em;
   text-transform: uppercase;
-  color: #1A6FAD;
+  color: #E8F4FD;
   margin-bottom: 20px;
   padding-bottom: 10px;
-  border-bottom: 1px solid rgba(26, 111, 173, 0.4);
+  border-bottom: 1px solid rgba(232, 244, 253, 0.45);
 }
 
 .kinu-bun__title {
@@ -89,7 +90,7 @@
   font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   font-size: clamp(1.08rem, 1.5vw, 1.18rem);
   font-weight: 400;
-  color: #BACFDD;
+  color: #E8F4FD;
   margin: 0;
   line-height: 1.7;
 }
@@ -143,7 +144,7 @@
 .kinu-bun__card {
   position: relative;
   background: #0D1F35;
-  border: 1.5px solid rgba(186, 207, 221, 0.14);
+  border: 1px solid rgba(186, 207, 221, 0.14);
   border-radius: 18px;
   padding: 24px 20px 28px;
   cursor: pointer;
@@ -152,33 +153,50 @@
   align-items: center;
   text-align: center;
   transition:
-    border-color 0.25s ease,
-    box-shadow   0.25s ease,
-    transform    0.2s ease;
+    border-color 0.3s ease,
+    box-shadow   0.3s ease,
+    transform    0.3s ease;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.28);
   outline: none;
   user-select: none;
 }
 .kinu-bun__card:hover {
-  border-color: rgba(26, 111, 173, 0.45);
-  transform: translateY(-3px);
-  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.35);
+  border-color: rgba(26, 111, 173, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.32);
 }
 /* Estado seleccionado */
 .kinu-bun__card.is-selected {
   border-color: #2899E0;
-  background: #0F2D50;
+  background: linear-gradient(160deg, #11436f 0%, #0c2c4d 100%);
   box-shadow:
-    0 0 0 4px rgba(26, 111, 173, 0.5),
-    0 0 22px rgba(26, 111, 173, 0.85),
-    0 0 55px rgba(26, 111, 173, 0.5),
-    0 0 100px rgba(26, 111, 173, 0.2),
+    0 0 0 3px rgba(40, 153, 224, 0.5),
+    0 0 22px rgba(40, 153, 224, 0.7),
+    0 0 55px rgba(26, 111, 173, 0.4),
     0 8px 40px rgba(0, 0, 0, 0.35);
   transform: translateY(-3px);
 }
+/* Card x2 — HÉROE: siempre más prominente que x1 y x3 */
+.kinu-bun__card--popular {
+  border: 2.5px solid rgba(40, 153, 224, 0.55);
+  padding: 36px 20px 36px;
+  box-shadow:
+    0 8px 40px rgba(26, 111, 173, 0.2),
+    0 2px 16px rgba(0, 0, 0, 0.32);
+}
+.kinu-bun__card--popular.is-selected {
+  border-color: #2899E0;
+  box-shadow:
+    0 0 0 3px rgba(26, 111, 173, 0.5),
+    0 0 24px rgba(26, 111, 173, 0.9),
+    0 0 60px rgba(26, 111, 173, 0.5),
+    0 0 110px rgba(26, 111, 173, 0.2),
+    0 8px 40px rgba(0, 0, 0, 0.35);
+  transform: translateY(-4px);
+}
 /* Card "mejor valor" — glow dorado */
 .kinu-bun__card--best {
-  border-color: rgba(201, 168, 76, 0.3);
+  border-color: rgba(201, 168, 76, 0.25);
 }
 .kinu-bun__card--best.is-selected {
   border-color: #C9A84C;
@@ -223,25 +241,26 @@
   color: #C9A84C;
 }
 
-/* Tags "Más popular" / "Mejor valor" */
+/* Tags "MÁS POPULAR" / "Mejor valor" */
 .kinu-bun__popular-tag,
 .kinu-bun__best-tag {
   position: absolute;
-  top: -12px;
+  top: -13px;
   left: 50%;
   transform: translateX(-50%);
   font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   border-radius: 20px;
-  padding: 4px 14px;
+  padding: 4px 16px;
   white-space: nowrap;
 }
 .kinu-bun__popular-tag {
-  background: #1A6FAD;
+  background: #0A2540;
   color: #F0F4FD;
+  border: 1.5px solid rgba(240, 244, 253, 0.35);
 }
 .kinu-bun__best-tag {
   background: #C9A84C;
@@ -373,6 +392,44 @@
 }
 .kinu-bun__card--best .kinu-bun__price-night { color: #C9A84C; }
 
+/* Precio hero — solo tarjeta x2 */
+.kinu-bun__price-main--hero {
+  font-size: clamp(1.9rem, 2.6vw, 2.7rem);
+}
+
+/* Pill de ahorro — verde #1D9E75 */
+.kinu-bun__savings-pill {
+  display: inline-block;
+  background: #1D9E75;
+  color: #fff;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  border-radius: 20px;
+  padding: 3px 12px;
+}
+
+/* Copy itálica bajo la duración — tarjeta x2 */
+.kinu-bun__copy-italic {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 12px;
+  font-style: italic;
+  font-weight: 400;
+  color: rgba(186, 207, 221, 0.7);
+  margin: 2px 0 0;
+  line-height: 1.45;
+}
+
+/* "Precio base" — tarjeta x1 */
+.kinu-bun__base-label {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  color: rgba(186, 207, 221, 0.6);
+  letter-spacing: 0.04em;
+}
+
 /* -- CTA wrap ----------------------------- */
 .kinu-bun__cta-wrap {
   text-align: center;
@@ -389,7 +446,7 @@
 .kinu-bun__selection-label {
   font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   font-size: 1rem;
-  color: #BACFDD;
+  color: #E8F4FD;
   margin: 0;
   display: flex;
   align-items: center;
@@ -407,9 +464,9 @@
 }
 
 .kinu-bun__buy {
-  background: #1A6FAD;
+  background: #0A2540;
   color: #F0F4FD;
-  border: none;
+  border: 2px solid rgba(240, 244, 253, 0.4);
   border-radius: 50px;
   font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   font-size: 1.15rem;
@@ -418,14 +475,15 @@
   padding: 1.1rem 3rem;
   min-height: 58px;
   cursor: pointer;
-  transition: background 0.22s ease, transform 0.18s ease;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
   animation: bun-cta-pulse 2.2s ease-in-out infinite;
 }
 .kinu-bun__buy:hover {
-  background: #155d93;
+  background: #0d2f50;
+  border-color: rgba(240, 244, 253, 0.65);
   transform: translateY(-2px);
   animation: none;
-  box-shadow: 0 8px 32px rgba(26, 111, 173, 0.5);
+  box-shadow: 0 8px 32px rgba(10, 37, 64, 0.55);
 }
 .kinu-bun__buy:disabled {
   opacity: 0.7;
@@ -538,10 +596,20 @@
   .kinu-bun__title    { animation: none; -webkit-text-fill-color: #F0F4FD; }
   .kinu-bun__buy      { animation: none; }
   .kinu-bun__card--best.is-selected { animation: none; }
+  .kinu-bun__year-note { animation: none; }
   .kinu-bun__heading,
   .kinu-bun__grid,
   .kinu-bun__cta-wrap { opacity: 1; transform: none; transition: none; }
   .kinu-bun__card     { transition: none; }
+}
+
+/* ==========================================
+   MÓVIL + TABLET < 768px: x2 al tope
+   ========================================== */
+@media (max-width: 767px) {
+  .kinu-bun__card[data-pack="2"] { order: 1; }
+  .kinu-bun__card[data-pack="1"] { order: 2; }
+  .kinu-bun__card[data-pack="3"] { order: 3; }
 }
 
 /* ==========================================
@@ -560,6 +628,10 @@
     padding: 20px 24px;
     gap: 20px;
   }
+  /* Hero x2: padding uniforme en tablet también */
+  .kinu-bun__card--popular {
+    padding: 24px 28px;
+  }
   .kinu-bun__card-top { flex-direction: column; align-items: flex-start; margin-bottom: 0; }
   .kinu-bun__imgs     { height: 100px; width: 120px; flex-shrink: 0; margin: 0; }
   .kinu-bun__jar      { height: 95px; }
@@ -568,7 +640,9 @@
   .kinu-bun__pricing  { align-items: flex-start; }
   .kinu-bun__nights   { align-self: flex-start; }
   .kinu-bun__popular-tag,
-  .kinu-bun__best-tag { top: -11px; }
+  .kinu-bun__best-tag { top: -13px; }
+  .kinu-bun__savings-pill { font-size: 11px; }
+  .kinu-bun__copy-italic  { font-size: 11px; }
 }
 
 /* ==========================================
@@ -598,6 +672,10 @@
     align-items: center;
     text-align: center;
     padding: 20px 16px 22px;
+  }
+  /* Hero x2 en móvil: más padding vertical */
+  .kinu-bun__card--popular {
+    padding: 28px 16px 28px;
   }
 
   .kinu-bun__card-top {

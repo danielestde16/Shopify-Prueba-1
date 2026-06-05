@@ -1,0 +1,132 @@
+{{ 'kinu-sticky-cart.css' | asset_url | stylesheet_tag }}
+
+{%- comment -%}
+  Barra fija de compra para móvil. Lee el producto y la selección
+  directamente de la sección de bundles (.kinu-bun) que ya está en la
+  página, así el precio y la cantidad siempre están sincronizados.
+{%- endcomment -%}
+
+<div class="kinu-sticky" id="kinu-sticky" aria-hidden="true" role="region"
+     aria-label="Comprar KINU">
+  <div class="kinu-sticky__info">
+    <span class="kinu-sticky__label" id="kinu-sticky-label">2 tarros · 220 noches</span>
+    <span class="kinu-sticky__price" id="kinu-sticky-price">$209.900</span>
+  </div>
+  <button class="kinu-sticky__btn" id="kinu-sticky-btn" type="button">
+    Comprar →
+  </button>
+</div>
+
+<script>
+(function () {
+  var bar    = document.getElementById('kinu-sticky');
+  var labelE = document.getElementById('kinu-sticky-label');
+  var priceE = document.getElementById('kinu-sticky-price');
+  var btn    = document.getElementById('kinu-sticky-btn');
+  if (!bar || !btn) return;
+
+  var bundles = document.querySelector('.kinu-bun[data-variant-id]');
+  var cards   = Array.prototype.slice.call(document.querySelectorAll('.js-bun-card'));
+
+  /* -- Sincroniza etiqueta y precio con la tarjeta seleccionada -- */
+  function sync() {
+    var sel = document.querySelector('.js-bun-card.is-selected') || cards[0];
+    if (!sel) return;
+    if (labelE && sel.dataset.label) labelE.textContent = sel.dataset.label;
+    if (priceE && sel.dataset.price) priceE.textContent = sel.dataset.price;
+  }
+
+  /* Re-sincroniza cuando el usuario cambia de pack */
+  cards.forEach(function (c) {
+    c.addEventListener('click', function () { setTimeout(sync, 0); });
+  });
+  sync();
+
+  /* -- Mostrar/ocultar según scroll --
+     Aparece tras pasar el hero; se esconde cuando el selector de
+     bundles o el footer están a la vista (para no tapar ni duplicar). */
+  var hideZone = false;
+  if (typeof IntersectionObserver !== 'undefined') {
+    var watch = [];
+    if (bundles) watch.push(bundles);
+    var foot = document.querySelector('.kinu-foot');
+    if (foot) watch.push(foot);
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { e.target.__inView = e.isIntersecting; });
+      hideZone = watch.some(function (el) { return el.__inView; });
+      update();
+    }, { threshold: 0.01 });
+    watch.forEach(function (el) { io.observe(el); });
+  }
+
+  function update() {
+    var passedHero = window.pageYOffset > 600;
+    if (passedHero && !hideZone) {
+      bar.classList.add('is-visible');
+      bar.setAttribute('aria-hidden', 'false');
+    } else {
+      bar.classList.remove('is-visible');
+      bar.setAttribute('aria-hidden', 'true');
+    }
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+
+  /* -- Agregar al carrito -- */
+  btn.addEventListener('click', function () {
+    var sel = document.querySelector('.js-bun-card.is-selected') || cards[0];
+    var variantId = (sel && sel.dataset.variantId) || (bundles ? bundles.dataset.variantId : '');
+    var qty = 1;
+
+    /* Lleva a la página de producto con el pack preseleccionado */
+    if (variantId) {
+      var pUrl = (bundles ? bundles.dataset.productUrl : '') || '/';
+      pUrl += (pUrl.indexOf('?') > -1 ? '&' : '?') + 'variant=' + variantId;
+      window.location.href = pUrl;
+      return;
+    }
+
+    if (!variantId) {
+      /* Sin producto configurado: lleva al selector de bundles */
+      var target = document.getElementById('kinu-bundles');
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Agregando…';
+
+    if (window.KinuCart) {
+      window.KinuCart.add(variantId, qty).then(function () {
+        btn.disabled = false;
+        btn.textContent = 'Agregar al carrito';
+      });
+      return;
+    }
+
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ id: variantId, quantity: qty })
+    })
+      .then(function (r) { return r.json(); })
+      .then(function () { window.location.href = '/cart'; })
+      .catch(function () {
+        btn.disabled = false;
+        btn.textContent = 'Agregar al carrito';
+        var target = document.getElementById('kinu-bundles');
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "KINU – Sticky Cart",
+  "tag": "section",
+  "class": "kinu-section-sticky-cart",
+  "presets": [{ "name": "KINU – Sticky Cart" }]
+}
+{% endschema %}

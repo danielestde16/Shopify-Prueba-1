@@ -1,0 +1,346 @@
+{{ 'kinu-product.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign jar_img = 'https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Foto_Tarro_Transparente.png?v=1780027313'
+  assign rating  = section.settings.rating_value | default: '4.9'
+  assign reviews = section.settings.review_count | default: '6'
+-%}
+
+{%- comment -%} Mapea cada pack a su variante (por título, respaldo por orden) {%- endcomment -%}
+{%- assign v1 = '' -%}
+{%- assign v2 = '' -%}
+{%- assign v3 = '' -%}
+{%- for v in product.variants -%}
+  {%- assign vt = v.title | downcase -%}
+  {%- if vt contains '1 tarro' and v1 == '' -%}
+    {%- assign v1 = v -%}
+  {%- elsif vt contains '2 tarro' and v2 == '' -%}
+    {%- assign v2 = v -%}
+  {%- elsif vt contains '3 tarro' and v3 == '' -%}
+    {%- assign v3 = v -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- if v1 == '' -%}{%- assign v1 = product.variants[0] -%}{%- endif -%}
+{%- if v2 == '' -%}{%- assign v2 = product.variants[1] -%}{%- endif -%}
+{%- if v3 == '' -%}{%- assign v3 = product.variants[2] -%}{%- endif -%}
+
+{%- assign dyn = false -%}
+{%- if v1 != blank and v2 != blank and v3 != blank and v1.price > 0 and v2.price > 0 and v3.price > 0 -%}
+  {%- assign dyn = true -%}
+  {%- assign comp2 = v1.price | times: 2 -%}
+  {%- assign sav2  = comp2 | minus: v2.price -%}
+  {%- assign unit2 = v2.price | divided_by: 2 -%}
+  {%- assign comp3 = v1.price | times: 3 -%}
+  {%- assign sav3  = comp3 | minus: v3.price -%}
+  {%- assign unit3 = v3.price | divided_by: 3 -%}
+{%- endif -%}
+
+<section class="kinu-pb" id="kinu-pb"
+         data-v1="{{ v1.id }}" data-v2="{{ v2.id }}" data-v3="{{ v3.id }}">
+  <div class="kinu-pb__inner">
+
+    <!-- ============ GALERÍA ============ -->
+    <div class="kinu-pb__media">
+      <div class="kinu-pb__main">
+        <img id="kinu-pb-main-img"
+             src="{% if product.featured_image %}{{ product.featured_image | image_url: width: 900 }}{% else %}{{ jar_img }}{% endif %}"
+             alt="{{ product.title | escape }}" width="900" height="900" loading="eager">
+      </div>
+      {%- if product.media.size > 1 -%}
+        <div class="kinu-pb__thumbs">
+          {%- for media in product.media limit: 10 -%}
+            <button class="kinu-pb__thumb{% if forloop.first %} is-active{% endif %}" type="button"
+                    data-full="{{ media | image_url: width: 900 }}" aria-label="Ver imagen {{ forloop.index }}">
+              <img src="{{ media | image_url: width: 150 }}" alt="" width="150" height="150" loading="lazy">
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      <!-- Galería móvil: una foto, deslizar para más -->
+      <div class="kinu-pb__mgallery" id="kinu-pb-mgallery" aria-label="Galería de fotos">
+        {%- if product.media.size > 0 -%}
+          {%- for media in product.media limit: 10 -%}
+            <div class="kinu-pb__mslide"><img src="{{ media | image_url: width: 800 }}" alt="{{ product.title | escape }}" width="800" height="800" loading="lazy"></div>
+          {%- endfor -%}
+        {%- else -%}
+          <div class="kinu-pb__mslide"><img src="{{ jar_img }}" alt="{{ product.title | escape }}" width="800" height="800" loading="lazy"></div>
+        {%- endif -%}
+      </div>
+      {%- if product.media.size > 1 -%}
+        <div class="kinu-pb__mhint" aria-hidden="true">
+          <span class="kinu-pb__mhint-txt">Desliza para ver más fotos</span>
+          <div class="kinu-pb__mdots" id="kinu-pb-mdots">
+            {%- for media in product.media limit: 10 -%}
+              <span{% if forloop.first %} class="is-active"{% endif %}></span>
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- ============ CONSTRUCTOR ============ -->
+    <div class="kinu-pb__builder">
+
+      <h1 class="kinu-pb__title">{{ product.title | default: 'KINU Magnesio' }}</h1>
+
+      <div class="kinu-pb__rating">
+        <span class="kinu-pb__stars" aria-hidden="true">★★★★★</span>
+        <span class="kinu-pb__rating-txt">{{ rating }}/5 · {{ reviews }} reseñas</span>
+      </div>
+
+      <!-- Contadores vivos (debajo de la reseña) -->
+      <div class="kinu-pb__stats js-pb-stats">
+        <div class="kinu-pb__stat kinu-pb__stat--blue">
+          <span class="kinu-pb__stat-num" data-to="110">0</span>
+          <span class="kinu-pb__stat-lbl">noches por tarro</span>
+        </div>
+        <div class="kinu-pb__stat kinu-pb__stat--green">
+          <span class="kinu-pb__stat-num" data-to="1">0</span>
+          <span class="kinu-pb__stat-lbl">ingrediente</span>
+        </div>
+        <div class="kinu-pb__stat kinu-pb__stat--gold">
+          <span class="kinu-pb__stat-num" data-to="280">0</span><span class="kinu-pb__stat-suffix">mg</span>
+          <span class="kinu-pb__stat-lbl">magnesio / porción</span>
+        </div>
+        <div class="kinu-pb__stat kinu-pb__stat--orange">
+          <span class="kinu-pb__stat-num" data-to="0">0</span>
+          <span class="kinu-pb__stat-lbl">aditivos</span>
+        </div>
+      </div>
+
+      <div class="kinu-pb__step">Paso 1: Elige tu pack</div>
+
+      <div class="kinu-pb__cards" role="list">
+
+        <!-- 1 tarro -->
+        <article class="kinu-pb__card js-pb-card" role="listitem" tabindex="0"
+                 data-variant-id="{{ v1.id }}"
+                 data-label="1 tarro"
+                 data-price="{% if dyn %}{{ v1.price | money_without_trailing_zeros }}{% else %}$121.900{% endif %}"
+                 aria-pressed="false">
+          <span class="kinu-pb__check" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+          <div class="kinu-pb__card-imgs kinu-pb__card-imgs--1">
+            <img src="{{ jar_img }}" alt="1 tarro KINU" loading="lazy" width="120" height="120">
+          </div>
+          <span class="kinu-pb__card-name">1 tarro</span>
+          <span class="kinu-pb__card-price">{% if dyn %}{{ v1.price | money_without_trailing_zeros }}{% else %}$121.900{% endif %}</span>
+        </article>
+
+        <!-- 2 tarros — MÁS POPULAR -->
+        <article class="kinu-pb__card kinu-pb__card--popular js-pb-card is-selected" role="listitem" tabindex="0"
+                 data-variant-id="{{ v2.id }}"
+                 data-label="2 tarros"
+                 data-price="{% if dyn %}{{ v2.price | money_without_trailing_zeros }}{% else %}$209.900{% endif %}"
+                 aria-pressed="true">
+          <span class="kinu-pb__badge">Más popular</span>
+          <span class="kinu-pb__check" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+          <div class="kinu-pb__card-imgs kinu-pb__card-imgs--2">
+            <img src="{{ jar_img }}" alt="" loading="lazy" width="120" height="120">
+            <img src="{{ jar_img }}" alt="2 tarros KINU" loading="lazy" width="120" height="120">
+          </div>
+          <span class="kinu-pb__card-name">2 tarros</span>
+          <span class="kinu-pb__card-price">{% if dyn %}{{ v2.price | money_without_trailing_zeros }}{% else %}$209.900{% endif %}</span>
+          <span class="kinu-pb__card-save">Ahorras {% if dyn %}{{ sav2 | money_without_trailing_zeros }}{% else %}$33.900{% endif %}</span>
+          <span class="kinu-pb__card-unit">{% if dyn %}{{ unit2 | money_without_trailing_zeros }}{% else %}$104.950{% endif %}/tarro</span>
+        </article>
+
+        <!-- 3 tarros -->
+        <article class="kinu-pb__card js-pb-card" role="listitem" tabindex="0"
+                 data-variant-id="{{ v3.id }}"
+                 data-label="3 tarros"
+                 data-price="{% if dyn %}{{ v3.price | money_without_trailing_zeros }}{% else %}$299.900{% endif %}"
+                 aria-pressed="false">
+          <span class="kinu-pb__check" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+          <div class="kinu-pb__card-imgs kinu-pb__card-imgs--3">
+            <img src="{{ jar_img }}" alt="" loading="lazy" width="120" height="120">
+            <img src="{{ jar_img }}" alt="" loading="lazy" width="120" height="120">
+            <img src="{{ jar_img }}" alt="3 tarros KINU" loading="lazy" width="120" height="120">
+          </div>
+          <span class="kinu-pb__card-name">3 tarros</span>
+          <span class="kinu-pb__card-price">{% if dyn %}{{ v3.price | money_without_trailing_zeros }}{% else %}$299.900{% endif %}</span>
+          <span class="kinu-pb__card-save">Ahorras {% if dyn %}{{ sav3 | money_without_trailing_zeros }}{% else %}$65.800{% endif %}</span>
+          <span class="kinu-pb__card-unit">{% if dyn %}{{ unit3 | money_without_trailing_zeros }}{% else %}$99.900{% endif %}/tarro</span>
+        </article>
+
+      </div>
+
+      <div class="kinu-pb__summary">
+        <span class="kinu-pb__summary-label">Seleccionado: <strong id="kinu-pb-sel-label">2 tarros</strong></span>
+        <span class="kinu-pb__summary-price" id="kinu-pb-sel-price">{% if dyn %}{{ v2.price | money_without_trailing_zeros }}{% else %}$209.900{% endif %}</span>
+      </div>
+
+      <button class="kinu-pb__buy kinu-fill-btn" id="kinu-pb-buy" type="button">Agregar al carrito</button>
+
+      <div class="kinu-pb__trust">
+        <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> Envío a toda Colombia</span>
+        <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Pago seguro</span>
+      </div>
+
+      <!-- Desplegables debajo del botón -->
+      <div class="kinu-pb__acc">
+        <div class="kinu-pb__acc-item js-pb-acc">
+          <button class="kinu-pb__acc-trigger" aria-expanded="false">
+            <span>Beneficios</span>
+            <span class="kinu-pb__acc-plus" aria-hidden="true"></span>
+          </button>
+          <div class="kinu-pb__acc-panel"><div class="kinu-pb__acc-inner">
+            <p>Apoya la calidad del sueño, ayuda a relajar el cuerpo y a calmar la mente acelerada de la noche. Sin sensación de atontamiento al día siguiente.</p>
+          </div></div>
+        </div>
+        <div class="kinu-pb__acc-item js-pb-acc">
+          <button class="kinu-pb__acc-trigger" aria-expanded="false">
+            <span>Componentes</span>
+            <span class="kinu-pb__acc-plus" aria-hidden="true"></span>
+          </button>
+          <div class="kinu-pb__acc-panel"><div class="kinu-pb__acc-inner">
+            <p>Un solo ingrediente: <strong>citrato de magnesio puro</strong>. 280 mg de magnesio elemental por porción de 2 g. Sin saborizantes, sin stevia, sin maltodextrina, sin rellenos.</p>
+          </div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* -- Cambio de imagen por thumbnail -- */
+  var mainImg = document.getElementById('kinu-pb-main-img');
+  var thumbs  = Array.prototype.slice.call(document.querySelectorAll('.kinu-pb__thumb'));
+  var canHover = window.matchMedia('(hover: hover)').matches;
+  function showThumb(t) {
+    if (mainImg && t.dataset.full) mainImg.src = t.dataset.full;
+    thumbs.forEach(function (x) { x.classList.remove('is-active'); });
+    t.classList.add('is-active');
+  }
+  thumbs.forEach(function (t) {
+    t.addEventListener('click', function () { showThumb(t); });
+    /* En escritorio: al pasar el cursor cambia la foto */
+    if (canHover) t.addEventListener('mouseenter', function () { showThumb(t); });
+  });
+
+  /* -- Selección de pack -- */
+  var cards    = Array.prototype.slice.call(document.querySelectorAll('.js-pb-card'));
+  var labelEl  = document.getElementById('kinu-pb-sel-label');
+  var priceEl  = document.getElementById('kinu-pb-sel-price');
+  var buyBtn   = document.getElementById('kinu-pb-buy');
+
+  function select(card) {
+    cards.forEach(function (c) { c.classList.remove('is-selected'); c.setAttribute('aria-pressed', 'false'); });
+    card.classList.add('is-selected');
+    card.setAttribute('aria-pressed', 'true');
+    if (labelEl && card.dataset.label) labelEl.textContent = card.dataset.label;
+    if (priceEl && card.dataset.price) priceEl.textContent = card.dataset.price;
+  }
+
+  cards.forEach(function (card) {
+    card.addEventListener('click', function () { select(card); });
+    card.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(card); }
+    });
+  });
+
+  /* -- Preselecciona el pack si viene ?variant= en la URL (desde el landing) -- */
+  try {
+    var pv = new URLSearchParams(window.location.search).get('variant');
+    if (pv) {
+      var match = cards.filter(function (c) { return c.dataset.variantId === pv; })[0];
+      if (match) select(match);
+    }
+  } catch (e) {}
+
+  /* -- Agregar al carrito -- */
+  if (buyBtn) {
+    buyBtn.addEventListener('click', function () {
+      var sel = document.querySelector('.js-pb-card.is-selected') || cards[0];
+      if (!sel) return;
+      var variantId = sel.dataset.variantId;
+      if (!variantId) { window.location.href = '/cart'; return; }
+
+      buyBtn.disabled = true;
+      buyBtn.textContent = 'Agregando…';
+      var done = function () { buyBtn.disabled = false; buyBtn.textContent = 'Agregar al carrito'; };
+      if (window.KinuCart) {
+        window.KinuCart.add(variantId, 1).then(done).catch(done);
+      } else {
+        fetch('/cart/add.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ id: variantId, quantity: 1 })
+        })
+          .then(function (r) { return r.json(); })
+          .then(function () { window.location.href = '/cart'; })
+          .catch(done);
+      }
+    });
+  }
+
+  /* -- Galería móvil: actualizar dots al deslizar -- */
+  var mgal = document.getElementById('kinu-pb-mgallery');
+  var mdots = document.getElementById('kinu-pb-mdots');
+  if (mgal && mdots) {
+    var dotEls = Array.prototype.slice.call(mdots.children);
+    mgal.addEventListener('scroll', function () {
+      var slideW = mgal.offsetWidth || 1;
+      var idx = Math.round(mgal.scrollLeft / slideW);
+      dotEls.forEach(function (d, i) { d.classList.toggle('is-active', i === idx); });
+    }, { passive: true });
+  }
+
+  /* -- Contadores animados -- */
+  var statsWrap = document.querySelector('.js-pb-stats');
+  if (statsWrap) {
+    var nums = Array.prototype.slice.call(statsWrap.querySelectorAll('.kinu-pb__stat-num'));
+    function runCounters() {
+      nums.forEach(function (el) {
+        var to = parseInt(el.dataset.to, 10) || 0;
+        if (REDUCED || to === 0) { el.textContent = to; return; }
+        var start = null, dur = 1100;
+        function step(ts) {
+          if (!start) start = ts;
+          var p = Math.min((ts - start) / dur, 1);
+          el.textContent = Math.round(p * to);
+          if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    }
+    if (typeof IntersectionObserver !== 'undefined') {
+      var sObs = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) { runCounters(); sObs.disconnect(); }
+      }, { threshold: 0.4 });
+      sObs.observe(statsWrap);
+    } else { runCounters(); }
+  }
+
+  /* -- Desplegables Beneficios / Componentes -- */
+  Array.prototype.slice.call(document.querySelectorAll('.js-pb-acc')).forEach(function (item) {
+    var trg = item.querySelector('.kinu-pb__acc-trigger');
+    var pan = item.querySelector('.kinu-pb__acc-panel');
+    if (!trg || !pan) return;
+    pan.style.maxHeight = '0';
+    trg.addEventListener('click', function () {
+      var open = item.classList.contains('is-open');
+      item.classList.toggle('is-open', !open);
+      trg.setAttribute('aria-expanded', open ? 'false' : 'true');
+      pan.style.maxHeight = open ? '0' : (pan.scrollHeight + 'px');
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "KINU – Página producto",
+  "tag": "section",
+  "class": "kinu-section-product",
+  "settings": [
+    { "type": "text", "id": "rating_value", "label": "Calificación", "default": "4.9" },
+    { "type": "text", "id": "review_count", "label": "Número de reseñas", "default": "6" }
+  ],
+  "presets": [{ "name": "KINU – Página producto" }]
+}
+{% endschema %}

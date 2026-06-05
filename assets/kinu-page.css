@@ -3,19 +3,12 @@
    Un solo fondo continuo: noche -> claridad
    =========================================== */
 
+/* El degradé noche->amanecer ahora vive "cosido" dentro de cada
+   sección (cada fondo inferior = el superior de la siguiente), así
+   no hay líneas entre secciones. El body solo es un respaldo oscuro
+   por si algún hueco quedara sin pintar. */
 body {
-  background: linear-gradient(
-    to bottom,
-    #050F1A   0%,   /* Sección 1: noche profunda   */
-    #0A2540  18%,   /* Sección 1 -> 2               */
-    #0D3358  36%,   /* Sección 2 -> 3               */
-    #10385f  47%,   /* Sección 3 final             */
-    #2d6b85  60%,
-    #6698ad  72%,
-    #a8c8d5  82%,
-    #ccdde6  90%,
-    #E8F4FD 100%
-  ) !important;
+  background: #0A2540 !important;
   min-height: 100vh;
 }
 

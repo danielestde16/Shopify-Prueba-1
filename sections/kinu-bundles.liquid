@@ -11,9 +11,9 @@
 {%- assign jar_img = 'https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Foto_Tarro_Transparente.png?v=1780027313' -%}
 
 {%- comment -%}
-  Producto y variante para el carrito.
-  El variant ID se lee directamente del producto seleccionado
-  en la configuración de la sección — no se necesitan IDs manuales.
+  Producto del bundle (selecciónalo en el editor de tema → KINU Bundles).
+  Cada tarjeta se conecta automáticamente a su variante (1 / 2 / 3 tarros),
+  así el checkout cobra el precio real y el inventario queda correcto.
 {%- endcomment -%}
 {%- if section.settings.product != blank -%}
   {%- assign kinu_product   = section.settings.product -%}
@@ -22,6 +22,36 @@
 {%- endif -%}
 {%- assign kinu_variant_id  = kinu_product.variants.first.id | default: '' -%}
 {%- assign product_url      = kinu_product.url | default: '#' -%}
+
+{%- comment -%} Mapea cada pack a su variante real (por título, con respaldo por orden) {%- endcomment -%}
+{%- assign v1 = '' -%}
+{%- assign v2 = '' -%}
+{%- assign v3 = '' -%}
+{%- for v in kinu_product.variants -%}
+  {%- assign vt = v.title | downcase -%}
+  {%- if vt contains '1 tarro' and v1 == '' -%}
+    {%- assign v1 = v -%}
+  {%- elsif vt contains '2 tarro' and v2 == '' -%}
+    {%- assign v2 = v -%}
+  {%- elsif vt contains '3 tarro' and v3 == '' -%}
+    {%- assign v3 = v -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- if v1 == '' -%}{%- assign v1 = kinu_product.variants[0] -%}{%- endif -%}
+{%- if v2 == '' -%}{%- assign v2 = kinu_product.variants[1] -%}{%- endif -%}
+{%- if v3 == '' -%}{%- assign v3 = kinu_product.variants[2] -%}{%- endif -%}
+
+{%- comment -%} Precios dinámicos: si hay variantes con precio, los calcula; si no, usa los escritos {%- endcomment -%}
+{%- assign dyn = false -%}
+{%- if v1 != blank and v2 != blank and v3 != blank and v1.price > 0 and v2.price > 0 and v3.price > 0 -%}
+  {%- assign dyn = true -%}
+  {%- assign comp2 = v1.price | times: 2 -%}
+  {%- assign sav2  = comp2 | minus: v2.price -%}
+  {%- assign unit2 = v2.price | divided_by: 2 -%}
+  {%- assign comp3 = v1.price | times: 3 -%}
+  {%- assign sav3  = comp3 | minus: v3.price -%}
+  {%- assign unit3 = v3.price | divided_by: 3 -%}
+{%- endif -%}
 
 <section class="kinu-bun" aria-label="Selecciona tu pack KINU" id="kinu-bundles"
          data-variant-id="{{ kinu_variant_id }}"
@@ -46,13 +76,15 @@
         role="listitem"
         data-pack="1"
         data-quantity="1"
+        data-variant-id="{{ v1.id }}"
         data-label="1 tarro · 110 noches"
-        data-price="$109.900"
+        data-price="{% if dyn %}{{ v1.price | money_without_trailing_zeros }}{% else %}$121.900{% endif %}"
         tabindex="0"
         aria-pressed="false">
 
         <div class="kinu-bun__card-top">
           <span class="kinu-bun__pack-name">1 TARRO</span>
+          <span class="kinu-bun__base-label">Precio base</span>
         </div>
 
         <!-- 1 tarro centrado -->
@@ -64,30 +96,29 @@
         <div class="kinu-bun__nights">110 noches</div>
 
         <div class="kinu-bun__pricing">
-          <span class="kinu-bun__price-main">$109.900</span>
-          <span class="kinu-bun__price-unit">$109.900 / tarro</span>
-          <span class="kinu-bun__price-night">$999 / noche</span>
+          <span class="kinu-bun__price-main">{% if dyn %}{{ v1.price | money_without_trailing_zeros }}{% else %}$121.900{% endif %}</span>
+          <span class="kinu-bun__price-unit">{% if dyn %}{{ v1.price | money_without_trailing_zeros }}{% else %}$121.900{% endif %} / tarro</span>
         </div>
 
       </article>
 
-      <!-- --- PACK 2: 2 tarros — MÁS POPULAR (pre-seleccionado) --- -->
+      <!-- --- PACK 2: 2 tarros — MÁS POPULAR (pre-seleccionado) — HÉROE --- -->
       <article
         class="kinu-bun__card kinu-bun__card--popular js-bun-card is-selected"
         role="listitem"
         data-pack="2"
-        data-quantity="2"
+        data-quantity="1"
+        data-variant-id="{{ v2.id }}"
         data-label="2 tarros · 220 noches"
-        data-price="$199.900"
+        data-price="{% if dyn %}{{ v2.price | money_without_trailing_zeros }}{% else %}$209.900{% endif %}"
         tabindex="0"
         aria-pressed="true">
 
+        <span class="kinu-bun__popular-tag">MÁS POPULAR</span>
+
         <div class="kinu-bun__card-top">
           <span class="kinu-bun__pack-name">2 TARROS</span>
-          <span class="kinu-bun__badge kinu-bun__badge--off">9% Off</span>
         </div>
-
-        <span class="kinu-bun__popular-tag">Más popular</span>
 
         <!-- 2 tarros superpuestos -->
         <div class="kinu-bun__imgs kinu-bun__imgs--2">
@@ -97,16 +128,16 @@
                width="300" height="300" class="kinu-bun__jar">
         </div>
 
-        <div class="kinu-bun__nights">220 noches</div>
-        <p class="kinu-bun__year-note kinu-bun__year-note--blue">Medio año de calma</p>
+        <div class="kinu-bun__nights">220 noches de calma</div>
 
         <div class="kinu-bun__pricing">
           <div class="kinu-bun__price-row">
-            <span class="kinu-bun__price-main">$99.950</span>
-            <span class="kinu-bun__price-old">$109.900</span>
+            <span class="kinu-bun__price-main kinu-bun__price-main--hero">{% if dyn %}{{ v2.price | money_without_trailing_zeros }}{% else %}$209.900{% endif %}</span>
+            <span class="kinu-bun__price-old">{% if dyn %}{{ comp2 | money_without_trailing_zeros }}{% else %}$243.800{% endif %}</span>
           </div>
-          <span class="kinu-bun__price-unit">$199.900 total · ahorra $19.900</span>
-          <span class="kinu-bun__price-night">$909 / noche</span>
+          <span class="kinu-bun__savings-pill">Ahorras {% if dyn %}{{ sav2 | money_without_trailing_zeros }}{% else %}$33.900{% endif %}</span>
+          <span class="kinu-bun__price-unit">{% if dyn %}{{ unit2 | money_without_trailing_zeros }}{% else %}$104.950{% endif %} por unidad</span>
+          <p class="kinu-bun__copy-italic">El doble de tiempo — no el doble de precio</p>
         </div>
 
       </article>
@@ -116,18 +147,18 @@
         class="kinu-bun__card kinu-bun__card--best js-bun-card"
         role="listitem"
         data-pack="3"
-        data-quantity="3"
+        data-quantity="1"
+        data-variant-id="{{ v3.id }}"
         data-label="3 tarros · 330 noches"
-        data-price="$269.900"
+        data-price="{% if dyn %}{{ v3.price | money_without_trailing_zeros }}{% else %}$299.900{% endif %}"
         tabindex="0"
         aria-pressed="false">
 
+        <span class="kinu-bun__best-tag">Mejor valor</span>
+
         <div class="kinu-bun__card-top">
           <span class="kinu-bun__pack-name">3 TARROS</span>
-          <span class="kinu-bun__badge kinu-bun__badge--best">18% Off</span>
         </div>
-
-        <span class="kinu-bun__best-tag">Mejor valor</span>
 
         <!-- 3 tarros en abanico -->
         <div class="kinu-bun__imgs kinu-bun__imgs--3">
@@ -144,11 +175,11 @@
 
         <div class="kinu-bun__pricing">
           <div class="kinu-bun__price-row">
-            <span class="kinu-bun__price-main">$89.967</span>
-            <span class="kinu-bun__price-old">$109.900</span>
+            <span class="kinu-bun__price-main">{% if dyn %}{{ v3.price | money_without_trailing_zeros }}{% else %}$299.900{% endif %}</span>
+            <span class="kinu-bun__price-old">{% if dyn %}{{ comp3 | money_without_trailing_zeros }}{% else %}$365.700{% endif %}</span>
           </div>
-          <span class="kinu-bun__price-unit">$269.900 total · ahorra $59.800</span>
-          <span class="kinu-bun__price-night">$818 / noche</span>
+          <span class="kinu-bun__savings-pill">Ahorras {% if dyn %}{{ sav3 | money_without_trailing_zeros }}{% else %}$65.800{% endif %}</span>
+          <span class="kinu-bun__price-unit">{% if dyn %}{{ unit3 | money_without_trailing_zeros }}{% else %}$99.900{% endif %} por unidad</span>
         </div>
 
       </article>
@@ -160,7 +191,7 @@
 
       <p class="kinu-bun__selection-label">
         Seleccionado: <strong id="js-bun-label">2 tarros · 220 noches</strong>
-        <span class="kinu-bun__selection-price" id="js-bun-price">$199.900</span>
+        <span class="kinu-bun__selection-price" id="js-bun-price">$209.900</span>
       </p>
 
       {%- comment -%}
@@ -172,7 +203,7 @@
       {%- endcomment -%}
       <button class="kinu-bun__buy kinu-fill-btn" id="js-bun-buy"
               data-product-url="{{ product_url }}">
-        Agregar al carrito &nbsp;->
+        Comprar &nbsp;->
       </button>
 
       <!-- Banner de envío grande y llamativo -->
@@ -321,14 +352,31 @@
       var selected  = document.querySelector('.js-bun-card.is-selected');
       if (!selected) return;
 
-      /* variantId del <section>, quantity de la card seleccionada */
+      /* Lleva a la página de producto con el pack preseleccionado (más confianza = mejor conversión) */
+      var sec  = document.querySelector('.kinu-bun[data-variant-id]');
+      var vId  = selected.dataset.variantId || (sec ? sec.dataset.variantId : '');
+      var pUrl = buyBtn.dataset.productUrl || (sec ? sec.dataset.productUrl : '') || '/';
+      if (vId) pUrl += (pUrl.indexOf('?') > -1 ? '&' : '?') + 'variant=' + vId;
+      window.location.href = pUrl;
+      return;
+
+      /* Cada tarjeta trae su propia variante (1/2/3 tarros = packs reales).
+         La cantidad es 1 porque la variante YA representa el pack. */
       var section   = document.querySelector('.kinu-bun[data-variant-id]');
-      var variantId = section ? section.dataset.variantId : '';
-      var quantity  = parseInt(selected.dataset.quantity, 10) || 1;
+      var variantId = selected.dataset.variantId || (section ? section.dataset.variantId : '');
+      var quantity  = 1;
 
       if (variantId) {
         buyBtn.textContent = 'Agregando…';
         buyBtn.disabled    = true;
+
+        if (window.KinuCart) {
+          window.KinuCart.add(variantId, quantity).then(function () {
+            buyBtn.textContent = 'Agregar al carrito  ->';
+            buyBtn.disabled = false;
+          });
+          return;
+        }
 
         fetch('/cart/add.js', {
           method:  'POST',

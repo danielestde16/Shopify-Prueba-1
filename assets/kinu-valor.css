@@ -23,6 +23,8 @@
 .kinu-v2 {
   position: relative;
   z-index: 2;
+  /* Costura: arriba = base de revelación, abajo = tope de ritual */
+  background: linear-gradient(to bottom, #0c2f4d 0%, #0e3658 100%);
 }
 
 /* --- Spline (compartido desktop/móvil) -- */

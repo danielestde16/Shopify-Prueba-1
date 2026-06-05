@@ -5,7 +5,8 @@
    =================================================== */
 
 .kinu-ritual {
-  background: #0A2540;
+  /* Costura: arriba = base de valor, abajo = tope de ingrediente */
+  background: linear-gradient(to bottom, #0e3658 0%, #103d63 100%);
   position: relative;
   padding: 104px 0 128px;
 }

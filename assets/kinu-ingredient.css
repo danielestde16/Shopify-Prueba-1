@@ -61,7 +61,8 @@
    SECCIÓN BASE
    ------------------------------------------ */
 .kinu-ing {
-  background: #0D2E4A;
+  /* Costura: arriba = base de ritual, abajo = tope de reviews */
+  background: linear-gradient(to bottom, #103d63 0%, #12446e 100%);
   padding: 104px 0 128px;
   position: relative;
   overflow: hidden;

@@ -1,0 +1,313 @@
+{{ 'kinu-faq.css' | asset_url | stylesheet_tag }}
+
+<section class="kinu-faq" aria-label="Preguntas frecuentes KINU" id="kinu-faq">
+  <div class="kinu-faq__inner">
+
+    <!-- -- Encabezado -- -->
+    <div class="kinu-faq__heading js-faq-fade">
+      <span class="kinu-faq__eyebrow">Resolvemos tus dudas</span>
+      <h2 class="kinu-faq__title">Todo lo que necesitas saber.</h2>
+      <p class="kinu-faq__subtitle">
+        Todo lo que necesitas saber antes de tu primera noche con KINU.
+      </p>
+    </div>
+
+    <!-- -- Acordeón -- -->
+    <div class="kinu-faq__accordion js-faq-fade" role="list">
+
+      <!-- 1 — Sabor -->
+      <div class="kinu-faq__item js-faq-item" role="listitem">
+        <button class="kinu-faq__trigger" aria-expanded="false" aria-controls="faq-panel-1">
+          <span class="kinu-faq__icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="1.8"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+          </span>
+          <span class="kinu-faq__q-text">¿KINU tiene sabor?</span>
+          <span class="kinu-faq__expand" aria-hidden="true">
+            <svg class="kinu-faq__expand-svg" width="26" height="26" viewBox="0 0 26 26">
+              <circle cx="13" cy="13" r="12" stroke="currentColor" stroke-width="1.5"
+                      fill="rgba(74,173,223,0.08)"/>
+              <line x1="13" y1="7.5" x2="13" y2="18.5"
+                    class="kinu-faq__expand-v" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round"/>
+              <line x1="7.5" y1="13" x2="18.5" y2="13"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </span>
+        </button>
+        <div class="kinu-faq__panel" id="faq-panel-1" aria-hidden="true">
+          <div class="kinu-faq__panel-inner">
+            <p class="kinu-faq__a">
+              Ninguno. KINU es citrato de magnesio puro — sin saborizantes, sin stevia,
+              sin aditivos. Se disuelve en cualquier bebida: agua, leche de almendras,
+              jugo o lo que prefieras. No altera el sabor de nada.
+              Lo mezclas con tu bebida de siempre antes de acostarte,
+              sin cambiar nada de tu rutina.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 — Diarrea -->
+      <div class="kinu-faq__item js-faq-item" role="listitem">
+        <button class="kinu-faq__trigger" aria-expanded="false" aria-controls="faq-panel-2">
+          <span class="kinu-faq__icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="1.8"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/>
+              <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+            </svg>
+          </span>
+          <span class="kinu-faq__q-text">¿El citrato de magnesio da diarrea?</span>
+          <span class="kinu-faq__expand" aria-hidden="true">
+            <svg class="kinu-faq__expand-svg" width="26" height="26" viewBox="0 0 26 26">
+              <circle cx="13" cy="13" r="12" stroke="currentColor" stroke-width="1.5"
+                      fill="rgba(74,173,223,0.08)"/>
+              <line x1="13" y1="7.5" x2="13" y2="18.5"
+                    class="kinu-faq__expand-v" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round"/>
+              <line x1="7.5" y1="13" x2="18.5" y2="13"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </span>
+        </button>
+        <div class="kinu-faq__panel" id="faq-panel-2" aria-hidden="true">
+          <div class="kinu-faq__panel-inner">
+            <p class="kinu-faq__a">
+              A dosis muy altas el magnesio puede tener efecto laxante — por eso KINU
+              incluye cuchara dosificadora de 1 g. La dosis diaria son 2 cucharadas rasas
+              = 2 g (280 mg de magnesio elemental), tal como lo indica la etiqueta del producto.
+              Si tu digestión es sensible, empieza con una cucharada la primera semana
+              y sube a dos. A la dosis recomendada, lo habitual es regularidad digestiva,
+              no malestar.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 — Cómo medir -->
+      <div class="kinu-faq__item js-faq-item" role="listitem">
+        <button class="kinu-faq__trigger" aria-expanded="false" aria-controls="faq-panel-3">
+          <span class="kinu-faq__icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="1.8"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <polyline points="9 12 11 14 15 10"/>
+            </svg>
+          </span>
+          <span class="kinu-faq__q-text">¿Cómo sé cuánto tomar?</span>
+          <span class="kinu-faq__expand" aria-hidden="true">
+            <svg class="kinu-faq__expand-svg" width="26" height="26" viewBox="0 0 26 26">
+              <circle cx="13" cy="13" r="12" stroke="currentColor" stroke-width="1.5"
+                      fill="rgba(74,173,223,0.08)"/>
+              <line x1="13" y1="7.5" x2="13" y2="18.5"
+                    class="kinu-faq__expand-v" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round"/>
+              <line x1="7.5" y1="13" x2="18.5" y2="13"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </span>
+        </button>
+        <div class="kinu-faq__panel" id="faq-panel-3" aria-hidden="true">
+          <div class="kinu-faq__panel-inner">
+            <p class="kinu-faq__a">
+              El tarro incluye cuchara dosificadora de 1 g. La dosis son 2 cucharadas rasas
+              = 2 g en total (como indica la etiqueta). Sin balanza, sin adivinar.
+              Disuelve en 200–250 ml de agua y tómalo 30–60 minutos antes de dormir.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 — Confianza -->
+      <div class="kinu-faq__item js-faq-item" role="listitem">
+        <button class="kinu-faq__trigger" aria-expanded="false" aria-controls="faq-panel-4">
+          <span class="kinu-faq__icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="1.8"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="2"/>
+              <ellipse cx="12" cy="12" rx="10" ry="4"/>
+              <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/>
+              <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/>
+            </svg>
+          </span>
+          <span class="kinu-faq__q-text">No conozco la marca. ¿Es un producto serio?</span>
+          <span class="kinu-faq__expand" aria-hidden="true">
+            <svg class="kinu-faq__expand-svg" width="26" height="26" viewBox="0 0 26 26">
+              <circle cx="13" cy="13" r="12" stroke="currentColor" stroke-width="1.5"
+                      fill="rgba(74,173,223,0.08)"/>
+              <line x1="13" y1="7.5" x2="13" y2="18.5"
+                    class="kinu-faq__expand-v" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round"/>
+              <line x1="7.5" y1="13" x2="18.5" y2="13"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </span>
+        </button>
+        <div class="kinu-faq__panel" id="faq-panel-4" aria-hidden="true">
+          <div class="kinu-faq__panel-inner">
+            <p class="kinu-faq__a">
+              KINU tiene un solo ingrediente: citrato de magnesio. Lo lees en la etiqueta,
+              nada escondido. Un ingrediente significa que puedes rastrearlo, verificarlo
+              y entenderlo sin descifrar una lista de veinte componentes.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 — Precio -->
+      <div class="kinu-faq__item js-faq-item" role="listitem">
+        <button class="kinu-faq__trigger" aria-expanded="false" aria-controls="faq-panel-5">
+          <span class="kinu-faq__icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="1.8"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 12c.5-2 2-3 4-3s3.5 1 4 3 1.5 3 4 3 3.5-1 4-3"/>
+              <path d="M2 18c.5-2 2-3 4-3s3.5 1 4 3 1.5 3 4 3 3.5-1 4-3"/>
+            </svg>
+          </span>
+          <span class="kinu-faq__q-text">¿No es muy caro para un suplemento?</span>
+          <span class="kinu-faq__expand" aria-hidden="true">
+            <svg class="kinu-faq__expand-svg" width="26" height="26" viewBox="0 0 26 26">
+              <circle cx="13" cy="13" r="12" stroke="currentColor" stroke-width="1.5"
+                      fill="rgba(74,173,223,0.08)"/>
+              <line x1="13" y1="7.5" x2="13" y2="18.5"
+                    class="kinu-faq__expand-v" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round"/>
+              <line x1="7.5" y1="13" x2="18.5" y2="13"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </span>
+        </button>
+        <div class="kinu-faq__panel" id="faq-panel-5" aria-hidden="true">
+          <div class="kinu-faq__panel-inner">
+            <p class="kinu-faq__a">
+              Un tarro trae 110 porciones. A $121.900, eso es menos de $1.200 por noche.
+              Con el pack de 2, el costo baja a $954 por noche.
+              ¿Cuánto cuestan las noches que no logras dormir — en energía,
+              en concentración, en calidad de vida?
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6 — Medicamentos -->
+      <div class="kinu-faq__item js-faq-item" role="listitem">
+        <button class="kinu-faq__trigger" aria-expanded="false" aria-controls="faq-panel-6">
+          <span class="kinu-faq__icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="1.8"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </span>
+          <span class="kinu-faq__q-text">¿Puedo tomarlo con mis medicamentos?</span>
+          <span class="kinu-faq__expand" aria-hidden="true">
+            <svg class="kinu-faq__expand-svg" width="26" height="26" viewBox="0 0 26 26">
+              <circle cx="13" cy="13" r="12" stroke="currentColor" stroke-width="1.5"
+                      fill="rgba(74,173,223,0.08)"/>
+              <line x1="13" y1="7.5" x2="13" y2="18.5"
+                    class="kinu-faq__expand-v" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round"/>
+              <line x1="7.5" y1="13" x2="18.5" y2="13"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </span>
+        </button>
+        <div class="kinu-faq__panel" id="faq-panel-6" aria-hidden="true">
+          <div class="kinu-faq__panel-inner">
+            <p class="kinu-faq__a">
+              Si tomas medicamentos regulares, consulta primero a tu médico o farmacéutico.
+              El magnesio puede interactuar con algunos antibióticos y medicamentos para
+              la presión. KINU no reemplaza ningún tratamiento médico.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.kinu-faq__accordion -->
+  </div>
+</section>
+
+<script>
+(function () {
+  var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* -- Fade-in encabezado + acordeón -- */
+  var fades = Array.prototype.slice.call(document.querySelectorAll('.js-faq-fade'));
+  if (typeof IntersectionObserver !== 'undefined') {
+    var fObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('is-visible'); fObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    fades.forEach(function (el) { fObs.observe(el); });
+  } else {
+    fades.forEach(function (el) { el.classList.add('is-visible'); });
+  }
+
+  /* -- Acordeón — mismo JS que kinu-ingredient -- */
+  var items = Array.prototype.slice.call(document.querySelectorAll('.js-faq-item'));
+
+  function getPanel(item)   { return item.querySelector('.kinu-faq__panel'); }
+  function getTrigger(item) { return item.querySelector('.kinu-faq__trigger'); }
+
+  function openItem(item) {
+    var p = getPanel(item), t = getTrigger(item);
+    if (!p || !t) return;
+    item.classList.add('is-open');
+    t.setAttribute('aria-expanded', 'true');
+    p.setAttribute('aria-hidden', 'false');
+    p.style.maxHeight = REDUCED ? 'none' : (p.scrollHeight + 'px');
+  }
+
+  function closeItem(item) {
+    var p = getPanel(item), t = getTrigger(item);
+    if (!p || !t) return;
+    item.classList.remove('is-open');
+    t.setAttribute('aria-expanded', 'false');
+    p.setAttribute('aria-hidden', 'true');
+    if (REDUCED) {
+      p.style.maxHeight = '0';
+    } else {
+      p.style.maxHeight = p.scrollHeight + 'px';
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { p.style.maxHeight = '0'; });
+      });
+    }
+  }
+
+  /* Inicializar todos cerrados */
+  items.forEach(function (item) {
+    var p = getPanel(item);
+    if (p) p.style.maxHeight = '0';
+  });
+
+  items.forEach(function (item) {
+    var t = getTrigger(item);
+    if (!t) return;
+    t.addEventListener('click', function () {
+      var isOpen = item.classList.contains('is-open');
+      items.forEach(function (it) { if (it !== item) closeItem(it); });
+      if (isOpen) closeItem(item);
+      else        openItem(item);
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "KINU – FAQ",
+  "tag": "section",
+  "class": "kinu-section-faq",
+  "presets": [{ "name": "KINU – FAQ" }]
+}
+{% endschema %}

@@ -11,6 +11,22 @@
 
 <section class="kinu-hero">
 
+  <!-- -- Video de fondo galaxia — loop infinito -- -->
+  <video
+    class="kinu-hero__video"
+    autoplay
+    loop
+    muted
+    playsinline
+    webkit-playsinline
+    preload="auto"
+    disablepictureinpicture
+    disableremoteplayback
+    {% if section.settings.video_poster != blank %}poster="{{ section.settings.video_poster | image_url: width: 1280 }}"{% endif %}
+    aria-hidden="true">
+    <source src="https://cdn.shopify.com/videos/c/o/v/a8385a2419ad42089670b7bdbf732aaf.mp4" type="video/mp4">
+  </video>
+
   <!-- -- Estrella fugaz — CSS puro, clipeada al hero -- -->
   <div class="kinu-hero__shoot" aria-hidden="true"></div>
 
@@ -32,10 +48,32 @@
         Magnesio puro para mentes que no se apagan.
       </h1>
 
-      <p class="kinu-hero__sub">
-        Un solo ingrediente &middot; Sin sabor &middot; Sin aditivos<br>
-        110 noches de calma profunda.
-      </p>
+      <div class="kinu-hero__props">
+        <div class="kinu-hero__prop">
+          <span class="kinu-hero__prop-ico" aria-hidden="true">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="2"/><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/></svg>
+          </span>
+          <span class="kinu-hero__prop-lbl">1 ingrediente</span>
+        </div>
+        <div class="kinu-hero__prop">
+          <span class="kinu-hero__prop-ico" aria-hidden="true">
+            <svg width="32" height="32" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M24 6 C24 6 10 22 10 32 A14 14 0 0 0 38 32 C38 22 24 6 24 6Z"/><path d="M16 31 C16 28 15 26 15 24" opacity="0.5"/></svg>
+          </span>
+          <span class="kinu-hero__prop-lbl">Sin sabor</span>
+        </div>
+        <div class="kinu-hero__prop">
+          <span class="kinu-hero__prop-ico" aria-hidden="true">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></svg>
+          </span>
+          <span class="kinu-hero__prop-lbl">Sin aditivos</span>
+        </div>
+        <div class="kinu-hero__prop">
+          <span class="kinu-hero__prop-ico" aria-hidden="true">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </span>
+          <span class="kinu-hero__prop-lbl">110 noches de calma</span>
+        </div>
+      </div>
 
       <a href="{{ hero_product.url | default: '#' }}" class="kinu-hero__cta kinu-fill-btn">
         Quiero mi KINU
@@ -56,6 +94,28 @@
   </div>
 </section>
 
+<script>
+(function () {
+  var v = document.querySelector('.kinu-hero__video');
+  if (!v) return;
+  /* Refuerza el estado silenciado (requisito para autoplay en móvil) */
+  v.muted = true;
+  v.setAttribute('muted', '');
+  function play() {
+    var p = v.play();
+    if (p && p.catch) p.catch(function () {});
+  }
+  play();
+  /* Reintenta al primer toque/scroll y cuando la pestaña vuelve a estar visible */
+  ['touchstart', 'click', 'scroll'].forEach(function (ev) {
+    window.addEventListener(ev, play, { once: true, passive: true });
+  });
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden) play();
+  });
+})();
+</script>
+
 {% schema %}
 {
   "name": "KINU Hero",
@@ -66,6 +126,12 @@
       "type": "product",
       "id": "product",
       "label": "Producto KINU"
+    },
+    {
+      "type": "image_picker",
+      "id": "video_poster",
+      "label": "Poster del video (galaxia)",
+      "info": "Sube un fotograma de la galaxia. Se muestra mientras el video carga, evita el parpadeo en móvil."
     }
   ],
   "presets": [

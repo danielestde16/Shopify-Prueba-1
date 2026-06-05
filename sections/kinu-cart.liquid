@@ -1,0 +1,20 @@
+{%- comment -%}
+  La página individual de carrito se elimina: redirige a la home y abre el
+  drawer del carrito (que es la única vista de carrito de la tienda).
+{%- endcomment -%}
+<script>window.location.replace('{{ routes.root_url }}?cart=open');</script>
+<meta http-equiv="refresh" content="0;url={{ routes.root_url }}?cart=open">
+<noscript>
+  <div style="text-align:center;padding:80px 20px;font-family:'Plus Jakarta Sans',system-ui,sans-serif;">
+    <a href="{{ routes.root_url }}" style="color:#1A6FAD;font-weight:700;">Volver a la tienda →</a>
+  </div>
+</noscript>
+
+{% schema %}
+{
+  "name": "KINU – Carrito",
+  "tag": "section",
+  "class": "kinu-section-cart",
+  "settings": []
+}
+{% endschema %}

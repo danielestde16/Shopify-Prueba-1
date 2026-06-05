@@ -9,7 +9,8 @@
 }
 
 .kinu-rv {
-  background: #0A2540;
+  /* Costura: arriba = base de ingrediente, abajo = tope de bundles */
+  background: linear-gradient(to bottom, #12446e 0%, #154b79 100%);
   padding: 104px 0 128px;
   position: relative;
 }
@@ -152,6 +153,7 @@
   background: linear-gradient(to right, #1A8C4E, #2ECC71);
   border-radius: 4px;
   width: 0;
+  transition: width 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .kinu-rv__bar-pct {

@@ -1,0 +1,246 @@
+{{ 'kinu-offer.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign offer_pct = section.settings.offer_percent | default: '14%'
+-%}
+
+<div class="kinu-offer" id="kinu-offer"
+     data-klaviyo-key="{{ section.settings.klaviyo_public_key }}"
+     data-klaviyo-list="{{ section.settings.klaviyo_list_id }}">
+
+  <!-- Tab flotante siempre disponible -->
+  <button class="kinu-offer__tab" id="kinu-offer-tab" type="button"
+          aria-label="Abrir descuento de {{ offer_pct }}">
+    <span class="kinu-offer__tab-pct">{{ offer_pct }}</span> OFF
+  </button>
+
+  <!-- Modal -->
+  <div class="kinu-offer__overlay" id="kinu-offer-overlay" role="dialog"
+       aria-modal="true" aria-labelledby="kinu-offer-title" aria-hidden="true">
+    <div class="kinu-offer__card">
+      <button class="kinu-offer__close" id="kinu-offer-close" type="button"
+              aria-label="Cerrar">&times;</button>
+
+      <span class="kinu-offer__eyebrow">Tu mejor precio te espera</span>
+      <h2 class="kinu-offer__big" id="kinu-offer-title">
+        <span>{{ offer_pct }}</span> en el pack de 2
+      </h2>
+      <p class="kinu-offer__sub">
+        Déjanos tu correo y WhatsApp y te llevamos directo a tu mejor precio
+        para empezar tu ritual de calma esta misma semana.
+      </p>
+
+      <!-- Formulario -->
+      <div class="kinu-offer__form" id="kinu-offer-form">
+        <div class="kinu-offer__field">
+          <input class="kinu-offer__input" id="kinu-offer-email" type="email"
+                 placeholder="tu@email.com" autocomplete="email" inputmode="email">
+          <span class="kinu-offer__err" id="kinu-offer-err-email" hidden>
+            Ingresa un correo válido.
+          </span>
+        </div>
+        <div class="kinu-offer__field">
+          <input class="kinu-offer__input" id="kinu-offer-phone" type="tel"
+                 placeholder="Tu WhatsApp" autocomplete="tel" inputmode="tel">
+          <span class="kinu-offer__err" id="kinu-offer-err-phone" hidden>
+            Ingresa tu número.
+          </span>
+        </div>
+        <button class="kinu-offer__btn" id="kinu-offer-submit" type="button">
+          Quiero mi {{ offer_pct }} de descuento
+        </button>
+        <p class="kinu-offer__fineprint">
+          Sin spam. Solo tu descuento y consejos de sueño de vez en cuando.
+        </p>
+      </div>
+
+      <!-- Éxito: lleva al pack (inline, no redirige) -->
+      <div class="kinu-offer__success">
+        <p class="kinu-offer__sub" style="display:block;margin-bottom:18px;">
+          ¡Listo! Te escribimos por WhatsApp y correo. Aquí tienes tu mejor precio:
+        </p>
+        <button class="kinu-offer__btn" id="kinu-offer-go" type="button">
+          Ver el pack de 2 &nbsp;→
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var root    = document.getElementById('kinu-offer');
+  var tab     = document.getElementById('kinu-offer-tab');
+  var overlay = document.getElementById('kinu-offer-overlay');
+  var closeB  = document.getElementById('kinu-offer-close');
+  var submit  = document.getElementById('kinu-offer-submit');
+  var goBtn   = document.getElementById('kinu-offer-go');
+  var emailI  = document.getElementById('kinu-offer-email');
+  var phoneI  = document.getElementById('kinu-offer-phone');
+  var errE    = document.getElementById('kinu-offer-err-email');
+  var errP    = document.getElementById('kinu-offer-err-phone');
+  if (!root || !overlay) return;
+
+  /* ===== Credenciales Klaviyo (públicas, NO secretas) =====
+     Se configuran desde el editor de tema (sección "Captura descuento").
+     - PUBLIC KEY  = el "Public API key / Site ID" de 6 caracteres de tu
+       cuenta Klaviyo (Settings → API keys).
+     - LIST ID     = el ID de la lista a la que quieres suscribir
+       (Lists & Segments → tu lista → Settings → List ID). */
+  var KLAVIYO_KEY  = root.dataset.klaviyoKey  || '';
+  var KLAVIYO_LIST = root.dataset.klaviyoList || '';
+
+  /* ===== Estado / frecuencia ===== */
+  var DONE_KEY  = 'kinu_offer_done';        /* ya se suscribió (persistente)  */
+  var CLOSED_KEY= 'kinu_offer_closed_at';   /* timestamp de último cierre     */
+  var SEEN_KEY  = 'kinu_offer_seen';        /* ya se mostró en esta sesión    */
+  var COOLDOWN  = 7 * 24 * 60 * 60 * 1000;  /* 7 días                          */
+
+  function ls(get, key, val) {
+    try { return get ? localStorage.getItem(key) : localStorage.setItem(key, val); }
+    catch (e) { return null; }
+  }
+  function isDone()      { return ls(true, DONE_KEY) === '1'; }
+  function seenSession() { try { return sessionStorage.getItem(SEEN_KEY) === '1'; } catch (e) { return false; } }
+  function markSeen()    { try { sessionStorage.setItem(SEEN_KEY, '1'); } catch (e) {} }
+  function inCooldown()  {
+    var t = parseInt(ls(true, CLOSED_KEY) || '0', 10);
+    return t && (Date.now() - t < COOLDOWN);
+  }
+  function canAutoShow() { return !isDone() && !seenSession() && !inCooldown(); }
+
+  if (isDone()) root.classList.add('is-done');
+
+  function open() {
+    overlay.classList.add('is-open');
+    overlay.setAttribute('aria-hidden', 'false');
+    markSeen();
+  }
+  function close() {
+    overlay.classList.remove('is-open');
+    overlay.setAttribute('aria-hidden', 'true');
+    ls(false, CLOSED_KEY, String(Date.now()));
+  }
+
+  /* -- Apertura manual (siempre disponible) -- */
+  tab.addEventListener('click', open);
+  closeB.addEventListener('click', close);
+  overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.classList.contains('is-open')) close();
+  });
+
+  /* -- Disparo automático: 10s de permanencia -- */
+  setTimeout(function () { if (canAutoShow()) open(); }, 10000);
+
+  /* -- Exit intent (solo desktop): el cursor sube hacia la barra -- */
+  var isDesktop = window.matchMedia('(min-width: 750px)').matches;
+  if (isDesktop) {
+    document.addEventListener('mouseout', function (e) {
+      if (!e.relatedTarget && e.clientY <= 4 && canAutoShow()) open();
+    });
+  }
+
+  /* ===== Envío a Klaviyo ===== */
+  function validEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+  function showSuccess() {
+    root.classList.add('is-done');
+    ls(false, DONE_KEY, '1');
+  }
+
+  function subscribeKlaviyo(email, phone) {
+    /* Sin credenciales aún: no rompemos la experiencia, mostramos el código.
+       (Configura KLAVIYO_KEY y KLAVIYO_LIST en el editor para activar el envío.) */
+    if (!KLAVIYO_KEY || !KLAVIYO_LIST) {
+      return Promise.resolve();
+    }
+    var payload = {
+      data: {
+        type: 'subscription',
+        attributes: {
+          profile: {
+            data: {
+              type: 'profile',
+              attributes: {
+                email: email,
+                properties: { WhatsApp: phone }
+              }
+            }
+          }
+        },
+        relationships: {
+          list: { data: { type: 'list', id: KLAVIYO_LIST } }
+        }
+      }
+    };
+    return fetch('https://a.klaviyo.com/client/subscriptions/?company_id=' + encodeURIComponent(KLAVIYO_KEY), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'revision': '2024-10-15' },
+      body: JSON.stringify(payload)
+    });
+  }
+
+  submit.addEventListener('click', function () {
+    if (errE) errE.hidden = true;
+    if (errP) errP.hidden = true;
+    var email = emailI ? emailI.value.trim() : '';
+    var phone = phoneI ? phoneI.value.trim() : '';
+    var ok = true;
+    if (!validEmail(email)) { if (errE) errE.hidden = false; ok = false; }
+    if (phone.length < 7)   { if (errP) errP.hidden = false; ok = false; }
+    if (!ok) return;
+
+    submit.disabled = true;
+    submit.textContent = 'Enviando…';
+
+    subscribeKlaviyo(email, phone)
+      .then(function ()  { showSuccess(); })
+      .catch(function () { showSuccess(); /* no perder la venta si Klaviyo falla */ });
+  });
+
+  if (goBtn) {
+    goBtn.addEventListener('click', function () {
+      close();
+      var t = document.getElementById('kinu-bundles');
+      if (t) t.scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth' });
+    });
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "KINU – Captura descuento",
+  "tag": "section",
+  "class": "kinu-section-offer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "offer_percent",
+      "label": "Porcentaje a mostrar",
+      "default": "14%",
+      "info": "Es el ahorro del pack de 2 ($33.900 sobre $243.800 ≈ 14%). No es un cupón extra: es el precio del propio pack."
+    },
+    {
+      "type": "header",
+      "content": "Integración Klaviyo"
+    },
+    {
+      "type": "text",
+      "id": "klaviyo_public_key",
+      "label": "Klaviyo Public API Key (Site ID)",
+      "info": "Klaviyo → Settings → API keys. Son 6 caracteres. NO es secreta."
+    },
+    {
+      "type": "text",
+      "id": "klaviyo_list_id",
+      "label": "Klaviyo List ID",
+      "info": "Klaviyo → Lists & Segments → tu lista → Settings → List ID."
+    }
+  ],
+  "presets": [{ "name": "KINU – Captura descuento" }]
+}
+{% endschema %}

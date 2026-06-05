@@ -5,17 +5,10 @@
    =========================================== */
 
 .kinu-prob {
-  background: #050F1A;
+  /* Costura: arriba = base del hero (#0A2540), abajo = tope de revelación */
+  background: linear-gradient(to bottom, #0A2540 0%, #0a2742 100%);
   position: relative;
-}
-
-/* Degradado inferior: puente visual hacia la siguiente sección */
-.kinu-prob::after {
-  content: '';
-  display: block;
-  height: 100px;
-  background: linear-gradient(to bottom, transparent, #0A2540);
-  pointer-events: none;
+  padding-bottom: 64px;
 }
 
 /* -- Cabecera -- */
@@ -56,7 +49,7 @@
   position: absolute;
   inset: 0 0 auto 0;
   height: 35%;
-  background: linear-gradient(to bottom, #050F1A 0%, transparent 100%);
+  background: linear-gradient(to bottom, #0A2540 0%, transparent 100%);
   z-index: 2;
   pointer-events: none;
 }
@@ -68,7 +61,7 @@
   position: absolute;
   inset: auto 0 0 0;
   height: 45%;
-  background: linear-gradient(to top, #050F1A 0%, transparent 100%);
+  background: linear-gradient(to top, #0A2540 0%, transparent 100%);
   z-index: 2;
   pointer-events: none;
 }

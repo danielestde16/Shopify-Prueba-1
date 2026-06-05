@@ -6,24 +6,16 @@
    =================================================== */
 
 .kinu-rev {
-  background: #0A2540;
+  /* Costura: arriba = base de problema, abajo = tope de valor */
+  background: linear-gradient(to bottom, #0a2742 0%, #0c2f4d 100%);
   position: relative;
-}
-
-/* Puente visual desde la sección anterior */
-.kinu-rev::before {
-  content: '';
-  display: block;
-  height: 80px;
-  background: linear-gradient(to bottom, #050F1A, #0A2540);
-  pointer-events: none;
 }
 
 /* Columna única centrada — espacio generoso pero no infinito */
 .kinu-rev__inner {
   max-width: 900px;
   margin: 0 auto;
-  padding: 0 40px 100px;
+  padding: 72px 40px 100px;
 }
 
 /* -- Línea de acento: ancla la sección -- */

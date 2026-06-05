@@ -29,27 +29,27 @@
       <div class="kinu-rv__bars-col" id="js-rv-bars">
         <div class="kinu-rv__bar-row">
           <span class="kinu-rv__bar-lbl">5 *</span>
-          <div class="kinu-rv__bar-track"><div class="kinu-rv__bar-fill" style="width:83%"></div></div>
+          <div class="kinu-rv__bar-track"><div class="kinu-rv__bar-fill js-bar-fill" data-width="83%"></div></div>
           <span class="kinu-rv__bar-pct">83%</span>
         </div>
         <div class="kinu-rv__bar-row">
           <span class="kinu-rv__bar-lbl">4 *</span>
-          <div class="kinu-rv__bar-track"><div class="kinu-rv__bar-fill" style="width:17%"></div></div>
+          <div class="kinu-rv__bar-track"><div class="kinu-rv__bar-fill js-bar-fill" data-width="17%"></div></div>
           <span class="kinu-rv__bar-pct">17%</span>
         </div>
         <div class="kinu-rv__bar-row">
           <span class="kinu-rv__bar-lbl">3 *</span>
-          <div class="kinu-rv__bar-track"><div class="kinu-rv__bar-fill" style="width:0%"></div></div>
+          <div class="kinu-rv__bar-track"><div class="kinu-rv__bar-fill js-bar-fill" data-width="0%"></div></div>
           <span class="kinu-rv__bar-pct">0%</span>
         </div>
         <div class="kinu-rv__bar-row">
           <span class="kinu-rv__bar-lbl">2 *</span>
-          <div class="kinu-rv__bar-track"><div class="kinu-rv__bar-fill" style="width:0%"></div></div>
+          <div class="kinu-rv__bar-track"><div class="kinu-rv__bar-fill js-bar-fill" data-width="0%"></div></div>
           <span class="kinu-rv__bar-pct">0%</span>
         </div>
         <div class="kinu-rv__bar-row">
           <span class="kinu-rv__bar-lbl">1 *</span>
-          <div class="kinu-rv__bar-track"><div class="kinu-rv__bar-fill" style="width:0%"></div></div>
+          <div class="kinu-rv__bar-track"><div class="kinu-rv__bar-fill js-bar-fill" data-width="0%"></div></div>
           <span class="kinu-rv__bar-pct">0%</span>
         </div>
       </div>
@@ -358,10 +358,29 @@
     cards.forEach(function (c)  { c.classList.add('is-visible'); });
   }
 
-  /* Barras de rating: rellenar directo con el porcentaje, sin animación */
-  document.querySelectorAll('.js-bar-fill').forEach(function (f) {
-    f.style.width = f.dataset.width;
-  });
+  /* Barras de rating: animar en verde al entrar al viewport */
+  var barsCol = document.getElementById('js-rv-bars');
+  if (barsCol) {
+    if (typeof IntersectionObserver !== 'undefined') {
+      var bObs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            document.querySelectorAll('.js-bar-fill').forEach(function (f, i) {
+              REDUCED
+                ? (f.style.width = f.dataset.width || '0%')
+                : setTimeout(function () { f.style.width = f.dataset.width || '0%'; }, i * 130);
+            });
+            bObs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.4 });
+      bObs.observe(barsCol);
+    } else {
+      document.querySelectorAll('.js-bar-fill').forEach(function (f) {
+        f.style.width = f.dataset.width || '0%';
+      });
+    }
+  }
 
   /* ==============================================
      DOTS DEL CARRUSEL (móvil <480px)

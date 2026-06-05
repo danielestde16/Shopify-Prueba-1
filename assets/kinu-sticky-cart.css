@@ -1,0 +1,89 @@
+/* ===========================================
+   KINU — Sticky Add-to-Cart (móvil)
+   Barra fija inferior · aparece al hacer scroll
+   =========================================== */
+
+.kinu-sticky {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  /* Respeta el área segura del iPhone */
+  padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  background: rgba(8, 24, 42, 0.96);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(74, 173, 223, 0.25);
+  box-shadow: 0 -8px 28px rgba(0, 0, 0, 0.4);
+  /* Oculta por defecto: fuera de pantalla hacia abajo */
+  transform: translateY(120%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.kinu-sticky.is-visible {
+  transform: translateY(0);
+}
+
+/* -- Info: etiqueta + precio -- */
+.kinu-sticky__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.kinu-sticky__label {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #BACFDD;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kinu-sticky__price {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #F0F4FD;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+/* -- Botón -- */
+.kinu-sticky__btn {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 24px;
+  background: #1A6FAD;
+  color: #F0F4FD;
+  border: none;
+  border-radius: 50px;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+.kinu-sticky__btn:hover { background: #155d93; }
+.kinu-sticky__btn:disabled { opacity: 0.7; cursor: wait; }
+
+/* -- Solo en móvil/tablet; en desktop los CTA de la página bastan -- */
+@media (min-width: 750px) {
+  .kinu-sticky { display: none !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kinu-sticky { transition: none; }
+}

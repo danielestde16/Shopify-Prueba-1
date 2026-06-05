@@ -1,0 +1,245 @@
+/* ===========================================
+   KINU — Carrito drawer (desliza desde arriba)
+   Estética light, acento verde en ahorros
+   =========================================== */
+
+.kinu-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 600; /* por encima del header (200) y announcement (400/500) */
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.kinu-drawer.is-open { visibility: visible; opacity: 1; }
+
+.kinu-drawer__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 37, 64, 0.55);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+
+.kinu-drawer__panel {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  max-height: 92vh;
+  overflow-y: auto;
+  background: #F8FBFF;
+  color: #0A2540;
+  border-radius: 0 0 18px 18px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  transform: translateY(-100%);
+  transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.kinu-drawer.is-open .kinu-drawer__panel { transform: translateY(0); }
+
+.kinu-drawer__content { max-width: 1180px; margin: 0 auto; padding: 24px 32px 32px; }
+
+/* Cabecera */
+.kinu-drawer__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #E2EAF4;
+  margin-bottom: 18px;
+}
+.kinu-drawer__title {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.kinu-drawer__close {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: 1.5px solid #CBD8E6;
+  border-radius: 50px;
+  padding: 8px 16px;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #0A2540;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.kinu-drawer__close:hover { background: #ECF3FB; }
+
+/* Vacío */
+.kinu-drawer__empty {
+  text-align: center;
+  padding: 40px 20px;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  color: #5C6F82;
+}
+.kinu-drawer__empty a {
+  display: inline-block;
+  margin-top: 16px;
+  background: #0A2540;
+  color: #F0F4FD;
+  text-decoration: none;
+  padding: 12px 28px;
+  border-radius: 50px;
+  font-weight: 700;
+}
+
+/* Línea de producto */
+.kinu-drawer__item {
+  display: grid;
+  grid-template-columns: 72px 1fr auto;
+  gap: 16px;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid #EAF0F8;
+}
+.kinu-drawer__img { width: 72px; height: 72px; border-radius: 10px; overflow: hidden; background: #fff; }
+.kinu-drawer__img img { width: 100%; height: 100%; object-fit: contain; }
+
+.kinu-drawer__name {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 0.98rem; font-weight: 700; margin: 0 0 2px; line-height: 1.3;
+}
+.kinu-drawer__variant {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 12.5px; color: #5C6F82; margin: 0 0 8px;
+}
+
+.kinu-drawer__controls { display: flex; align-items: center; gap: 14px; }
+.kinu-drawer__stepper {
+  display: inline-flex; align-items: center;
+  border: 1.5px solid #DCE6F2; border-radius: 50px; overflow: hidden;
+}
+.kinu-drawer__step {
+  width: 34px; height: 34px; background: #fff; border: none; color: #0A2540;
+  font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.kinu-drawer__step:hover { background: #EEF4FC; }
+.kinu-drawer__qty {
+  min-width: 34px; text-align: center;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 14px; font-weight: 700;
+}
+.kinu-drawer__remove {
+  background: none; border: none; color: #9BADB8; cursor: pointer;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 12.5px;
+}
+.kinu-drawer__remove:hover { color: #C0392B; }
+
+.kinu-drawer__line {
+  text-align: right;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 1rem; font-weight: 800;
+}
+.kinu-drawer__line-old {
+  display: block;
+  font-size: 12px; font-weight: 400; color: #9BADB8; text-decoration: line-through;
+}
+
+.kinu-drawer__line-save {
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+  color: #1D9E75;
+  margin-top: 2px;
+}
+
+/* Pie */
+.kinu-drawer__foot {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* Envío gratis como regalo de la marca */
+.kinu-drawer__shipping {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: #EAF7F1;
+  border: 1px solid #BFE6D5;
+  border-radius: 10px;
+  padding: 11px 14px;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0A2540;
+}
+.kinu-drawer__ship-label { display: flex; align-items: center; gap: 7px; }
+.kinu-drawer__ship-val s { color: #9BADB8; font-weight: 400; margin-right: 6px; }
+.kinu-drawer__ship-val b { color: #1D9E75; font-weight: 800; }
+.kinu-drawer__savings {
+  align-self: flex-end;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 13px; font-weight: 800;
+  color: #fff; background: #1D9E75;
+  padding: 4px 12px; border-radius: 20px;
+}
+.kinu-drawer__subtotal {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 1.05rem;
+  text-align: right;
+}
+.kinu-drawer__subtotal strong { font-size: 1.5rem; font-weight: 800; margin-left: 10px; }
+.kinu-drawer__note { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 11.5px; color: #7C8DA0; margin: 0; text-align: right; }
+.kinu-drawer__checkout {
+  width: 100%; min-height: 56px;
+  background: #0A2540; color: #F0F4FD; border: none; border-radius: 50px;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 1.1rem; font-weight: 700;
+  cursor: pointer; transition: background 0.25s ease, transform 0.2s ease;
+}
+.kinu-drawer__checkout:hover { transform: translateY(-1px); }
+
+/* Logos de pago */
+.kinu-drawer__pay {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  margin-top: 6px;
+}
+.kinu-drawer__pay span {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #5C6F82;
+  border: 1px solid #D3DEEC;
+  border-radius: 5px;
+  padding: 4px 9px;
+  background: #fff;
+}
+.kinu-drawer__pay img {
+  height: 30px;
+  width: auto;
+  max-width: 90px;
+  object-fit: contain;
+  border-radius: 5px;
+}
+/* PSE y Bancolombia más grandes para que se lean */
+.kinu-drawer__pay-lg { height: 44px !important; max-width: 130px !important; }
+
+.kinu-drawer.is-loading .kinu-drawer__content { opacity: 0.55; pointer-events: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .kinu-drawer, .kinu-drawer__panel, .kinu-drawer__checkout { transition: none; }
+}
+
+@media (max-width: 600px) {
+  .kinu-drawer__content { padding: 18px 18px 24px; }
+  .kinu-drawer__title { font-size: 1.4rem; }
+  .kinu-drawer__item { grid-template-columns: 60px 1fr; grid-template-areas: "img info" "img line"; }
+  .kinu-drawer__img { grid-area: img; width: 60px; height: 60px; }
+  .kinu-drawer__line { grid-area: line; text-align: left; }
+  .kinu-drawer__foot { align-items: stretch; }
+  .kinu-drawer__checkout { max-width: none; }
+  .kinu-drawer__savings, .kinu-drawer__subtotal, .kinu-drawer__note { align-self: flex-end; }
+}

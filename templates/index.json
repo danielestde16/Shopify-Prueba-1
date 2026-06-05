@@ -50,6 +50,18 @@
       "settings": {
         "product": "citrato-de-magnesio-en-polvo"
       }
+    },
+    "kinu-faq": {
+      "type": "kinu-faq",
+      "settings": {}
+    },
+    "kinu-footer": {
+      "type": "kinu-footer",
+      "settings": {}
+    },
+    "kinu-sticky-cart": {
+      "type": "kinu-sticky-cart",
+      "settings": {}
     }
   },
   "order": [
@@ -61,6 +73,9 @@
     "kinu-ritual",
     "kinu-ingredient",
     "kinu-reviews",
-    "kinu-bundles"
+    "kinu-bundles",
+    "kinu-faq",
+    "kinu-footer",
+    "kinu-sticky-cart"
   ]
 }

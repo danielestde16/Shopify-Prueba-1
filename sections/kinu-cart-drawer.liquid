@@ -1,0 +1,231 @@
+{{ 'kinu-drawer.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  comment
+    Calcula el ahorro vs comprar tarros sueltos. base_cents = precio de 1 tarro.
+    Detecta cuántos tarros trae cada variante por su título (1/2/3 tarros).
+  endcomment
+  assign base_cents = section.settings.base_unit_pesos | default: 121900 | times: 100
+  assign ship_cents = section.settings.ship_value_pesos | default: 15000 | times: 100
+  assign saved = 0
+  for item in cart.items
+    assign nn = 1
+    if item.variant.title contains '3'
+      assign nn = 3
+    elsif item.variant.title contains '2'
+      assign nn = 2
+    endif
+    assign ref = base_cents | times: nn | times: item.quantity
+    assign d = ref | minus: item.final_line_price
+    if d > 0
+      assign saved = saved | plus: d
+    endif
+  endfor
+-%}
+
+<div class="kinu-drawer" id="kinu-drawer" aria-hidden="true" role="dialog" aria-label="Carrito">
+  <div class="kinu-drawer__overlay" data-close></div>
+  <div class="kinu-drawer__panel">
+    <div class="kinu-drawer__content" id="kinu-drawer-content" data-count="{{ cart.item_count }}">
+
+      <div class="kinu-drawer__head">
+        <h2 class="kinu-drawer__title">Tu carrito</h2>
+        <button class="kinu-drawer__close" type="button" data-close>✕ Cerrar</button>
+      </div>
+
+      {%- if cart.item_count == 0 -%}
+        <div class="kinu-drawer__empty">
+          <p>Tu carrito está vacío.</p>
+          <a href="{{ routes.root_url }}" data-close>Ver KINU</a>
+        </div>
+      {%- else -%}
+
+        <div class="kinu-drawer__items">
+          {%- for item in cart.items -%}
+            <div class="kinu-drawer__item" data-key="{{ item.key }}" data-qty="{{ item.quantity }}">
+              <div class="kinu-drawer__img">
+                {%- if item.image -%}<img src="{{ item.image | image_url: width: 160 }}" alt="" width="160" height="160" loading="lazy">{%- endif -%}
+              </div>
+              <div class="kinu-drawer__info">
+                <p class="kinu-drawer__name">{{ item.product.title }}</p>
+                {%- unless item.variant.title contains 'Default' -%}
+                  <p class="kinu-drawer__variant">{{ item.variant.title }}</p>
+                {%- endunless -%}
+                <div class="kinu-drawer__controls">
+                  <div class="kinu-drawer__stepper">
+                    <button class="kinu-drawer__step" type="button" data-dec aria-label="Quitar uno">−</button>
+                    <span class="kinu-drawer__qty">{{ item.quantity }}</span>
+                    <button class="kinu-drawer__step" type="button" data-inc aria-label="Agregar uno">+</button>
+                  </div>
+                  <button class="kinu-drawer__remove" type="button" data-remove>Eliminar</button>
+                </div>
+              </div>
+              {%- assign nn = 1 -%}
+              {%- if item.variant.title contains '3' -%}{%- assign nn = 3 -%}{%- elsif item.variant.title contains '2' -%}{%- assign nn = 2 -%}{%- endif -%}
+              {%- assign ref = base_cents | times: nn | times: item.quantity -%}
+              {%- assign ln_save = ref | minus: item.final_line_price -%}
+              <div class="kinu-drawer__line">
+                {{ item.final_line_price | money_without_trailing_zeros }}
+                {%- if ln_save > 0 -%}
+                  <span class="kinu-drawer__line-old">{{ ref | money_without_trailing_zeros }}</span>
+                  <span class="kinu-drawer__line-save">Ahorras {{ ln_save | money_without_trailing_zeros }}</span>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+
+        <div class="kinu-drawer__foot">
+
+          <!-- Envío gratis: regalo de la marca -->
+          <div class="kinu-drawer__shipping">
+            <span class="kinu-drawer__ship-label">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              Envío a toda Colombia
+            </span>
+            <span class="kinu-drawer__ship-val"><s>{{ ship_cents | money_without_trailing_zeros }}</s> <b>GRATIS</b></span>
+          </div>
+
+          {%- assign saved_total = saved | plus: ship_cents -%}
+          {%- if saved_total > 0 -%}
+            <span class="kinu-drawer__savings">Estás ahorrando {{ saved_total | money_without_trailing_zeros }}</span>
+          {%- endif -%}
+
+          <div class="kinu-drawer__subtotal">Subtotal<strong>{{ cart.items_subtotal_price | money_without_trailing_zeros }}</strong></div>
+          <p class="kinu-drawer__note">Impuestos incluidos · Envío gratis ya aplicado</p>
+
+          <form action="{{ routes.cart_url }}" method="post">
+            <button type="submit" name="checkout" class="kinu-drawer__checkout kinu-fill-btn">Finalizar compra</button>
+          </form>
+
+          <div class="kinu-drawer__pay" aria-label="Métodos de pago">
+            <img src="https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Logo_Visa_PNG.png?v=1780633773" alt="Visa" width="80" height="26" loading="lazy">
+            <img src="https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Logo_Mastercar_PNG.png?v=1780633773" alt="Mastercard" width="80" height="26" loading="lazy">
+            <img class="kinu-drawer__pay-lg" src="https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Logo_PSE_PNG.png?v=1780633773" alt="PSE" width="80" height="40" loading="lazy">
+            <img class="kinu-drawer__pay-lg" src="https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Logo_Bancolombia_PNG.png?v=1780633773" alt="Bancolombia" width="120" height="40" loading="lazy">
+            <img src="https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Logo_Breb_PNG.avif?v=1780633773" alt="Bre-B" width="80" height="26" loading="lazy">
+          </div>
+        </div>
+
+      {%- endif -%}
+
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var SECTION_ID = 'kinu-cart-drawer';
+  var drawer = document.getElementById('kinu-drawer');
+  if (!drawer) return;
+
+  function content() { return document.getElementById('kinu-drawer-content'); }
+
+  function updateCount(n) {
+    var els = document.querySelectorAll('.kinu-cart-text');
+    els.forEach(function (el) { el.textContent = 'Carrito (' + n + ')'; });
+  }
+
+  function open()  { drawer.classList.add('is-open'); drawer.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; }
+  function close() { drawer.classList.remove('is-open'); drawer.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; }
+  function loading(on) { drawer.classList.toggle('is-loading', on); }
+
+  function applySection(html) {
+    var doc   = new DOMParser().parseFromString(html, 'text/html');
+    var fresh = doc.getElementById('kinu-drawer-content');
+    var live  = content();
+    if (fresh && live) {
+      live.innerHTML = fresh.innerHTML;
+      live.dataset.count = fresh.dataset.count;
+      updateCount(fresh.dataset.count || '0');
+    }
+  }
+
+  function req(url, body) {
+    body.sections = [SECTION_ID];
+    loading(true);
+    return fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(body)
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data && data.sections && data.sections[SECTION_ID]) applySection(data.sections[SECTION_ID]);
+        loading(false);
+        return data;
+      })
+      .catch(function (e) { loading(false); throw e; });
+  }
+
+  /* API global usada por los botones "Agregar al carrito" */
+  window.KinuCart = {
+    open: open,
+    close: close,
+    add: function (variantId, qty) {
+      if (!variantId) { window.location.href = '/cart'; return Promise.resolve(); }
+      return req('/cart/add.js', { id: variantId, quantity: qty || 1 })
+        .then(function () { open(); })
+        .catch(function () { window.location.href = '/cart'; });
+    }
+  };
+
+  /* Abrir/cerrar */
+  drawer.addEventListener('click', function (e) {
+    if (e.target.closest('[data-close]')) { close(); return; }
+
+    var row = e.target.closest('.kinu-drawer__item');
+    if (!row) return;
+    var key = row.dataset.key;
+    var qty = parseInt(row.dataset.qty, 10) || 1;
+    if (e.target.closest('[data-inc]'))         req('/cart/change.js', { id: key, quantity: qty + 1 });
+    else if (e.target.closest('[data-dec]'))    req('/cart/change.js', { id: key, quantity: qty - 1 });
+    else if (e.target.closest('[data-remove]')) req('/cart/change.js', { id: key, quantity: 0 });
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && drawer.classList.contains('is-open')) close();
+  });
+
+  /* Cualquier enlace al carrito abre el drawer (incluye el header fijo duplicado) */
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest('#cart-icon-bubble, a[href$="/cart"], .header__icon--cart');
+    if (t) { e.preventDefault(); open(); }
+  });
+
+  /* Si llegan con ?cart=open (p. ej. tras redirigir /cart), abre el drawer */
+  try {
+    if (new URLSearchParams(window.location.search).get('cart') === 'open') open();
+  } catch (e) {}
+})();
+</script>
+
+{% schema %}
+{
+  "name": "KINU – Carrito drawer",
+  "tag": "section",
+  "class": "kinu-section-cart-drawer",
+  "settings": [
+    {
+      "type": "number",
+      "id": "base_unit_pesos",
+      "label": "Precio de 1 tarro (pesos, sin puntos)",
+      "default": 121900,
+      "info": "Se usa para calcular el ahorro vs comprar tarros sueltos."
+    },
+    {
+      "type": "number",
+      "id": "ship_value_pesos",
+      "label": "Valor del envío que regalas (pesos)",
+      "default": 15000,
+      "info": "Se suma al 'Estás ahorrando' para mostrar el valor total."
+    },
+    { "type": "header", "content": "Logos de pago (sube los reales)" },
+    { "type": "image_picker", "id": "pay_visa", "label": "Visa" },
+    { "type": "image_picker", "id": "pay_mastercard", "label": "Mastercard" },
+    { "type": "image_picker", "id": "pay_pse", "label": "PSE" },
+    { "type": "image_picker", "id": "pay_bancolombia", "label": "Bancolombia" },
+    { "type": "image_picker", "id": "pay_breb", "label": "Bre-B" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,91 @@
+{{ 'kinu-footer.css' | asset_url | stylesheet_tag }}
+
+<footer class="kinu-foot" role="contentinfo">
+  <div class="kinu-foot__inner">
+
+    <!-- -- Logo + tagline -- -->
+    <div class="kinu-foot__brand">
+      <span class="kinu-foot__logo">KINU</span>
+      <p class="kinu-foot__tagline">El ritual de la calma.</p>
+    </div>
+
+    <!-- -- Redes sociales -- -->
+    {%- comment -%}
+      PENDIENTE: reemplaza los href="#" con las URLs reales de Instagram y TikTok de KINU.
+    {%- endcomment -%}
+    <div class="kinu-foot__social">
+
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/kinu.lat?igsh=ZnY5Zm53NmM0MGx3&utm_source=qr"
+         class="kinu-foot__soc-link" aria-label="KINU en Instagram"
+         target="_blank" rel="noopener noreferrer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.7"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/>
+        </svg>
+      </a>
+
+      <!-- TikTok -->
+      <a href="https://www.tiktok.com/@kinu.latam?_r=1&_t=ZS-96wJKDMPaXE"
+         class="kinu-foot__soc-link" aria-label="KINU en TikTok"
+         target="_blank" rel="noopener noreferrer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.7"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/>
+        </svg>
+      </a>
+
+    </div>
+
+    <!-- -- Divider -- -->
+    <hr class="kinu-foot__divider">
+
+    <!-- -- Navegación -- -->
+    {%- comment -%}
+      PENDIENTE: crea las páginas en Shopify Admin → Online Store → Pages
+      y actualiza los href con las rutas reales (ej. /pages/privacidad).
+    {%- endcomment -%}
+    <nav class="kinu-foot__nav" aria-label="Enlaces legales">
+      <a href="/pages/politica-de-privacidad" class="kinu-foot__nav-link">
+        Política de privacidad
+      </a>
+      <span class="kinu-foot__sep" aria-hidden="true">·</span>
+      <a href="/pages/terminos-y-condiciones" class="kinu-foot__nav-link">
+        Términos y condiciones
+      </a>
+      <span class="kinu-foot__sep" aria-hidden="true">·</span>
+      <a href="/pages/contacto" class="kinu-foot__nav-link">
+        Contacto
+      </a>
+    </nav>
+
+    <!-- -- Copyright -- -->
+    <p class="kinu-foot__copy">
+      &copy; {{ 'now' | date: '%Y' }} KINU &mdash; Colombia.
+      Todos los derechos reservados.
+    </p>
+
+    <!-- -- Disclaimer -- -->
+    <p class="kinu-foot__disclaimer">
+      KINU no es un medicamento. Este producto no diagnostica, cura ni previene enfermedades.
+      Consulta a tu médico antes de iniciar cualquier suplementación.
+    </p>
+
+    <!-- -- Barra decorativa inferior -- -->
+    <div class="kinu-foot__bar" aria-hidden="true"></div>
+
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "KINU – Footer",
+  "tag": "section",
+  "class": "kinu-section-footer",
+  "presets": [{ "name": "KINU – Footer" }]
+}
+{% endschema %}

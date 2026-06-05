@@ -1,0 +1,217 @@
+/* ===========================================
+   KINU — Captura de descuento (correo + WhatsApp)
+   Tab flotante + modal · estilo Collider
+   =========================================== */
+
+/* -- Tab flotante (borde izquierdo) -- */
+.kinu-offer__tab {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 190;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #1A6FAD;
+  color: #F0F4FD;
+  border: none;
+  border-radius: 0 12px 12px 0;
+  padding: 14px 12px;
+  cursor: pointer;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  writing-mode: vertical-rl;
+  transform: translateY(-50%) rotate(180deg);
+  box-shadow: 2px 0 16px rgba(0, 0, 0, 0.35);
+  transition: background 0.25s ease, padding 0.25s ease;
+}
+.kinu-offer__tab:hover { background: #155d93; padding-right: 16px; }
+.kinu-offer__tab-pct {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+/* -- Overlay -- */
+.kinu-offer__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(5, 15, 26, 0.78);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.kinu-offer__overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* -- Tarjeta del modal -- */
+.kinu-offer__card {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  background: #0D2E4A;
+  border: 1px solid rgba(74, 173, 223, 0.25);
+  border-radius: 20px;
+  padding: 40px 32px 32px;
+  text-align: center;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+  transform: translateY(16px) scale(0.98);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.kinu-offer__overlay.is-open .kinu-offer__card {
+  transform: translateY(0) scale(1);
+}
+
+/* -- Cerrar -- */
+.kinu-offer__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(186, 207, 221, 0.1);
+  border: none;
+  border-radius: 50%;
+  color: #BACFDD;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.kinu-offer__close:hover { background: rgba(186, 207, 221, 0.2); color: #F0F4FD; }
+
+/* -- Encabezado -- */
+.kinu-offer__eyebrow {
+  display: inline-block;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #4AADDF;
+  margin-bottom: 10px;
+}
+
+.kinu-offer__big {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(2.4rem, 8vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: #F0F4FD;
+  margin: 0 0 6px;
+}
+.kinu-offer__big span { color: #4AADDF; }
+
+.kinu-offer__sub {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 0.98rem;
+  font-weight: 400;
+  color: #BACFDD;
+  line-height: 1.6;
+  margin: 0 0 24px;
+}
+
+/* -- Formulario -- */
+.kinu-offer__field { margin-bottom: 12px; text-align: left; }
+
+.kinu-offer__input {
+  width: 100%;
+  box-sizing: border-box;
+  background: #0A2540;
+  border: 1px solid rgba(186, 207, 221, 0.3);
+  border-radius: 10px;
+  color: #F0F4FD;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 1rem;
+  padding: 14px 16px;
+  min-height: 50px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.kinu-offer__input::placeholder { color: rgba(186, 207, 221, 0.55); }
+.kinu-offer__input:focus {
+  border-color: #1A6FAD;
+  box-shadow: 0 0 0 3px rgba(26, 111, 173, 0.2);
+}
+
+.kinu-offer__err {
+  display: block;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 12px;
+  color: #E57373;
+  margin-top: 4px;
+}
+
+.kinu-offer__btn {
+  width: 100%;
+  min-height: 52px;
+  margin-top: 8px;
+  background: #1A6FAD;
+  color: #F0F4FD;
+  border: none;
+  border-radius: 50px;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+.kinu-offer__btn:hover { background: #155d93; transform: translateY(-1px); }
+.kinu-offer__btn:disabled { opacity: 0.7; cursor: wait; transform: none; }
+
+.kinu-offer__fineprint {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 11px;
+  color: rgba(186, 207, 221, 0.5);
+  line-height: 1.5;
+  margin: 14px 0 0;
+}
+
+/* -- Estado de éxito (revela el código) -- */
+.kinu-offer__success { display: none; }
+.kinu-offer.is-done .kinu-offer__form,
+.kinu-offer.is-done .kinu-offer__sub { display: none; }
+.kinu-offer.is-done .kinu-offer__success { display: block; }
+
+.kinu-offer__code {
+  display: inline-block;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #F0F4FD;
+  background: rgba(26, 111, 173, 0.18);
+  border: 1.5px dashed #4AADDF;
+  border-radius: 12px;
+  padding: 14px 28px;
+  margin: 8px 0 20px;
+}
+
+/* -- Responsive -- */
+@media (max-width: 479px) {
+  .kinu-offer__card { padding: 36px 22px 26px; }
+  .kinu-offer__tab  { font-size: 12px; padding: 12px 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kinu-offer__overlay,
+  .kinu-offer__card,
+  .kinu-offer__tab,
+  .kinu-offer__btn { transition: none; }
+}
