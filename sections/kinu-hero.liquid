@@ -1,4 +1,6 @@
 {{ 'kinu-hero.css' | asset_url | stylesheet_tag }}
+<link rel="preload" as="image" fetchpriority="high"
+      href="https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Foto_Tarro_Transparente.png?v=1780027313&width=700">
 
 {%- liquid
   if section.settings.product != blank
@@ -14,17 +16,16 @@
   <!-- -- Video de fondo galaxia — loop infinito -- -->
   <video
     class="kinu-hero__video"
-    autoplay
     loop
     muted
     playsinline
     webkit-playsinline
-    preload="metadata"
+    preload="none"
     disablepictureinpicture
     disableremoteplayback
     {% if section.settings.video_poster != blank %}poster="{{ section.settings.video_poster | image_url: width: 1280 }}"{% endif %}
     aria-hidden="true">
-    <source src="https://cdn.shopify.com/videos/c/o/v/a8385a2419ad42089670b7bdbf732aaf.mp4" type="video/mp4">
+    <source data-src="https://cdn.shopify.com/videos/c/o/v/a8385a2419ad42089670b7bdbf732aaf.mp4" type="video/mp4">
   </video>
 
   <div class="kinu-hero__inner">
@@ -85,7 +86,7 @@
 
     <div class="kinu-hero__media">
       <img
-        src="https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Foto_Tarro_Transparente.png?v=1780027313&width=900"
+        src="https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Foto_Tarro_Transparente.png?v=1780027313&width=700"
         alt="KINU Citrato de Magnesio en Polvo"
         class="kinu-hero__product-img"
         width="500"
@@ -103,15 +104,39 @@
 (function () {
   var v = document.querySelector('.kinu-hero__video');
   if (!v) return;
-  /* Refuerza el estado silenciado (requisito para autoplay en móvil) */
+  /* Silenciado (requisito para autoplay en móvil) */
   v.muted = true;
   v.setAttribute('muted', '');
+
   function play() {
     var p = v.play();
     if (p && p.catch) p.catch(function () {});
   }
-  play();
-  /* Reintenta al primer toque/scroll y cuando la pestaña vuelve a estar visible */
+
+  /* Carga el video SOLO después del primer pintado, para no robarle
+     ancho de banda a la imagen/texto principal (mejora el LCP). */
+  function loadVideo() {
+    var src = v.querySelector('source[data-src]');
+    if (src && !src.getAttribute('src')) {
+      src.setAttribute('src', src.getAttribute('data-src'));
+      v.load();
+    }
+    play();
+  }
+  function deferLoad() {
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(loadVideo, { timeout: 2500 });
+    } else {
+      setTimeout(loadVideo, 1200);
+    }
+  }
+  if (document.readyState === 'complete') {
+    deferLoad();
+  } else {
+    window.addEventListener('load', deferLoad, { once: true });
+  }
+
+  /* Reintenta al primer toque/scroll y al volver a la pestaña */
   ['touchstart', 'click', 'scroll'].forEach(function (ev) {
     window.addEventListener(ev, play, { once: true, passive: true });
   });
