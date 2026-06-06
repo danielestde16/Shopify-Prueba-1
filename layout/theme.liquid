@@ -20,10 +20,10 @@
     {%- endunless -%}
 
     <link rel="stylesheet" href="{{ 'kinu-page.css' | asset_url }}">
-    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;0,800;1,600;1,700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;0,800;1,600;1,700&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;0,800;1,600;1,700&display=swap"></noscript>
 
     <title>
       {{ page_title }}
@@ -32,9 +32,13 @@
       {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
     </title>
 
-    {% if page_description %}
-      <meta name="description" content="{{ page_description | escape }}">
-    {% endif %}
+    {%- liquid
+      assign meta_desc = page_description
+      if meta_desc == blank
+        assign meta_desc = 'KINU es citrato de magnesio puro en polvo. Un solo ingrediente, sin sabor y sin aditivos: el ritual nocturno para apagar la cabeza y volver a dormir. 110 noches de calma.'
+      endif
+    -%}
+    <meta name="description" content="{{ meta_desc | escape }}">
 
     {% render 'meta-tags' %}
 
