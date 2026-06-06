@@ -31,7 +31,7 @@
 
 ## 2. Carrito
 - Drawer propio de KINU (`KinuCart`) con ahorro y envío gratis.
-- Logos de pago normalizados (Visa, Mastercard, PSE, Bancolombia, Bre-B).
+- Logos de pago normalizados (Visa, Mastercard, PSE, Bancolombia, Bre-B), clicables → producto.
 
 ---
 
@@ -39,12 +39,23 @@
 - Imágenes redimensionadas por URL del CDN (de ~12 MB a <1 MB).
 - Quitados scripts/CSS de Dawn sin usar: cart-notification, búsqueda predictiva, search-form, animations.
 - Solo 1 familia de fuente (Plus Jakarta Sans).
-- Preconnect al CDN de Shopify, `fetchpriority` en imagen principal, video con `preload="metadata"`.
+- Preconnect al CDN de Shopify, `fetchpriority` en imagen principal.
+- Video del hero **diferido** (carga tras el primer pintado) + imagen LCP precargada.
+- CSS de las 12 secciones below-fold cargado **async** (no bloquea el render).
 - Animaciones de estrellas eliminadas.
 
 ---
 
-## 4. Pendientes para la Versión 2 (decisiones del dueño)
+## 4. Píxeles / Ads (instalado)
+- Snippet `kinu-pixels.liquid` (Meta + TikTok + GA4), IDs en *Configuración del tema → "KINU – Píxeles / Ads"*.
+- Eventos: **PageView, ViewContent, AddToCart, InitiateCheckout, Lead**.
+- ⚠️ **Purchase** requiere conectar los canales nativos de Meta y TikTok (Conversions/Events API).
+- ⚠️ El píxel solo aparece cuando hay un ID pegado **y** el tema está publicado.
+
+---
+
+## 5. Pendientes para la Versión 2 (decisiones del dueño)
+- [ ] **Pegar los IDs de los píxeles** (Meta + TikTok) y conectar los canales nativos para Purchase.
 - [ ] **Reseñas reales** (cambiar las de ejemplo por clientes reales o app tipo Judge.me).
 - [ ] **Revisar legalmente los claims de salud** (aunque ya están suavizados).
 - [ ] **Confirmar la garantía** "30 noches o devolución" (poder cumplirla).

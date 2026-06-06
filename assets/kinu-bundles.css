@@ -788,3 +788,12 @@
   .kinu-bun__urgency-ship { font-size: 0.82rem; }
   .kinu-bun__urgency-timer { font-size: 0.76rem; }
 }
+
+/* Sellos de pago ahora son enlaces a la página de producto */
+a.kinu-bun__seal {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+a.kinu-bun__seal:hover { transform: translateY(-2px); opacity: 0.85; }
