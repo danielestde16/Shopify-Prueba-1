@@ -9,6 +9,7 @@
     assign hero_product = collections.all.products.first
   endif
   assign logo_url = 'https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Logo_Kinu_Letras_Blancas_sin_fondo.png?v=1780025964'
+  assign hero_video = section.settings.hero_video_url | default: 'https://cdn.shopify.com/videos/c/o/v/a8385a2419ad42089670b7bdbf732aaf.mp4'
 -%}
 
 <section class="kinu-hero">
@@ -25,7 +26,7 @@
     disableremoteplayback
     {% if section.settings.video_poster != blank %}poster="{{ section.settings.video_poster | image_url: width: 1280 }}"{% endif %}
     aria-hidden="true">
-    <source data-src="https://cdn.shopify.com/videos/c/o/v/a8385a2419ad42089670b7bdbf732aaf.mp4" type="video/mp4">
+    <source data-src="{{ hero_video }}" type="video/mp4">
   </video>
 
   <div class="kinu-hero__inner">
@@ -162,6 +163,12 @@
       "id": "video_poster",
       "label": "Poster del video (galaxia)",
       "info": "Sube un fotograma de la galaxia. Se muestra mientras el video carga, evita el parpadeo en móvil."
+    },
+    {
+      "type": "text",
+      "id": "hero_video_url",
+      "label": "URL del video de fondo",
+      "info": "Sube el video comprimido en Configuración → Archivos, copia el enlace y pégalo aquí. Vacío = usa el video actual."
     }
   ],
   "presets": [
