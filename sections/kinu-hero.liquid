@@ -10,7 +10,6 @@
   endif
   assign logo_url = 'https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Logo_Kinu_Letras_Blancas_sin_fondo.png?v=1780025964'
   assign hero_video = section.settings.hero_video_url | default: 'https://cdn.shopify.com/videos/c/o/v/1e1d98b176be4392aef751a982c27afd.mp4'
-  assign hero_poster = 'https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Fotograma_Video_Header.png?v=1780723005&width=1200'
 -%}
 
 <section class="kinu-hero">
@@ -25,7 +24,7 @@
     preload="none"
     disablepictureinpicture
     disableremoteplayback
-    poster="{% if section.settings.video_poster != blank %}{{ section.settings.video_poster | image_url: width: 1200 }}{% else %}{{ hero_poster }}{% endif %}"
+    {% if section.settings.video_poster != blank %}poster="{{ section.settings.video_poster | image_url: width: 1200 }}"{% endif %}
     aria-hidden="true">
     <source data-src="{{ hero_video }}" type="video/mp4">
   </video>
