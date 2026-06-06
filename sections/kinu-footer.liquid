@@ -1,4 +1,4 @@
-{{ 'kinu-footer.css' | asset_url | stylesheet_tag }}
+<link rel="stylesheet" href="{{ 'kinu-footer.css' | asset_url }}" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="{{ 'kinu-footer.css' | asset_url }}"></noscript>
 
 <footer class="kinu-foot" role="contentinfo">
   <div class="kinu-foot__inner">

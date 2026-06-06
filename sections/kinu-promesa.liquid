@@ -1,4 +1,4 @@
-{{ 'kinu-promesa.css' | asset_url | stylesheet_tag }}
+<link rel="stylesheet" href="{{ 'kinu-promesa.css' | asset_url }}" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="{{ 'kinu-promesa.css' | asset_url }}"></noscript>
 
 {%- liquid
   assign eyebrow = section.settings.eyebrow | default: 'Qué esperar'
@@ -13,7 +13,7 @@
     <div class="kinu-prom__head js-prom-fade">
       <span class="kinu-prom__eyebrow">{{ eyebrow }}</span>
       <h2 class="kinu-prom__title">{{ title }}</h2>
-      <span class="kinu-prom__hint" aria-hidden="true">Toca cada fase ↓</span>
+      <span class="kinu-prom__hint" aria-hidden="true">👆 Toca cada fase</span>
     </div>
 
     <div class="kinu-prom__cards js-prom-fade" role="list">

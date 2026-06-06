@@ -1,4 +1,4 @@
-{{ 'kinu-valor.css' | asset_url | stylesheet_tag }}
+<link rel="stylesheet" href="{{ 'kinu-valor.css' | asset_url }}" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="{{ 'kinu-valor.css' | asset_url }}"></noscript>
 
 <style>
 /* ==============================================

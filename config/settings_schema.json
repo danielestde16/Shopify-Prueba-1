@@ -8,6 +8,32 @@
     "theme_support_url": "https://support.shopify.com/"
   },
   {
+    "name": "KINU – Píxeles / Ads",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Pega aquí los IDs de tus píxeles. Disparan PageView, ViewContent (producto) y AddToCart. Para Purchase/Conversions API conecta también los canales nativos de Meta y TikTok en el admin."
+      },
+      {
+        "type": "text",
+        "id": "meta_pixel_id",
+        "label": "Meta Pixel ID (Facebook/Instagram)",
+        "info": "Solo el número del pixel."
+      },
+      {
+        "type": "text",
+        "id": "tiktok_pixel_id",
+        "label": "TikTok Pixel ID"
+      },
+      {
+        "type": "text",
+        "id": "ga4_id",
+        "label": "Google Analytics 4 (G-XXXX)",
+        "info": "Opcional."
+      }
+    ]
+  },
+  {
     "name": "t:settings_schema.logo.name",
     "settings": [
       {

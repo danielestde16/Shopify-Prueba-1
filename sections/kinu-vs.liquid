@@ -1,4 +1,4 @@
-{{ 'kinu-vs.css' | asset_url | stylesheet_tag }}
+<link rel="stylesheet" href="{{ 'kinu-vs.css' | asset_url }}" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="{{ 'kinu-vs.css' | asset_url }}"></noscript>
 
 {%- liquid
   assign jar_img = 'https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Foto_Tarro_Transparente.png?v=1780027313&width=240'

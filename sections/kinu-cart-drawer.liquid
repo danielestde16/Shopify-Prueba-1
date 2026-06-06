@@ -7,6 +7,16 @@
   endcomment
   assign base_cents = section.settings.base_unit_pesos | default: 121900 | times: 100
   assign ship_cents = section.settings.ship_value_pesos | default: 15000 | times: 100
+  comment
+    Enlace de los logos de pago: lleva a la página del producto para comprar.
+  endcomment
+  assign pay_link = all_products['citrato-de-magnesio-en-polvo'].url
+  if pay_link == blank
+    assign pay_link = collections.all.products.first.url
+  endif
+  if pay_link == blank
+    assign pay_link = '/products/citrato-de-magnesio-en-polvo'
+  endif
   assign saved = 0
   for item in cart.items
     assign nn = 1
@@ -98,12 +108,12 @@
             <button type="submit" name="checkout" class="kinu-drawer__checkout kinu-fill-btn">Finalizar compra</button>
           </form>
 
-          <div class="kinu-drawer__pay" aria-label="Métodos de pago">
-            <img src="https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Logo_Visa_PNG.png?v=1780633773" alt="Visa" width="80" height="26" loading="lazy">
-            <img src="https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Logo_Mastercar_PNG.png?v=1780633773" alt="Mastercard" width="80" height="26" loading="lazy">
-            <img class="kinu-drawer__pay-lg" src="https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Logo_PSE_PNG.png?v=1780633773" alt="PSE" width="80" height="40" loading="lazy">
-            <img class="kinu-drawer__pay-lg" src="https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Logo_Bancolombia_PNG.png?v=1780633773" alt="Bancolombia" width="120" height="40" loading="lazy">
-            <img class="kinu-drawer__pay-lg" src="https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Logo_Breb_PNG.avif?v=1780633773" alt="Bre-B" width="80" height="26" loading="lazy">
+          <div class="kinu-drawer__pay" aria-label="Métodos de pago — toca para comprar">
+            <a href="{{ pay_link }}" aria-label="Pagar con Visa"><img src="https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Logo_Visa_PNG.png?v=1780633773" alt="Visa" width="80" height="26" loading="lazy"></a>
+            <a href="{{ pay_link }}" aria-label="Pagar con Mastercard"><img src="https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Logo_Mastercar_PNG.png?v=1780633773" alt="Mastercard" width="80" height="26" loading="lazy"></a>
+            <a href="{{ pay_link }}" aria-label="Pagar con PSE"><img class="kinu-drawer__pay-lg" src="https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Logo_PSE_PNG.png?v=1780633773" alt="PSE" width="80" height="40" loading="lazy"></a>
+            <a href="{{ pay_link }}" aria-label="Pagar con Bancolombia"><img class="kinu-drawer__pay-lg" src="https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Logo_Bancolombia_PNG.png?v=1780633773" alt="Bancolombia" width="120" height="40" loading="lazy"></a>
+            <a href="{{ pay_link }}" aria-label="Pagar con Bre-B"><img class="kinu-drawer__pay-lg" src="https://cdn.shopify.com/s/files/1/1000/7435/7034/files/Logo_Breb_PNG.avif?v=1780633773" alt="Bre-B" width="80" height="26" loading="lazy"></a>
           </div>
         </div>
 
@@ -165,7 +175,22 @@
     add: function (variantId, qty) {
       if (!variantId) { window.location.href = '/cart'; return Promise.resolve(); }
       return req('/cart/add.js', { id: variantId, quantity: qty || 1 })
-        .then(function () { open(); })
+        .then(function (data) {
+          open();
+          /* Píxeles: evento AddToCart para las campañas */
+          try {
+            if (window.kinuTrack) {
+              var v = (data && data.id) ? data : null;
+              window.kinuTrack('AddToCart', {
+                content_type: 'product',
+                content_ids: [String(variantId)],
+                value: v ? (v.final_price / 100.0) : undefined,
+                currency: 'COP',
+                quantity: qty || 1
+              });
+            }
+          } catch (e) {}
+        })
         .catch(function () { window.location.href = '/cart'; });
     }
   };

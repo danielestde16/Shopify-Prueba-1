@@ -1,0 +1,54 @@
+{%- comment -%}
+  KINU — Píxeles de campañas (Meta, TikTok, GA4).
+  Pega tus IDs en: Personalizar → Configuración del tema → "KINU – Píxeles / Ads".
+  Dispara PageView en todas las páginas y ViewContent en producto.
+  AddToCart se dispara desde KinuCart (carrito). Lead desde los formularios.
+
+  NOTA (asesor de ads): el checkout de Shopify NO permite píxeles de tema,
+  así que para "Purchase"/Conversions API server-side conecta también los
+  canales nativos de Meta y TikTok en el admin (ver instrucciones).
+{%- endcomment -%}
+{%- liquid
+  assign meta_id   = settings.meta_pixel_id
+  assign tiktok_id = settings.tiktok_pixel_id
+  assign ga4_id    = settings.ga4_id
+-%}
+
+{%- if meta_id != blank -%}
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '{{ meta_id }}');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={{ meta_id }}&ev=PageView&noscript=1"/></noscript>
+{%- endif -%}
+
+{%- if tiktok_id != blank -%}
+<script>
+!function (w, d, t) {w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"];ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e};ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{};ttq._i[e]=[];ttq._i[e]._u=r;ttq._t=ttq._t||{};ttq._t[e]=+new Date;ttq._o=ttq._o||{};ttq._o[e]=n||{};var s=d.createElement("script");s.type="text/javascript";s.async=!0;s.src=r+"?sdkid="+e+"&lib="+t;var a=d.getElementsByTagName("script")[0];a.parentNode.insertBefore(s,a)};ttq.load('{{ tiktok_id }}');ttq.page();}(window, document, 'ttq');
+</script>
+{%- endif -%}
+
+{%- if ga4_id != blank -%}
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ ga4_id }}"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','{{ ga4_id }}');</script>
+{%- endif -%}
+
+{%- if meta_id != blank or tiktok_id != blank -%}
+<script>
+/* Helper unificado: dispara el mismo evento en Meta y TikTok */
+window.kinuTrack = function (event, data) {
+  data = data || {};
+  try { if (window.fbq) fbq('track', event, data); } catch (e) {}
+  try {
+    if (window.ttq) {
+      var map = { ViewContent:'ViewContent', AddToCart:'AddToCart', InitiateCheckout:'InitiateCheckout', Purchase:'CompletePayment', Lead:'SubmitForm' };
+      ttq.track(map[event] || event, data);
+    }
+  } catch (e) {}
+};
+{%- if template contains 'product' and product != blank -%}
+window.kinuTrack('ViewContent', { content_name: {{ product.title | json }}, content_type: 'product', content_ids: [{{ product.id | json }}], value: {{ product.price | divided_by: 100.0 }}, currency: 'COP' });
+{%- endif -%}
+</script>
+{%- endif -%}

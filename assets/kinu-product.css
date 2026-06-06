@@ -462,9 +462,20 @@
 
 /* ============ Móvil ============ */
 @media (max-width: 860px) {
-  .kinu-pb { padding: 24px 16px 56px; }
-  .kinu-pb__inner { grid-template-columns: 1fr; gap: 28px; }
-  .kinu-pb__media { position: static; }
+  .kinu-pb { padding: 24px 16px 56px; overflow-x: hidden; }
+  .kinu-pb__inner { grid-template-columns: 1fr; gap: 28px; max-width: 100%; }
+  .kinu-pb__media { position: static; min-width: 0; }
+  .kinu-pb__builder { min-width: 0; }
+
+  /* Título y reseña centrados y bien acomodados al celular */
+  .kinu-pb__title {
+    text-align: center;
+    font-size: clamp(1.7rem, 7vw, 2.2rem);
+    line-height: 1.12;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .kinu-pb__rating { justify-content: center; }
 
   /* En móvil: una foto a la vez, deslizar para ver más */
   .kinu-pb__main, .kinu-pb__thumbs { display: none; }

@@ -1,4 +1,4 @@
-{{ 'kinu-bundles.css' | asset_url | stylesheet_tag }}
+<link rel="stylesheet" href="{{ 'kinu-bundles.css' | asset_url }}" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="{{ 'kinu-bundles.css' | asset_url }}"></noscript>
 
 {%- comment -%}
   Sección 8 — Bundles con ahorro

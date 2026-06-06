@@ -37,7 +37,22 @@
   margin: 0 0 10px;
   color: #FFFFFF;
 }
-.kinu-prom__hint { font-size: 0.9rem; font-weight: 600; color: #8aa6c0; }
+.kinu-prom__hint {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #F2D06B;
+  letter-spacing: 0.01em;
+  animation: kinu-prom-pulse 1.8s ease-in-out infinite;
+}
+@keyframes kinu-prom-pulse {
+  0%, 100% { transform: translateY(0); opacity: 0.85; }
+  50%      { transform: translateY(2px); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kinu-prom__hint { animation: none; }
+}
 
 /* -- Tarjetas de colores -- */
 .kinu-prom__cards {

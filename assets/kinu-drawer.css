@@ -207,6 +207,12 @@
   width: 100%;
   margin-top: 6px;
 }
+.kinu-drawer__pay a {
+  display: inline-flex;
+  text-decoration: none;
+  line-height: 0;
+  cursor: pointer;
+}
 .kinu-drawer__pay span {
   font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   font-size: 10px;
