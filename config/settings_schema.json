@@ -18,6 +18,7 @@
         "type": "text",
         "id": "meta_pixel_id",
         "label": "Meta Pixel ID (Facebook/Instagram)",
+        "default": "853778647311773",
         "info": "Solo el número del pixel."
       },
       {
