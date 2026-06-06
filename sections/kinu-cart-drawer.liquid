@@ -199,6 +199,12 @@
   drawer.addEventListener('click', function (e) {
     if (e.target.closest('[data-close]')) { close(); return; }
 
+    /* Píxeles: evento InitiateCheckout al ir a finalizar compra */
+    if (e.target.closest('[name="checkout"], .kinu-drawer__checkout')) {
+      try { if (window.kinuTrack) window.kinuTrack('InitiateCheckout', { currency: 'COP' }); } catch (err) {}
+      /* no return: dejamos que el formulario siga al checkout */
+    }
+
     var row = e.target.closest('.kinu-drawer__item');
     if (!row) return;
     var key = row.dataset.key;

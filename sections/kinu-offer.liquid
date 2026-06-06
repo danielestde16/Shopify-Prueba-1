@@ -196,6 +196,9 @@
     submit.disabled = true;
     submit.textContent = 'Enviando…';
 
+    /* Píxeles: evento Lead (captura de email para campañas) */
+    try { if (window.kinuTrack) window.kinuTrack('Lead', { content_name: 'Popup 14% OFF', currency: 'COP' }); } catch (e) {}
+
     subscribeKlaviyo(email, phone)
       .then(function ()  { showSuccess(); })
       .catch(function () { showSuccess(); /* no perder la venta si Klaviyo falla */ });
