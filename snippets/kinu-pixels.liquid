@@ -39,7 +39,14 @@ fbq('track', 'PageView');
 /* Helper unificado: dispara el mismo evento en Meta y TikTok */
 window.kinuTrack = function (event, data) {
   data = data || {};
-  try { if (window.fbq) fbq('track', event, data); } catch (e) {}
+  /* Eventos estándar de Meta -> fbq('track'); el resto -> fbq('trackCustom') */
+  var STD = ['PageView','ViewContent','AddToCart','InitiateCheckout','Purchase','Lead','Search','AddToWishlist','CompleteRegistration','Contact','Subscribe','AddPaymentInfo'];
+  try {
+    if (window.fbq) {
+      if (STD.indexOf(event) >= 0) fbq('track', event, data);
+      else fbq('trackCustom', event, data);
+    }
+  } catch (e) {}
   try {
     if (window.ttq) {
       var map = { ViewContent:'ViewContent', AddToCart:'AddToCart', InitiateCheckout:'InitiateCheckout', Purchase:'CompletePayment', Lead:'SubmitForm' };
@@ -50,5 +57,50 @@ window.kinuTrack = function (event, data) {
 {%- if template contains 'product' and product != blank -%}
 window.kinuTrack('ViewContent', { content_name: {{ product.title | json }}, content_type: 'product', content_ids: [{{ product.id | json }}], value: {{ product.price | divided_by: 100.0 }}, currency: 'COP' });
 {%- endif -%}
+
+/* ===== Eventos de engagement: scroll, secciones, CTAs y tiempo ===== */
+(function () {
+  function ready(fn){ if (document.readyState !== 'loading') fn(); else document.addEventListener('DOMContentLoaded', fn); }
+  ready(function () {
+    /* 1) Profundidad de scroll (25/50/75/90 %) */
+    var marks = [25, 50, 75, 90], fired = {};
+    function onScroll(){
+      var h = document.documentElement;
+      var top = h.scrollTop || document.body.scrollTop || 0;
+      var max = (h.scrollHeight - h.clientHeight) || 1;
+      var pct = Math.round((top / max) * 100);
+      for (var i = 0; i < marks.length; i++) {
+        var m = marks[i];
+        if (pct >= m && !fired[m]) { fired[m] = 1; window.kinuTrack('Scroll' + m, { percent: m }); }
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    /* 2) Vista de secciones clave (una vez cada una) */
+    var names = { 'kinu-problema':'Problema', 'kinu-formula':'Ingrediente', 'kinu-reviews':'Reviews', 'kinu-bundles':'Pricing', 'kinu-promesa':'Garantia', 'kinu-faq':'FAQ', 'kinu-vs':'Comparativa' };
+    if (typeof IntersectionObserver !== 'undefined') {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) {
+            var nm = names[en.target.id];
+            if (nm) { window.kinuTrack('View' + nm, {}); io.unobserve(en.target); }
+          }
+        });
+      }, { threshold: 0.4 });
+      Object.keys(names).forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
+    }
+
+    /* 3) Clic en cualquier CTA de compra */
+    document.addEventListener('click', function (e) {
+      if (e.target.closest('.kinu-hero__cta, #kinu-sticky-btn, #kinu-pb-buy, .kinu-pb__buy, .kinu-bun__buy')) {
+        window.kinuTrack('ClickBuyCTA', {});
+      }
+    }, { passive: true });
+
+    /* 4) Visitante comprometido (30 s en la página) */
+    setTimeout(function () { window.kinuTrack('Engaged30s', {}); }, 30000);
+  });
+})();
 </script>
 {%- endif -%}
